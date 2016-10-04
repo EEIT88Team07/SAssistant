@@ -32,5 +32,4 @@
 		<servlet-name>GitDemo</servlet-name>
 		<url-pattern>/gitdemo.view</url-pattern>
 	</servlet-mapping>
-
 </web-app>
