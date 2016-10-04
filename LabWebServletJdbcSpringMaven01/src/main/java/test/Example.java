@@ -20,6 +20,11 @@ public class Example {
 						System.out.println(iterator.next().parent().childNode(1).childNode(0).toString());
 						System.out.println(iterator.next().parent().childNode(4).childNode(0).toString());
 						break;
+//						PrintStream out = new PrintStream(new BufferedOutputStream(new FileOutputStream("C:/Users/Student/Desktop/test.txt", true)));
+//						System.setOut(out); // 轉換輸出流
+//						System.out.println(iterator.next().text()); // 將輸出傳進文件
+//						out.close();
+//						System.out.println(iterator.next().text().length());
 					}
 				}
 			}
