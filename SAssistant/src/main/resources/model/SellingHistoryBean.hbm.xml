@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016/10/11 ?W?? 11:39:17 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="model.SellingHistoryBean" table="SELLINGHISTORY">
+		<id name="sellingNumber" type="int">
+			<column name="SELLINGNUMBER" />
+			<generator class="assigned" />
+		</id>
+		<property name="stockId" type="java.lang.String">
+			<column name="STOCKID" />
+		</property>
+		<property name="dateOfPurchase" type="java.sql.Date">
+			<column name="DATEOFPURCHASE" />
+		</property>
+		<property name="sellingPrice" type="java.lang.Double">
+			<column name="SELLINGPRICE" />
+		</property>
+		<property name="sellingQuantity" type="java.lang.Double">
+			<column name="SELLINGQUANTITY" />
+		</property>
+		<property name="dateOfSelling" type="java.sql.Date">
+			<column name="DATEOFSELLING" />
+		</property>
+		<property name="cost" type="java.lang.Double">
+			<column name="COST" />
+		</property>
+		<property name="income" type="java.lang.Double">
+			<column name="INCOME" />
+		</property>
+		<property name="netIncome" type="java.lang.Double">
+			<column name="NETINCOME" />
+		</property>
+		<property name="netProfitMargin" type="java.lang.Double">
+			<column name="NETPROFITMARGIN" />
+		</property>
+		<property name="account" type="java.lang.String">
+			<column name="ACCOUNT" />
+		</property>
+		
+		<many-to-one name="members" class="model.MembersBean" column="ACCOUNT" insert="false" update="false"></many-to-one>
+	</class>
+</hibernate-mapping>
