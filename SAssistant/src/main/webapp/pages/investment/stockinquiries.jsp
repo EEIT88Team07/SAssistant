@@ -76,8 +76,9 @@ $(document).ready(function() {
 	   		"paginate": {
 	   			"previous": "上一頁",
 	   			"next": "下一頁"
-	   		}				           
-		},		
+	   		}	
+		},
+		"searching": false
     });
 	
 // 	$(".row").css({"margin":"0px auto"};
@@ -168,7 +169,8 @@ $('select[name="selectstockid"]').first().empty();
 								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/company.jsp">個股查詢</a></li>
-						</ul></li>
+						</ul>
+						</li>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/news/news.jsp">股市新聞</a>
 					<li><a href="#">會員專區<span class="arrow"></span></a>

@@ -109,7 +109,7 @@
 		<div style="border: black 5px solid; display: block;">
 			<div style="margin: 20px;">
 			
-				<div class="search1">
+				<div class="search1" align="center">
 					<!-- 輸入表格 -->
 					<div id="auto_content" class="pic"></div>  
 					<!-- 					指定位置 -->

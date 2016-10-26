@@ -65,6 +65,7 @@
 		   			"next": "下一頁"
 		   		}
 			},
+			"searching": false
 		});
 
 		$('input[name="prodaction"]').click(function() {
@@ -116,7 +117,7 @@
 
 			<!-- Logo -->
 			<div id="logo">
-				<img alt="" src="${pageContext.request.contextPath}/images/logo.png">
+				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
 			</div>
 
 			<div id="fdw">
@@ -126,6 +127,8 @@
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
+							<li><a
+								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">個股查詢</a></li>
 							<li><a
