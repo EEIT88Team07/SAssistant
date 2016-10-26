@@ -42,7 +42,9 @@
 	<div id="header">
 <!-- 	登入系統 -->
 		<div style="float: right; margin: 30px">
-			<a href="#" style="font-size: 24px">註冊</a>
+			<c:if test="${empty LoginOK }">
+				<a href="#" style="font-size: 24px">註冊</a>
+			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
   					登出 
@@ -50,7 +52,7 @@
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
+					登入 
 				</a>
             </c:if>
 		</div>

@@ -96,7 +96,9 @@
 	<!-- Header -->
 	<div id="header">
 		<div style="float: right; margin: 30px">
-			<a href="#" style="font-size: 24px">註冊</a>
+			<c:if test="${empty LoginOK }">
+				<a href="#" style="font-size: 24px">註冊</a>
+			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
   					登出 
