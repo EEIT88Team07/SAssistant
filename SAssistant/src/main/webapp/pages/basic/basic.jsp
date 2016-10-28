@@ -1,3 +1,4 @@
+<%@page import="model.misc.Example"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -46,14 +47,12 @@
 			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
@@ -61,16 +60,16 @@
 
 			<!-- Logo -->
 			<div id="logo">
-				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+				<a href="${pageContext.request.contextPath}/index.jsp"><img
+					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
 			<div id="fdw">
 				<nav>
 				<ul>
-					<li><a
-						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
+					<li><a href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念<span class="arrow"></span></a></li>
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
-								<li><a
+							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
@@ -101,31 +100,15 @@
 		<!-- 標題 -->
 
 		<!-- 圖片 -->
-		<div id="banner">
-			<div class="container"></div>
+		<div style="width: 95%; padding-left: 650px;" >
+			<%@ page import = "model.misc.Example" %>
+			<% Example pages = new Example(); %>
+			<% out.print(pages.Page()); %>
 		</div>
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="page">
-
-			<!-- Extra -->
-			<div id="marketing" class="container">
-				
-			</div>
-			<!-- /Extra -->
-
-			<!-- Main -->
-			<div id="main" class="container">
-				
-			</div>
-			<!-- Main -->
-
-		</div>
 		<!-- /Main -->
-
-		
-
 
 		<!-- Copyright -->
 		<div id="copyright" class="container">

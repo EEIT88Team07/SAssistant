@@ -43,13 +43,14 @@ public class InstantlyInfoServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 //		response.setContentType("text/plain; charset=UTF-8");
 //		PrintWriter out = response.getWriter();
 		/*
 		 * 接收資料
 		 */
-		String temp1 = request.getParameter("stockId");
+		String temp1 = request.getParameter("selectstockid");
 		String datanysis = request.getParameter("datanysis");
 		
 		
@@ -59,8 +60,8 @@ public class InstantlyInfoServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("error", errors);
 		InstantlyInfoBean bean = new InstantlyInfoBean();
-		if(temp1!=null && temp1.trim().length()!=0 && temp1.trim().length()==4) {
-				bean.setStockId(temp1);
+		if(temp1!=null && temp1.trim().length()!=0) {
+				bean.setStockId(temp1.substring(0,4));
 			} else {
 				errors.put("stockId", "Id必須是為四個數字");
 			}
@@ -78,6 +79,9 @@ public class InstantlyInfoServlet extends HttpServlet {
 			result = instantlyInfoService.select(bean);
 			if(result == null){
 				errors.put("stockId", "無此股票代碼");
+				request.getRequestDispatcher(
+						"/pages/investment/realtime.jsp").forward(request, response);
+				return;
 			}else{
 				request.setAttribute("select",result);
 			}		
@@ -101,7 +105,7 @@ public class InstantlyInfoServlet extends HttpServlet {
 		/*
 		 * 跳轉到資料 dataAnalysis.jsp
 		 */
-		request.getRequestDispatcher("/instantlyInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("/pages/investment/realtime.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

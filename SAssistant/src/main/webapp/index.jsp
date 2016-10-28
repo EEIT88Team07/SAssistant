@@ -67,8 +67,7 @@
 			<div id="fdw">
 				<nav>
 				<ul>
-					<li><a
-						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
+					<li><a href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念<span class="arrow"></span></a></li>
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 								<li><a

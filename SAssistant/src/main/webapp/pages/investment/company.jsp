@@ -41,9 +41,7 @@
 	<!-- Header -->
 	<div id="header">
 		<div style="float: right; margin: 30px">
-			<c:if test="${empty LoginOK }">
-				<a href="#" style="font-size: 24px">註冊</a>
-			</c:if>
+			<a href="#" style="font-size: 24px">註冊</a>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
   					登出 
@@ -217,7 +215,7 @@
 				</table>
 				<div style="display: inline; background-color: red; margin: 150px" align="right">123</div>
 			</div>
-			<div style="background-color: #FFFFFF; margin: 420px"></div>
+			<div style="background-color: #FFFFFF; margin: 350px"></div>
 		</div>
 		<!-- /Featured -->
 		<!-- Copyright -->
