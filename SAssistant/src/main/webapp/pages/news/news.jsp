@@ -1,3 +1,5 @@
+<%@page import="org.jsoup.nodes.Element"%>
+<%@page import="org.jsoup.nodes.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,6 +37,28 @@
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
 
+<script>
+	document.getElement
+</script>
+<style type="text/css">
+		table {
+			border:3px solid #01B468;
+			border-collapse:collapse;
+			margin-left: 120px;
+		}
+		td {
+			border:1px solid #9F5000;
+			padding: 10px;
+		}
+		thead {
+			background-color:#019858;
+			color:#ffffff;
+			border-bottom:3px double #9F5000;
+		}
+		tbody tr:nth-child(2n) {background-color:#FFF8D7}
+		tbody tr:nth-child(2n+1) {background-color:#FFE4CA}
+		tbody tr:hover {background-color:#ffffff;}
+</style>
 </head>
 <body class="homepage">
 
@@ -105,20 +129,42 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="page">
-
-			<!-- Extra -->
-			<div id="marketing" class="container">
-				
-			</div>
-			<!-- /Extra -->
-
-			<!-- Main -->
-			<div id="main" class="container">
-				
-			</div>
-			<!-- Main -->
-
+		<div id="show" style="width: 95%; margin: 20px;" >
+			<table style="border:3px solid #01B468; border-collapse: collapse;">
+				<tr align="center"><td style="font-size: 20px;">yahoo台股盤勢</td><td style="font-size: 20px;">yahoo盤勢分析</td><td style="font-size: 20px;">yahoo個股動態</td></tr>
+				<tr>
+					<td>
+						<%@ page import="org.jsoup.*" %>
+						<%	org.jsoup.select.Elements N2 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N2.html").userAgent("Mozilla").get().select("item");
+							for(int i = 0; i < N2.size(); i++){
+							String t = N2.select("title").get(i).text();
+							String l = N2.select("link").get(i).text();
+							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
+						}
+						%>
+					</td>
+					<td>
+						<%@ page import="org.jsoup.*" %>
+						<% org.jsoup.select.Elements R1 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/R1.html").userAgent("Mozilla").get().select("item"); 
+							for(int i = 0; i < R1.size(); i++){
+							String t = R1.select("title").get(i).text();
+							String l = R1.select("link").get(i).text();
+							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
+						}
+						%>
+					</td>
+					<td>
+						<%@ page import="org.jsoup.*" %>
+						<% org.jsoup.select.Elements N3 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N3.html").userAgent("Mozilla").get().select("item"); 
+							for(int i = 0; i < N3.size(); i++){
+							String t = N3.select("title").get(i).text();
+							String l = N3.select("link").get(i).text();
+							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
+						}
+						%>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<!-- /Main -->
 

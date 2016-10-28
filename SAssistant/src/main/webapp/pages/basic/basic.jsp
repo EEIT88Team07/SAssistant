@@ -101,9 +101,9 @@
 
 		<!-- 圖片 -->
 		<div style="width: 95%; padding-left: 650px;" >
-			<%@ page import = "model.misc.Example" %>
-			<% Example pages = new Example(); %>
-			<% out.print(pages.Page()); %>
+			<%@ page import="org.jsoup.*" %>
+			<% String html = Jsoup.connect("http://cmoney.pixnet.net/blog/post/167268636-學習地圖---新手投資股票入門理財的出發點").get().select("div[class='article-content-inner']").outerHtml(); %>
+			<% out.print(html); %>
 		</div>
 		<!-- /圖片 -->
 
