@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/saProject"></property>
+	</bean>
+
+	<!-- <bean id="dataSource" -->
+	<!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+	<!-- <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property> -->
+	<!-- <property name="url" -->
+	<!-- value="jdbc:sqlserver://localhost:1433;database=projectDemo"></property> -->
+	<!-- <property name="username" value="sa"></property> -->
+	<!-- <property name="password" value="passw0rd"></property> -->
+	<!-- </bean> -->
+
+	<bean id="sessionFactory" destroy-method="destroy"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+
+
+	<bean id="groupInfoDAO" class="model.dao.GroupInfoDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="groupInfoService" class="model.GroupInfoService">
+		<constructor-arg ref="groupInfoDAO"></constructor-arg>
+	</bean>
+
+	<bean id="instantlyInfoDAO" class="model.dao.InstantlyInfoDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="instantlyInfoService" class="model.InstantlyInfoService">
+		<constructor-arg ref="instantlyInfoDAO"></constructor-arg>
+	</bean>
+
+	<bean id="stockInfoDAO" class="model.dao.StockInfoDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="stockInfoService" class="model.StockInfoService">
+		<constructor-arg ref="stockInfoDAO"></constructor-arg>
+	</bean>
+
+	<bean id="stockCompanyDAO" class="model.dao.StockCompanyDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="stockCompanyService" class="model.StockCompanyService">
+		<constructor-arg ref="stockCompanyDAO"></constructor-arg>
+	</bean>
+
+	<bean id="purchaseHistoryDAO" class="model.dao.PurchaseHistoryDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="purchaseHistoryService" class="model.PurchaseHistoryService">
+		<constructor-arg ref="purchaseHistoryDAO"></constructor-arg>
+	</bean>
+
+	<bean id="sellingHistoryDAO" class="model.dao.SellingHistoryDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="sellingHistoryService" class="model.SellingHistoryService">
+		<constructor-arg ref="sellingHistoryDAO"></constructor-arg>
+	</bean>
+
+	<bean id="dataAnalysisDAO" class="model.dao.DataAnalysisDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="dataAnalysisService" class="model.DataAnalysisService">
+		<constructor-arg ref="dataAnalysisDAO"></constructor-arg>
+	</bean>
+
+	<bean id="membersDAO" class="model.dao.MembersHibernateDAO">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="membersService" class="model.MembersService">
+		<constructor-arg ref="membersDAO"></constructor-arg>
+	</bean>
+
+	<bean id="myFavouriteDAO" class="model.dao.MyFavouriteHibernateDAO">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="myFavouriteService" class="model.MyFavouriteService">
+		<constructor-arg ref="myFavouriteDAO"></constructor-arg>
+	</bean>
+	<bean id="rSVDAO" class="model.dao.RSVDAOHibernate">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="rSVService" class="model.RSVService">
+		<constructor-arg ref="rSVDAO"></constructor-arg>
+	</bean>
+</beans>

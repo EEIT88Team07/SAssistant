@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016/10/12 ?W?? 10:06:59 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="model.PurchaseHistoryBean" table="PURCHASEHISTORY">
+		<id name="purchaseNumber" type="int">
+			<column name="PURCHASENUMBER" />
+			<generator class="assigned" />
+		</id>
+		<property name="stockId" type="java.lang.String">
+            <column name="STOCKID" />
+        </property>
+        <property name="dateOfPurchase" type="java.sql.Date">
+            <column name="DATEOFPURCHASE" />
+        </property>
+        <property name="purchasePrice" type="java.lang.Double">
+            <column name="PURCHASEPRICE" />
+        </property>
+        <property name="purchaseQuantity" type="java.lang.Double">
+            <column name="PURCHASEQUANTITY" />
+        </property>
+        <property name="investment" type="java.lang.Double">
+            <column name="INVESTMENT" />
+        </property>
+        <property name="stopLossLimit" type="java.lang.Double">
+            <column name="STOPLOSSLIMIT" />
+        </property>
+        <property name="takeProfitLimit" type="java.lang.Double">
+            <column name="TAKEPROFITLIMIT" />
+        </property>
+        <property name="dividendYield" type="java.lang.Double">
+            <column name="DIVIDENDYIELD" />
+        </property>
+        <property name="account" type="java.lang.String">
+            <column name="ACCOUNT" />
+        </property>
+        
+        <many-to-one name="members" class="model.MembersBean" column="ACCOUNT" insert="false" update="false"></many-to-one>
+    </class>
+</hibernate-mapping>
