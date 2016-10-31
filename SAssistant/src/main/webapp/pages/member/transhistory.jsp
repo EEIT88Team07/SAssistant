@@ -76,7 +76,11 @@
 				"info" : "第 _PAGE_ of _PAGES_頁",
 				"sSearch" : "檢索:",
 				"lengthMenu" : "每頁_MENU_ 條紀錄",
-				"sInfoEmpty" : "每頁   0 of 0 條紀錄"
+				"sInfoEmpty" : "每頁   0 of 0 條紀錄",
+				"paginate" : {
+					"previous" : "上一頁",
+					"next" : "下一頁"
+				}
 			},
 			"ajax" : {
 				"url" : contextPath + "/transajax.view",
