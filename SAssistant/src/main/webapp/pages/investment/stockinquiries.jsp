@@ -315,33 +315,31 @@ var contextPath = "${pageContext.request.contextPath}";
 		<!-- 					指定位置用的div-->
 		<div id="searchform" style="border: black 5px solid;">
 			<div class="search1">
-
 				<form action="<c:url value="/dataAnalysis.controller" />"
 					method="post" class="form-inline">
 					<div class="form-group">
 						<label class="control-label">股票產業：</label> <select
 							name="selectstockcompany" style="width: 120px">
-<%-- 							<c:if test="${not empty param}"> --%>
-<%-- 								<option>${param.selectstockcompany}</option> --%>
-<%-- 							</c:if> --%>
 						</select> <label class="control-label">股票代碼： </label> <select
 							name="selectstockid">
 						</select>
 						<img id="img2" src="${pageContext.request.contextPath}/images/ajax-loader.gif" style="display: none;" >
-					</div>			
-					<div class="form-group" style="margin: 10px auto">
-						<label class="control-label">日期區間：&nbsp;</label><input
-							type="text" name="startDate" value="${param.startDate}"
-							placeholder="起始日期" style="width: 120px"> <span>${error.stratDate}</span>
-						<label class="control-label">到&nbsp;</label><input type="text"
+					</div>
+					<div class="form-group" style="margin: 10px auto; display: block;">
+						<label class="control-label">日期區間：</label><input type="text"
+							name="startDate" value="${param.startDate}" placeholder="起始日期"
+							style="width: 120px; display: inline;"> <span>${error.stratDate}</span> 
+						<label class="control-label" style="display: inline;">到 &nbsp;</label><input type="text"
 							name="endDate" value="${param.endDate}" placeholder="終止日期"
-							style="width: 120px"> <span>${error.endDate}</span>
+							style="width: 120px; display: inline;"> <span>${error.endDate}</span>
 					</div>
 					<div class="submit1">
 						<input class="btn btn-primary superbtn" type="submit"
 							name="datanysis" value="讀取資料">
 					</div>
 				</form>
+				
+				
 			</div>
 
 			<!-- 			測試用區塊 -->
