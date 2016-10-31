@@ -311,6 +311,12 @@ var contextPath = "${pageContext.request.contextPath}";
 		<!-- /圖片 -->
 
 		<!-- Main -->
+<!-- 		<div id="lovdialog" title="Basic dialog"> -->
+<!-- 			 <p>已新增到我的關注</p> -->
+<!-- 		</div> -->
+<!-- 		<div id="unlovedialog" title="Basic dialog"> -->
+<!-- 			 <p>已刪除到我的關注</p> -->
+<!-- 		</div> -->
 		<!-- 輸入表格 -->
 		<!-- 					指定位置用的div-->
 		<div id="searchform" style="border: black 5px solid;">
