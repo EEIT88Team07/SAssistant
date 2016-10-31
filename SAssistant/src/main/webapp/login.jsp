@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,6 +30,11 @@ function setFocusToUserId(){
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script
 	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body onLoad="setFocusToUserId()" style="background:#EBFFEB;">
 <!-- 下列敘述設定變數funcName的值為LOG，top.jsp 會用到此變數 -->
