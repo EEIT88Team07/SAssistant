@@ -207,7 +207,7 @@
 				style="display: inline; margin: 0px; padding: 0px;">
 				<form action="<c:url value="/instantlyInfo.controller" />"
 					method="post" class="form-inline">
-					<div class="submit1" style="display: inline;">
+					<div class="submit1" style="display: none;">
 						<input id="select" class="btn btn-primary superbtn" type="submit"
 							name="datanysis" value="Select">
 					</div>
