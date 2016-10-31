@@ -35,100 +35,104 @@
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
 
+<!-- jQuery ui -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
+<script
+	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
+
 </head>
 <body class="homepage">
-
-	<!-- Header -->
-	<div id="header">
-<!-- 	登入系統 -->
-		<div style="float: right; margin: 30px">
-			<c:if test="${empty LoginOK }">
-				<a href="#" style="font-size: 24px">註冊</a>
-			</c:if>
-			<c:if test="${ ! empty LoginOK }">
-				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
-			</c:if>
-			<c:if test="${empty LoginOK }">
-				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-					登入 
-				</a>
-            </c:if>
-		</div>
-	
-		<!-- 標題 -->
-		<div class="container">
-
-			<!-- Logo -->
-			<div id="logo">
-				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+		<!-- Header -->
+		<div id="header">
+			<!-- 	登入系統 -->
+			<div style="float: right; margin: 30px">
+				<c:if test="${empty LoginOK }">
+					<a href="#" style="font-size: 24px">註冊</a>
+				</c:if>
+				<c:if test="${ ! empty LoginOK }">		
+					<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">登出</a>
+				</c:if>
+				<c:if test="${empty LoginOK }">
+					<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
+						登入 </a>
+				</c:if>
 			</div>
-			<div id="fdw">
-				<nav>
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念<span class="arrow"></span></a></li>
-					<li><a href="#">投資管理<span class="arrow"></span></a>
-						<ul style="display: none;" class="sub_menu">
+
+			<!-- 標題 -->
+			<div class="container">
+
+				<!-- Logo -->
+				<div id="logo">
+					<a href="${pageContext.request.contextPath}/index.jsp"><img
+						alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
+				</div>
+				<div id="fdw">
+					<nav>
+					<ul>
+						<li><a
+							href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念<span
+								class="arrow"></span></a></li>
+						<li><a href="#">投資管理<span class="arrow"></span></a>
+							<ul style="display: none;" class="sub_menu">
 								<li><a
-								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/investment/company.jsp">個股查詢</a></li>
-						</ul></li>
-					<li><a
-						href="${pageContext.request.contextPath}/pages/news/news.jsp">股市新聞</a>
-					<li><a href="#">會員專區<span class="arrow"></span></a>
-						<ul style="display: none;" class="sub_menu">
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
-						</ul></li>
-					<li><a href="#">contact</a></li>
-				</ul>
-				</nav>
+									href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/pages/investment/company.jsp">個股查詢</a></li>
+							</ul></li>
+						<li><a
+							href="${pageContext.request.contextPath}/pages/news/news.jsp">股市新聞</a>
+						<li><a href="#">會員專區<span class="arrow"></span></a>
+							<ul style="display: none;" class="sub_menu">
+								<li><a
+									href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
+							</ul></li>
+					</ul>
+					</nav>
+				</div>
+				<!-- Nav -->
 			</div>
-			<!-- Nav -->
+			<!-- 標題 -->
 
+			<!-- 圖片 -->
+			<div id="banner">
+				<div class="container"></div>
+			</div>
+			<!-- /圖片 -->
 
-		</div>
-		<!-- 標題 -->
-
-		<!-- 圖片 -->
-		<div id="banner">
-			<div class="container"></div>
-		</div>
-		<!-- /圖片 -->
-		
 		<!-- Main -->
-		<div id="page">
-			<h1 style="font-size: 72px" align="center">
+		<div id="page">	
 			<c:if test="${empty LoginOK }">
 				${logoutMessage}
             </c:if>
-            </h1>
+            <c:if test="${!empty LoginOK }">
+				${loginMessage}
+            </c:if>
 			<!-- Extra -->
-			<div id="marketing" class="container">
-				
-			</div>
+			<div id="marketing" class="container"></div>
 			<!-- /Extra -->
 
 			<!-- Main -->
-			<div id="main" class="container">
-				
-			</div>
+			<div id="main" class="container"></div>
 			<!-- Main -->
 
 		</div>
 		<!-- /Main -->
 
-		
+
 
 
 		<!-- Copyright -->

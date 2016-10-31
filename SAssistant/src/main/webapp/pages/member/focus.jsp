@@ -147,7 +147,6 @@
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
-					<li><a href="#">contact</a></li>
 				</ul>
 				</nav>
 			</div>

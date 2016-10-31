@@ -40,7 +40,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
-<!-- jQuery Datepicker -->
+<!-- jQuery ui -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script
@@ -184,7 +184,6 @@ $('select[name="selectstockid"]').first().empty();
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
-					<li><a href="#">contact</a></li>
 				</ul>
 				</nav>
 			</div>

@@ -6,6 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登出</title>
+
+<!-- jQuery ui -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
+<script
+	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body>
 <!-- 先將使用者名稱取出 -->
@@ -19,12 +30,16 @@
 <%-- <jsp:include page="/fragment/top.jsp" /> --%>
 <!-- 下列六行敘述設定登出後要顯示的感謝訊息 -->
 <c:set var="logoutMessage" scope="request">
-<font color='blue' ><BR>
-${ memberName }，感謝您使用本系統。<BR>
-<BR>
-<BR>
-您已經登出<BR>
-</font>
+<div id="dialog" title="logout">
+  <p>${ memberName }，感謝您使用本系統。</p>
+  <p>您已經登出</p>
+</div>
+<!-- <font color='blue' ><BR> -->
+<%-- ${ memberName }，感謝您使用本系統。<BR> --%>
+<!-- <BR> -->
+<!-- <BR> -->
+<!-- 您已經登出<BR> -->
+<!-- </font> -->
 </c:set>
 <%
   session.invalidate();

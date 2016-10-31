@@ -95,9 +95,11 @@
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">個股查詢</a></li>
+								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>		
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">個股查詢</a></li>
 						</ul></li>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/news/news.jsp">股市新聞</a>
@@ -112,7 +114,6 @@
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
-					<li><a href="#">contact</a></li>
 				</ul>
 				</nav>
 			</div>

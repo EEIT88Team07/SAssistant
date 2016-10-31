@@ -2066,7 +2066,7 @@ transform
 
 #header .container {
 	position: relative;
-	padding: 4em 0em;
+	padding: 2em 0em;
 }
 
 /*********************************************************************************/
@@ -2196,8 +2196,7 @@ blockquote {
 
 #fdw  {
 	padding-top: 50px;
-	
-	
+	margin: 0px;	
 }
 #fdw nav {
 	
