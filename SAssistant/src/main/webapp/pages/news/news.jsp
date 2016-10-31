@@ -41,23 +41,34 @@
 	document.getElement
 </script>
 <style type="text/css">
-		table {
-			border:3px solid #01B468;
-			border-collapse:collapse;
-			margin-left: 120px;
-		}
-		td {
-			border:1px solid #9F5000;
-			padding: 10px;
-		}
-		thead {
-			background-color:#019858;
-			color:#ffffff;
-			border-bottom:3px double #9F5000;
-		}
-		tbody tr:nth-child(2n) {background-color:#FFF8D7}
-		tbody tr:nth-child(2n+1) {background-color:#FFE4CA}
-		tbody tr:hover {background-color:#ffffff;}
+table {
+	border: 3px solid #01B468;
+	border-collapse: collapse;
+	margin-left: 120px;
+}
+
+td {
+	border: 1px solid #9F5000;
+	padding: 10px;
+}
+
+thead {
+	background-color: #019858;
+	color: #ffffff;
+	border-bottom: 3px double #9F5000;
+}
+
+tbody tr:nth-child(2n) {
+	background-color: #FFF8D7
+}
+
+tbody tr:nth-child(2n+1) {
+	background-color: #FFE4CA
+}
+
+tbody tr:hover {
+	background-color: #ffffff;
+}
 </style>
 </head>
 <body class="homepage">
@@ -70,22 +81,22 @@
 			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
-		<div class="container">
+		<div style="margin: 0">
 
 			<!-- Logo -->
-			<div id="logo">
-			<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+			<div
+				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+				<a href="${pageContext.request.contextPath}/index.jsp"><img
+					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
 			<div id="fdw">
 				<nav>
@@ -95,7 +106,7 @@
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>		
+								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
 							<li><a
@@ -106,13 +117,11 @@
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
+								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
+								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
 				</ul>
 				</nav>
@@ -130,46 +139,47 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="show" style="width: 95%; margin: 20px;" >
-			<table style="border:3px solid #01B468; border-collapse: collapse;">
-				<tr align="center"><td style="font-size: 20px;">yahoo台股盤勢</td><td style="font-size: 20px;">yahoo盤勢分析</td><td style="font-size: 20px;">yahoo個股動態</td></tr>
+		<div id="show" style="width: 95%; margin: 20px;">
+			<table style="border: 3px solid #01B468; border-collapse: collapse;">
+				<tr align="center">
+					<td style="font-size: 20px;">yahoo台股盤勢</td>
+					<td style="font-size: 20px;">yahoo盤勢分析</td>
+					<td style="font-size: 20px;">yahoo個股動態</td>
+				</tr>
 				<tr>
-					<td>
-						<%@ page import="org.jsoup.*" %>
-						<%	org.jsoup.select.Elements N2 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N2.html").userAgent("Mozilla").get().select("item");
-							for(int i = 0; i < N2.size(); i++){
-							String t = N2.select("title").get(i).text();
-							String l = N2.select("link").get(i).text();
-							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
-						}
-						%>
-					</td>
-					<td>
-						<%@ page import="org.jsoup.*" %>
-						<% org.jsoup.select.Elements R1 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/R1.html").userAgent("Mozilla").get().select("item"); 
-							for(int i = 0; i < R1.size(); i++){
-							String t = R1.select("title").get(i).text();
-							String l = R1.select("link").get(i).text();
-							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
-						}
-						%>
-					</td>
-					<td>
-						<%@ page import="org.jsoup.*" %>
-						<% org.jsoup.select.Elements N3 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N3.html").userAgent("Mozilla").get().select("item"); 
-							for(int i = 0; i < N3.size(); i++){
-							String t = N3.select("title").get(i).text();
-							String l = N3.select("link").get(i).text();
-							out.print("<a href="+l+">"+t+"</a>"+"<br>"+"<br>");
-						}
-						%>
-					</td>
+					<td><%@ page import="org.jsoup.*"%> <%
+ 	org.jsoup.select.Elements N2 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N2.html")
+ 			.userAgent("Mozilla").get().select("item");
+ 	for (int i = 0; i < N2.size(); i++) {
+ 		String t = N2.select("title").get(i).text();
+ 		String l = N2.select("link").get(i).text();
+ 		out.print("<a href=" + l + ">" + t + "</a>" + "<br>" + "<br>");
+ 	}
+ %></td>
+					<td><%@ page import="org.jsoup.*"%> <%
+ 	org.jsoup.select.Elements R1 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/R1.html")
+ 			.userAgent("Mozilla").get().select("item");
+ 	for (int i = 0; i < R1.size(); i++) {
+ 		String t = R1.select("title").get(i).text();
+ 		String l = R1.select("link").get(i).text();
+ 		out.print("<a href=" + l + ">" + t + "</a>" + "<br>" + "<br>");
+ 	}
+ %></td>
+					<td><%@ page import="org.jsoup.*"%> <%
+ 	org.jsoup.select.Elements N3 = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N3.html")
+ 			.userAgent("Mozilla").get().select("item");
+ 	for (int i = 0; i < N3.size(); i++) {
+ 		String t = N3.select("title").get(i).text();
+ 		String l = N3.select("link").get(i).text();
+ 		out.print("<a href=" + l + ">" + t + "</a>" + "<br>" + "<br>");
+ 	}
+ %></td>
 				</tr>
 			</table>
 		</div>
 		<!-- /Main -->
 
-		
+
 
 
 		<!-- Copyright -->

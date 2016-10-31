@@ -150,11 +150,13 @@ $('select[name="selectstockid"]').first().empty();
 		</div>
 
 		<!-- 標題 -->
-		<div class="container">
+		<div style="margin: 0">
 
 			<!-- Logo -->
-			<div id="logo">
-				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+			<div
+				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+				<a href="${pageContext.request.contextPath}/index.jsp"><img
+					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
 			<div id="fdw">
 				<nav>
@@ -176,13 +178,11 @@ $('select[name="selectstockid"]').first().empty();
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
+								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
+								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
 				</ul>
 				</nav>
