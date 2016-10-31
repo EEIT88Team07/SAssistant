@@ -85,28 +85,71 @@
 				}
 			},
 			"columns" : [ {
-				"data" : "stockId"
-			},{
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return '<input type="text" name="purchaseNumber" style="display:none" value='+row.purchaseNumber+'><input type="text" name="sellingNumber" style="display:none" value='+row.sellingNumber+'><div style="margin:0 auto">'+row.stockId+'</div>'
+				}
+			}, {
 				"data" : "stockName"
-			},{
+			}, {
 				"data" : "dateOfPurchase"
-			},{
-				"data" : "sellingPrice"
-			},{
-				"data" : "sellingQuantity"
-			},{
-				"data" : "dateOfSelling"
-			},{
-				"data" : "total"
-			},{
+			}, {
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return '<div style="margin:0 auto"><input style="width:100px" name="sellingPrice" type="text" value='+row.sellingPrice+'></div>'
+				}
+			}, {
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return '<div style="margin:0 auto"><input style="width:100px" name="sellingQuantity" type="text" value='+row.sellingQuantity+'></div>'
+				}
+			}, {
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return '<div style="margin:0 auto"><input style="width:100px" name="dateOfSelling" type="text" value='+row.dateOfSelling+'></div>'
+				}
+			}, {
 				"data" : "cost"
-			},{
+			}, {
 				"data" : "income"
-			},{
+			}, {
 				"data" : "netIncome"
-			},{
-				"data" : "netProfitMargin"
-			} ]
+			}, {
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return row.netProfitMargin + '%'
+				}
+			}, {
+				"data" : null,
+				"render" : function(data, type, row, meta) {
+					return '<input style="margin-right: 10px;display: inline-block; float: left;" name="edit" type="button" value="更新"><input style="margin-right: 10px;display: inline-block ;float: left;" name="delete" type="button" value="刪除">'
+				}
+
+			} ],
+			"initComplete" : function() {
+				$('#datatable>tbody>tr td:last-child').css("width", "200px");
+				var api = this.api();
+				api.$('tr').click(function() {
+					var purchaseNumber = this.childNodes[0].childNodes[0].value;
+					var sellingNumber = this.childNodes[0].childNodes[1].value;
+					var sellingPrice = this.childNodes[3].childNodes[0].childNodes[0].value;
+					var sellingQuantity = this.childNodes[4].childNodes[0].childNodes[0].value;
+					var dateOfSelling = this.childNodes[5].childNodes[0].childNodes[0].value;
+					var button_edit = this.childNodes[10].childNodes[0].value;
+					var button_delete = this.childNodes[10].childNodes[1].value;
+
+					$('input[name="edit"]').click(function() {
+						var url = contextPath + "/sellinghistory.controller?purchaseNumber=" + purchaseNumber + "&sellingNumber=" + sellingNumber + "&sellingPrice=" + sellingPrice + "&sellingQuantity=" + sellingQuantity + "&dateOfSelling=" + dateOfSelling + "&action=" + button_edit;
+						document.location.href = url;
+					});
+					$('input[name="delete"]').click(function() {
+						var url = contextPath + "/sellinghistory.controller?sellingNumber=" + sellingNumber + +"&action=" + button_delete;
+
+						document.location.href = url;
+					});
+
+				});
+			}
 
 		});
 
@@ -157,8 +200,6 @@
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
-							<li><a
 								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
@@ -181,7 +222,7 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="searchform" style="border: black 5px solid;">
+		<div id="searchform">
 
 			<div id="datatablediv" style="margin: 50px;">
 				<div>
@@ -205,7 +246,6 @@
 							<th>賣出價格</th>
 							<th>賣出數量</th>
 							<th>賣出日期</th>
-							<th>賣出總額</th>
 							<th>成本</th>
 							<th>收入</th>
 							<th>淨利</th>
@@ -214,50 +254,8 @@
 						</tr>
 					</thead>
 				</table>
-				<button id="create-user">新增一筆購買記錄</button>
 			</div>
 		</div>
-
-
-
-		<div id="dialog-form" title="新增一筆交易記錄">
-			<p class="validateTips">*號為必填欄位</p>
-
-			<form>
-				<fieldset>
-					<label for="stockId">股票代碼*</label> <input type="text"
-						name="stockId" id="stockId"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="dateOfPurchase">購買時間*</label> <input type="text"
-						name="dateOfPurchase" id="dateOfPurchase"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="purchasePrice">購買價格*</label> <input type="text"
-						name="purchasePrice" id="purchasePrice"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="purchaseQuantity">購買數量*</label> <input type="text"
-						name="purchaseQuantity" id="purchaseQuantity"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="stopLossLimit">停損點</label> <input type="text"
-						name="stopLossLimit" id="stopLossLimit"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="takeProfitLimit">停利點</label> <input type="text"
-						name="takeProfitLimit" id="takeProfitLimit"
-						class="text ui-widget-content ui-corner-all">
-
-					<!-- Allow form submission with keyboard without duplicating the dialog button -->
-					<input type="submit" tabindex="-1"
-						style="position: absolute; top: -1000px">
-				</fieldset>
-			</form>
-		</div>
-
-		<form style="display: none;"
-			action="<c:url value="/transhistory.controller" />" name="fileinfo"
-			method="POST">
-			<input type="text" name="action" value="刪除"> <input
-				type="submit">
-		</form>
-
 
 
 

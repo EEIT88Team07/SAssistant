@@ -21,7 +21,6 @@
 /*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
-
 body {
 	background: #202020 url(images/img01.jpg) repeat;
 }
@@ -404,7 +403,15 @@ ul.style5 a {
 
 
 
+
+
+
+
 :rotate(359deg)
+
+
+
+
 
 
 
@@ -426,7 +433,15 @@ ul.style5 a {
 
 
 
+
+
+
+
 :rotate(359deg)
+
+
+
+
 
 
 
@@ -448,7 +463,15 @@ ul.style5 a {
 
 
 
+
+
+
+
 :rotate(359deg)
+
+
+
+
 
 
 
@@ -470,7 +493,15 @@ ul.style5 a {
 
 
 
+
+
+
+
 :rotate(359deg)
+
+
+
+
 
 
 
@@ -492,7 +523,15 @@ transform
 
 
 
+
+
+
+
 :rotate(359deg)
+
+
+
+
 
 
 
@@ -2059,7 +2098,6 @@ transform
 /* Header                                                                        */
 /*********************************************************************************/
 #header {
-	
 	position: relative;
 	background: #FFF;
 }
@@ -2115,8 +2153,6 @@ transform
 	font-size: 1.6em;
 }
 
-
-
 /*********************************************************************************/
 /* Copyright                                                                     */
 /*********************************************************************************/
@@ -2147,7 +2183,6 @@ transform
 #marketing header h2 {
 	font-size: 1.6em;
 }
-
 
 /*********************************************************************************/
 /* Featured                                                                      */
@@ -2193,10 +2228,9 @@ blockquote {
 /*********************************************************************************/
 /* fdw                                                                    */
 /*********************************************************************************/
-
-#fdw  {
+#fdw {
 	padding-top: 50px;
-	margin: 0px;	
+	margin: 0px;
 }
 
 #fdw nav {
@@ -2222,9 +2256,9 @@ blockquote {
 #fdw nav ul li a:link, #fdw nav ul li a:visited {
 	text-decoration: none;
 	color: #444;
-	font-size:24px;
+	font-size: 24px;
 	font-family: 微軟正黑體, sans-serif;
-	font-weight:700;
+	font-weight: 700;
 	text-transform: uppercase;
 	display: inline-block;
 	position: relative;
@@ -2352,83 +2386,203 @@ blockquote {
 /*********************************************************************************/
 /****** info1 searchform Style ******/
 #searchform div form div label {
-	font-weight:bold;
-} 
-#searchform div form div.submit1{
+	font-weight: bold;
+}
+
+#searchform div form div.submit1 {
 	margin: 10px 170px;
 	width: 50px;
-	 
-}
-#searchform div form input.superbtn{
-	width:100px;
-	height:50px;
 }
 
-#searchform div.search1{
- margin: 50px auto;
- border: 5px ;
- width:500px;
- height:20px;
+#searchform div form input.superbtn {
+	width: 100px;
+	height: 50px;
 }
 
-
+#searchform div.search1 {
+	margin: 50px auto;
+	border: 5px;
+	width: 500px;
+	height: 20px;
+}
 
 /*****************/
 /*serchform table*/
 /*****************/
 /* #searchform div table div div div  label{ */
-
-#searchform div table thead tr.backgrou{
-		background-color:#4F9D9D;
-		color: white;
+#searchform div table thead tr.backgrou {
+	background-color: #4F9D9D;
+	color: white;
 }
- #searchform div table tbody tr:nth-child(even) 
- {background: #CCC;
- }
- #searchform div table tbody tr:nth-child(odd) 
- {background: #FFF;
- }
- 
- #searchform div span.firm{
- 	color: black;
+
+#searchform div table tbody tr:nth-child(even) {
+	background: #CCC;
+}
+
+#searchform div table tbody tr:nth-child(odd) {
+	background: #FFF;
+}
+
+#searchform div span.firm {
+	color: black;
 	text-decoration: none;
 	font-family: 微軟正黑體;
 	font-size: 20px;
- }
- #searchform div table tbody tr div button{
- width: 30px;
- height: 30px;
- }
- 
- 
- /*********************************************************************************/
+}
+
+#searchform div table tbody tr div button {
+	width: 30px;
+	height: 30px;
+}
+
+/*********************************************************************************/
 /*ulstyle (留言板CSS)                                                              */
 /*********************************************************************************/
-
 ul#comments {
-  list-style-type: none;
-  font-family: "Helvetica Neue",arial,sans-serif;
-  font-size: 15px;
-  color: #a5b2b9;
+	list-style-type: none;
+	font-family: "Helvetica Neue", arial, sans-serif;
+	font-size: 15px;
+	color: #a5b2b9;
 }
-ul#comments li { margin-bottom: 30px; position: relative;}
-ul#comments li a { font-size:1em;text-decoration: none; color: #a8a744; }
-.avatar-container { width: 60px; box-sizing: border-box; }
-.avatar { width:60px;height:60px;border-radius: 50px; float: left; margin: 5px; }
-.post-container {padding-top: 3px; margin-left: 70px;  box-sizing: border-box; }
-.post-container p { color:#6e3a60;font-size:1em;font-weight:500;}
-.author_name { font-weight:bold;font-size:1.2em; }
-.timeago, .posted { 
-  font-weight: 500;
-  font-size: 1em;
-  color: #a5b2b9;
-  color: rgba(0,39,59,.35);
+
+ul#comments li {
+	margin-bottom: 30px;
+	position: relative;
 }
+
+ul#comments li a {
+	font-size: 1em;
+	text-decoration: none;
+	color: #a8a744;
+}
+
+.avatar-container {
+	width: 60px;
+	box-sizing: border-box;
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50px;
+	float: left;
+	margin: 5px;
+}
+
+.post-container {
+	padding-top: 3px;
+	margin-left: 70px;
+	box-sizing: border-box;
+}
+
+.post-container p {
+	color: #6e3a60;
+	font-size: 1em;
+	font-weight: 500;
+}
+
+.author_name {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.timeago, .posted {
+	font-weight: 500;
+	font-size: 1em;
+	color: #a5b2b9;
+	color: rgba(0, 39, 59, .35);
+}
+
 .bullet {
-  padding: 0 2px;
-  font-size: 1em;
-  color: #ccc;
-  line-height: 1.4;
+	padding: 0 2px;
+	font-size: 1em;
+	color: #ccc;
+	line-height: 1.4;
+}
+
+/*form*/
+.form-style-8 {
+	font-family: 'Open Sans Condensed', arial, sans;
+	width: 600px;
+	padding: 30px;
+	background: #FFFFFF;
+	margin: 50px auto;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+.form-style-8 h2 {
+	background: #4F9D9D;
+	text-transform: uppercase;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color: white;
+	font-size: 18px;
+	font-weight: 100;
+	padding: 20px;
+	margin: -30px -30px 30px -30px;
+}
+
+.form-style-8 input[type="text"], .form-style-8 input[type="date"],
+	.form-style-8 input[type="datetime"], .form-style-8 input[type="email"],
+	.form-style-8 input[type="number"], .form-style-8 input[type="search"],
+	.form-style-8 input[type="time"], .form-style-8 input[type="url"],
+	.form-style-8 input[type="password"], .form-style-8 textarea,
+	.form-style-8 select {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	display: block;
+	width: 100%;
+	padding: 7px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	background: transparent;
+	margin-bottom: 10px;
+	font: 16px Arial, Helvetica, sans-serif;
+	height: 45px;
+}
+
+.form-style-8 label {
+	color:#888888;
+}
+
+.form-style-8 p {
+	display: inline-block; "
+	outline: none;
+	width: 100px;
+	padding: 7px;
+	background: transparent;
+	font: 16px Arial, Helvetica, sans-serif;
+	height: 45px;
+}
+
+.form-style-8 textarea {
+	resize: none;
+	overflow: hidden;
+}
+
+.form-style-8 input[type="button"], .form-style-8 input[type="submit"] {
+	-moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	background-color: #4F9D9D;
+	border: 1px solid #27A0A0;
+	display: inline-block;
+	cursor: pointer;
+	color: #FFFFFF;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 14px;
+	padding: 8px 18px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.form-style-8 input[type="button"]:hover, .form-style-8 input[type="submit"]:hover
+	{
+	background: linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+	background-color: #34CACA;
 }
 
 #dialog-form input.text {

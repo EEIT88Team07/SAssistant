@@ -1,13 +1,7 @@
 package model;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SellingHistoryService {
 	private SellingHistoryDAO sellingHistoryDao = null;

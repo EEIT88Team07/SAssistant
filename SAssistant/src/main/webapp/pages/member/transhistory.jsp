@@ -105,7 +105,7 @@
 						document.location.href = url;
 					});
 					$('input[name="delete"]').click(function() {
-						var url = contextPath + "/transhistory.controller?stockId=" + stockId + "&dateOfPurchase=" + dateOfPurchase + "&purchasePrice=" + purchasePrice + "&purchaseQuantity=" + purchaseQuantity + "&stopLossLimit=" + stopLossLimit + "&takeProfitLimit=" + takeProfitLimit + "&purchaseNumber=" + purchaseNumber + "&action=" + button_delete;
+						var url = contextPath + "/transhistory.controller?&purchaseNumber=" + purchaseNumber + "&action=" + button_delete;
 
 						document.location.href = url;
 					});

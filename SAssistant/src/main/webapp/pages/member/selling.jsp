@@ -63,10 +63,18 @@
 
 
 <!-- Datatable -->
-
 <script type="text/javascript">
-
+	//auto expand textarea
+	function adjust_textarea(h) {
+		h.style.height = "20px";
+		h.style.height = (h.scrollHeight) + "px";
+	}
 </script>
+
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300'
+	rel='stylesheet' type='text/css'>
+
 
 </head>
 <body class="homepage">
@@ -98,7 +106,7 @@
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
-					<li><a href="#">投資管理<span class="arrow"></span></a>
+					<li><a href="#">股市資訊<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
@@ -111,8 +119,6 @@
 						href="${pageContext.request.contextPath}/pages/news/news.jsp">股市新聞</a>
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
 							<li><a
@@ -136,7 +142,49 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		
+
+		<div class="form-style-8">
+			<c:if test="${not empty result}">
+				<h2>新增一筆賣出記錄</h2>
+				<form action="<c:url value="/sellinghistory.controller" />"
+					method="POST">
+
+					<input type="text" name="purchaseNumber" style="display: none"
+						value=<c:out value='${result["purchaseNumber"]}'/>>
+					<div style="margin: 20px;">
+						<label>股票代碼:</label>
+						<p>
+							<c:out value='${result["stockId"]}' />
+						</p>
+						<label>股票名稱:</label>
+						<p>
+							<c:out value='${result["stockName"]}' />
+						</p>
+					</div>
+					<div style="margin: 20px;">
+						<label>購買日期:</label>
+						<p>
+							<c:out value='${result["dateOfPurchase"]}' />
+						</p>
+						<label>購買價格:</label>
+						<p>
+							<c:out value='${result["purchasePrice"]}' />
+						</p>
+						<label>購買數量:</label>
+						<p>
+							<c:out value='${result["purchaseQuantity"]}' />
+						</p>
+					</div>
+					<div style="margin: 20px;">
+						<label>賣出價格:</label><input type="text" name="sellingPrice" /> <label>賣出數量:</label><input
+							type="text" name="sellingQuantity" /> <label>賣出日期:</label><input
+							type="text" name="dateOfSelling"/> <input
+							name="action" type="submit" value="送出" /><input type="button"
+							value="取消" style="margin-left: 20px">
+					</div>
+				</form>
+			</c:if>
+		</div>
 
 
 

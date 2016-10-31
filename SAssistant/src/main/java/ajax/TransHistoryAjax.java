@@ -2,10 +2,6 @@ package ajax;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.json.Json;
@@ -25,7 +21,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.MembersBean;
 import model.MembersService;
-import model.MyFavouriteBean;
 import model.PurchaseHistoryBean;
 import model.PurchaseHistoryService;
 import model.StockInfoBean;

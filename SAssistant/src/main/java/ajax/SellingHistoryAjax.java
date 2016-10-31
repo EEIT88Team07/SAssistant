@@ -2,9 +2,6 @@ package ajax;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,24 +22,27 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.MembersBean;
 import model.MembersService;
-import model.MyFavouriteBean;
 import model.PurchaseHistoryBean;
 import model.PurchaseHistoryService;
+import model.SellingHistoryBean;
+import model.SellingHistoryService;
 import model.StockInfoBean;
 import model.StockInfoService;
 
 @WebServlet("/sellingajax.view")
 public class SellingHistoryAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private StockInfoService stockInfoService;
 	private PurchaseHistoryService purchaseHistoryService;
+	private StockInfoService stockInfoService;
+	private SellingHistoryService sellingHistoryService;
 	private MembersService membersService;
 
 	@Override
 	public void init() throws ServletException {
 		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
-		stockInfoService = (StockInfoService) context.getBean("stockInfoService");
 		purchaseHistoryService = (PurchaseHistoryService) context.getBean("purchaseHistoryService");
+		sellingHistoryService = (SellingHistoryService) context.getBean("sellingHistoryService");
+		stockInfoService = (StockInfoService) context.getBean("stockInfoService");
 		membersService = (MembersService) context.getBean("membersService");
 	}
 
@@ -74,63 +74,37 @@ public class SellingHistoryAjax extends HttpServlet {
 		MembersBean membersBean = new MembersBean();
 		membersBean = membersService.select(mb).get(0);
 
-// selling id , publish id
-//		"data" : "stockId"
-//		"data" : "stockName"
-//		"data" : "dateOfPurchase"
-//		"data" : "sellingPrice"
-//		"data" : "sellingQuantity"
-//		"data" : "dateOfSelling"
-//		"data" : "total"
-//		"data" : "cost"
-//		"data" : "income"
-//		"data" : "netIncome"
-//		"data" : "netProfitMargin"
-		
-		
-		
-//		List<PurchaseHistoryBean> phbeans = purchaseHistoryService.selectByAccount(membersBean.getAccount());
-//
-//		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
-//		if (phbeans.size() != 0) {
-//
-//			for (int i = 0; i < phbeans.size(); i++) {
-//				PurchaseHistoryBean phbean = phbeans.get(i);
-//				StockInfoBean stockInfoBean = new StockInfoBean();
-//				stockInfoBean.setStockId(phbean.getStockId());
-//
-//				JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
-//				jsonObjBuilder.add("purchaseNumber", phbean.getPurchaseNumber()).add("stockId", phbean.getStockId()).add("stockName", stockInfoService.select(stockInfoBean).get(0).getStockName())
-//						.add("dateOfPurchase", phbean.getDateOfPurchase().toString()).add("purchasePrice", phbean.getPurchasePrice()).add("purchaseQuantity", phbean.getPurchaseQuantity());
-//				if (phbean.getInvestment() != null) {
-//					jsonObjBuilder.add("investment", phbean.getInvestment());
-//				} else {
-//					jsonObjBuilder.add("investment", "");
-//
-//				}
-//
-//				if (phbean.getStopLossLimit() != null) {
-//					jsonObjBuilder.add("stopLossLimit", phbean.getStopLossLimit());
-//				} else {
-//					jsonObjBuilder.add("stopLossLimit", "");
-//				}
-//
-//				if (phbean.getTakeProfitLimit() != null) {
-//					jsonObjBuilder.add("takeProfitLimit", phbean.getTakeProfitLimit());
-//				} else {
-//					jsonObjBuilder.add("takeProfitLimit", "");
-//				}
-//				jsonArray_builder.add(jsonObjBuilder.build());
-//
-//			}
-//
-//		}
-//		JsonArray jsonArray = jsonArray_builder.build();
-//		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
+		List<PurchaseHistoryBean> phbeans = purchaseHistoryService.selectByAccount(membersBean.getAccount());
+		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
+		if (phbeans.size() != 0) {
+			for (int i = 0; i < phbeans.size(); i++) {
 
+				PurchaseHistoryBean phbean = phbeans.get(i);
+				StockInfoBean stockInfoBean = new StockInfoBean();
+				stockInfoBean.setStockId(phbean.getStockId());
 
-		
-		out.write("selling_mb=");
+				Iterator<SellingHistoryBean> shbeans = phbean.getSellingHistory().iterator();
+
+				while (shbeans.hasNext()) {
+
+					SellingHistoryBean shbean = shbeans.next();
+
+					JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+					jsonObjBuilder.add("sellingNumber", shbean.getSellingNumber()).add("purchaseNumber", phbean.getPurchaseNumber()).add("stockId", phbean.getStockId())
+							.add("stockName", stockInfoService.select(stockInfoBean).get(0).getStockName()).add("dateOfPurchase", phbean.getDateOfPurchase().toString())
+							.add("sellingPrice", shbean.getSellingPrice()).add("sellingQuantity", shbean.getSellingQuantity()).add("dateOfSelling", shbean.getDateOfSelling().toString());
+
+					
+					jsonObjBuilder.add("cost", shbean.getCost()).add("income", shbean.getIncome()).add("netIncome", shbean.getNetIncome()).add("netProfitMargin",
+							shbean.getNetProfitMargin());
+
+					jsonArray_builder.add(jsonObjBuilder.build());
+				}
+			}
+		}
+		JsonArray jsonArray = jsonArray_builder.build();
+		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
+		out.write(jsonobj.toString());
 		out.close();
 		return;
 
