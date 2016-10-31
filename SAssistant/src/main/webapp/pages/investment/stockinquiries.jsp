@@ -219,13 +219,13 @@
 							</c:if>
 						</select>
 					</div>
-					<div class="form-group" style="margin: 10px auto">
-						<label class="control-label">日期區間：&nbsp;</label><input type="text"
+					<div class="form-group" style="margin: 10px auto; display: block;">
+						<label class="control-label">日期區間：</label><input type="text"
 							name="startDate" value="${param.startDate}" placeholder="起始日期"
-							style="width: 120px"> <span>${error.stratDate}</span> <label
-							class="control-label">到&nbsp;</label><input type="text"
+							style="width: 120px; display: inline;"> <span>${error.stratDate}</span> 
+						<label class="control-label" style="display: inline;">到 &nbsp;</label><input type="text"
 							name="endDate" value="${param.endDate}" placeholder="終止日期"
-							style="width: 120px"> <span>${error.endDate}</span>
+							style="width: 120px; display: inline;"> <span>${error.endDate}</span>
 					</div>
 					<div class="submit1">
 						<input class="btn btn-primary superbtn" type="submit"

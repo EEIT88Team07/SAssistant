@@ -9,9 +9,9 @@ function selectstockgroups (dom) {
 		};
 function selectstockid (msg) {
     //放入一筆空白的清單
-//	console.log(value2);
+	
+	
 	var s = $('select[name="selectstockcompany"]').val();
-		
    $.each(msg,function(key,value)
    {
    	$.each(value,function(key2,value2)
@@ -20,6 +20,10 @@ function selectstockid (msg) {
    		$('select[name="selectstockid"]').append($("<option></option>").attr("value",value2).text(value2));
    		}
    	});
-//將取得的Json一筆一筆放入清單 		    		
+//將取得的Json一筆一筆放入清單..
+ 	$("#img2").attr('style','display:none');
    });
 };
+function showError(request) {
+	console.log("Error! Status Code="+ request.status+":"+request.statusText);
+}

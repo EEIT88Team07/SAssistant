@@ -31,6 +31,7 @@ import model.DataAnalysisService;
 import model.MembersBean;
 import model.MembersService;
 import model.MyFavouriteBean;
+import model.MyFavouriteService;
 
 @WebServlet("/myfavouriteajax.view")
 public class MyFavouriteAjax extends HttpServlet {
@@ -38,13 +39,14 @@ public class MyFavouriteAjax extends HttpServlet {
 
 	MembersService membersService;
 	DataAnalysisService dataAnalysisService;
+	MyFavouriteService myFavouriteService;
 	private SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
-	@Override
 	public void init() throws ServletException {
 		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
 		dataAnalysisService = (DataAnalysisService) context.getBean("dataAnalysisService");
 		membersService = (MembersService) context.getBean("membersService");
+		myFavouriteService = (MyFavouriteService) context.getBean("myFavouriteService");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -65,33 +67,41 @@ public class MyFavouriteAjax extends HttpServlet {
 			this.onload(request, response);
 		} else if(action!=null && action.equals("getmyfav")) {
 			this.getMyFav(request, response);
+		} else if(action!=null && action.equals("addfavorite") ){
+			this.addfavorite(request, response);
+		} else if(action!=null && action.equals("unfavorite")){
+			this.unfavorite(request, response);
+		} else if(action!=null && action.equals("checkfavorite")){
+			this.checkfavorite(request, response);
 		}
-	
-
 	}
 
 	private void onload(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/plain; charset=UTF-8");
 
-		int num = -20;
+		int num = -5;
 
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
 		MembersBean mb = (MembersBean) session.getAttribute("LoginOK");
 		MembersBean membersBean = new MembersBean();
-		membersBean = membersService.select(mb).get(0);
+		membersBean.setAccount(mb.getAccount());
+		
+		membersBean = membersService.select(membersBean).get(0);
 		Iterator<MyFavouriteBean> myFavBeans = membersBean.getMyFavourite().iterator();
 
 		List<String> myFavs = new ArrayList<String>();
 		while (myFavBeans.hasNext()) {
-			myFavs.add(myFavBeans.next().getStockId());
+			String s =myFavBeans.next().getStockId();
+			myFavs.add(s);
 		}
 		Collections.sort(myFavs);
-
+		
+		
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(calendar.DATE, num);
-
+		
 		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
 		for (int i = 0; i < myFavs.size(); i++) {
 			List<DataAnalysisBean> databeans = dataAnalysisService.selectByFilter(myFavs.get(i), calendar.getTime(),
@@ -112,7 +122,6 @@ public class MyFavouriteAjax extends HttpServlet {
 			}
 		}
 
-	
 		JsonArray jsonArray = jsonArray_builder.build();
 		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
 
@@ -187,7 +196,7 @@ public class MyFavouriteAjax extends HttpServlet {
 
 		}
 
-		System.out.println(result);
+		
 		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
 
 		JsonObject json_databean = null;
@@ -208,10 +217,142 @@ public class MyFavouriteAjax extends HttpServlet {
 		JsonObject jsonObject = Json.createObjectBuilder().add("data", jsonArray).build();
 		// 跳轉到資料 dataAnalysis.jsp
 
-		System.out.println(jsonObject);
+		
 		
 		out.write(jsonObject.toString());
 		out.close();
+		return;
+
+	}
+	private void checkfavorite(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/plain; charset=UTF-8");
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		String temp = request.getParameter("id");
+		HttpSession session = request.getSession();
+		MembersBean mb = (MembersBean) session.getAttribute("LoginOK");
+		MembersBean membersBean = new MembersBean();
+		membersBean.setAccount(mb.getAccount());
+		
+		membersBean = membersService.select(membersBean).get(0);
+		Iterator<MyFavouriteBean> myFavBeans = membersBean.getMyFavourite().iterator();
+		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
+		
+		while (myFavBeans.hasNext()) {
+			JsonObject json_databean = null;
+			String stockId =myFavBeans.next().getStockId();
+			json_databean = Json.createObjectBuilder().add("stockId", stockId)
+					.build();
+			jsonArray_builder.add(json_databean);
+		}
+		
+		
+		JsonArray jsonArray = jsonArray_builder.build();
+		//前面在加data
+		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
+		out.write(jsonobj.toString());
+		out.close();
+		return;
+	}
+	private void addfavorite(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/plain; charset=UTF-8");
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		// 接收資料,發出請求時尋找name名稱存入string
+		PrintWriter out = response.getWriter();
+		
+		String temp = request.getParameter("id");
+	
+		HttpSession session = request.getSession();
+		MembersBean mb = (MembersBean) session.getAttribute("LoginOK");
+		MembersBean membersBean = new MembersBean();
+		membersBean.setAccount(mb.getAccount());
+		
+		membersBean = membersService.select(membersBean).get(0);
+		Iterator<MyFavouriteBean> myFavBeans = membersBean.getMyFavourite().iterator();
+		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
+		
+		/*
+		 * 塞入ID jsoncreateobject
+		 */
+		while (myFavBeans.hasNext()) {
+			JsonObject json_databean = null;
+			String stockId =myFavBeans.next().getStockId();
+			json_databean = Json.createObjectBuilder().add("stockId", stockId)
+					.build();
+			jsonArray_builder.add(json_databean);
+		}
+		
+		
+		JsonObject json_databean = null;
+		MyFavouriteBean bean = new MyFavouriteBean();
+		
+		bean.setAccount(mb.getAccount());
+		bean.setStockId(temp);
+		myFavouriteService.insert(bean);
+		
+		
+		json_databean=Json.createObjectBuilder().add("stockId", temp)
+				.build();
+		jsonArray_builder.add(json_databean);
+		
+		
+		JsonArray jsonArray = jsonArray_builder.build();
+		//前面在加data
+		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
+
+		
+		out.write(jsonobj.toString());
+		out.close();
+		return;
+
+	}
+	private void unfavorite(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/plain; charset=UTF-8");
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		// 接收資料,發出請求時尋找name名稱存入string
+		PrintWriter out = response.getWriter();
+		
+		String temp = request.getParameter("id");
+		
+		HttpSession session = request.getSession();
+		MembersBean mb = (MembersBean) session.getAttribute("LoginOK");
+		MembersBean membersBean = new MembersBean();
+		membersBean.setAccount(mb.getAccount());
+		
+		membersBean = membersService.select(membersBean).get(0);
+		Iterator<MyFavouriteBean> myFavBeans = membersBean.getMyFavourite().iterator();
+		JsonArrayBuilder jsonArray_builder = Json.createArrayBuilder();
+		
+		MyFavouriteBean bean = new MyFavouriteBean();
+		bean.setAccount(mb.getAccount());
+		bean.setStockId(temp);
+		myFavouriteService.delete(bean);
+		/*
+		 * 塞入ID jsoncreateobject
+		 */
+		while (myFavBeans.hasNext()) {
+			JsonObject json_databean = null;
+			String stockId =myFavBeans.next().getStockId();
+			json_databean = Json.createObjectBuilder().add("stockId", stockId)
+					.build();
+			jsonArray_builder.add(json_databean);
+		}
+		
+		JsonArray jsonArray = jsonArray_builder.build();
+		//前面在加data
+		JsonObject jsonobj = Json.createObjectBuilder().add("data", jsonArray).build();
+
+	
+		out.write(jsonobj.toString());
+		out.close();
+		
 		return;
 
 	}
