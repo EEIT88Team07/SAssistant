@@ -44,20 +44,17 @@ public class LoginFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
 			String servletPath = req.getServletPath();
-			System.out.println("111--->" + servletPath);
 			if(mustLogin(servletPath)){
 				if(checkLogin(req)){
-					System.out.println("222--->需要Login，已經Login");
 					chain.doFilter(request, response);
 				}else{
 					HttpSession session = req.getSession();
 					session.setAttribute("target", req.getServletPath());
-					System.out.println("333--->需要Login，尚未Login，servletPath=" + req.getServletPath());
+					
 					RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 					rd.forward(req, resp);
 				}
 			}else{
-				System.out.println("444--->不需要Login");
 				chain.doFilter(request, response);
 			}
 		}else{

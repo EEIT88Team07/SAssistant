@@ -7,9 +7,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import model.PurchaseHistoryBean;
-import model.PurchaseHistoryBeanDAO;
+import model.PurchaseHistoryDAO;
 
-public class PurchaseHistoryDAOHibernate implements PurchaseHistoryBeanDAO {
+public class PurchaseHistoryDAOHibernate implements PurchaseHistoryDAO {
+
+
+
 	private SessionFactory sessionFactory = null;
 
 	public PurchaseHistoryDAOHibernate(SessionFactory sessionFactory) {
@@ -18,10 +21,6 @@ public class PurchaseHistoryDAOHibernate implements PurchaseHistoryBeanDAO {
 
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
-	}
-
-	public PurchaseHistoryBean select(PurchaseHistoryBean bean) {
-		return (PurchaseHistoryBean) this.getSession().get(PurchaseHistoryBean.class, bean);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -61,5 +60,16 @@ public class PurchaseHistoryDAOHibernate implements PurchaseHistoryBeanDAO {
 			return true;
 		}
 		return false;
+	}
+
+	public PurchaseHistoryBean select(String purchaseNumber) {
+		return (PurchaseHistoryBean) this.getSession().get(PurchaseHistoryBean.class, purchaseNumber);
+	}
+
+	public List<PurchaseHistoryBean> selectByAccount(String account) {
+		Query query = this.getSession().createQuery("from PurchaseHistoryBean P where P.account = :account ");
+		query.setParameter("account", account);
+		return (List<PurchaseHistoryBean>) query.list();
+
 	}
 }

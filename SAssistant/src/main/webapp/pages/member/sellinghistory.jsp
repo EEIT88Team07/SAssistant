@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +29,6 @@
 <script src="${pageContext.request.contextPath}/js/init.js"></script>
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
-<script src="${pageContext.request.contextPath}/js/selling.js"></script>
 
 <!-- basic -->
 
@@ -69,7 +69,6 @@
 	$(document).ready(
 
 	function() {
-
 		var table1 = $('#datatable').DataTable({
 			"language" : {
 				"emptyTable" : "沒有數據",
@@ -79,173 +78,39 @@
 				"sInfoEmpty" : "每頁   0 of 0 條紀錄"
 			},
 			"ajax" : {
-				"url" : contextPath + "/transajax.view",
+				"url" : contextPath + "/sellingajax.view",
 				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
 				"data" : function(d) {
-					d.action = "getPurchaseHistory";
+					d.action = "getSellingHistory";
 				}
-			},
-			"initComplete" : function() {
-				$('#datatable>tbody>tr td:last-child').css("width", "200px");
-				var api = this.api();
-				api.$('tr').click(function() {
-					var stockId = this.childNodes[0].childNodes[1].childNodes[0].value;
-					var dateOfPurchase = this.childNodes[2].childNodes[0].childNodes[0].value;
-					var purchasePrice = this.childNodes[3].childNodes[0].childNodes[0].value;
-					var purchaseQuantity = this.childNodes[4].childNodes[0].childNodes[0].value;
-					var stopLossLimit = this.childNodes[6].childNodes[0].childNodes[0].value;
-					var takeProfitLimit = this.childNodes[7].childNodes[0].childNodes[0].value;
-					var purchaseNumber = this.childNodes[0].childNodes[0].value;
-					var button_edit = this.childNodes[8].childNodes[0].value;
-					var button_delete = this.childNodes[8].childNodes[1].value;
-					var button_selling = this.childNodes[8].childNodes[2].value;
-
-					$('input[name="edit"]').click(function() {
-						var url = contextPath + "/transhistory.controller?stockId=" + stockId + "&dateOfPurchase=" + dateOfPurchase + "&purchasePrice=" + purchasePrice + "&purchaseQuantity=" + purchaseQuantity + "&stopLossLimit=" + stopLossLimit + "&takeProfitLimit=" + takeProfitLimit + "&purchaseNumber=" + purchaseNumber + "&action=" + button_edit;
-						document.location.href = url;
-					});
-					$('input[name="delete"]').click(function() {
-						var url = contextPath + "/transhistory.controller?stockId=" + stockId + "&dateOfPurchase=" + dateOfPurchase + "&purchasePrice=" + purchasePrice + "&purchaseQuantity=" + purchaseQuantity + "&stopLossLimit=" + stopLossLimit + "&takeProfitLimit=" + takeProfitLimit + "&purchaseNumber=" + purchaseNumber + "&action=" + button_delete;
-
-						document.location.href = url;
-					});
-					$('input[name="selling"]').click(function() {
-						var url = contextPath + "/sellinghistory.controller?&purchaseNumber=" + purchaseNumber + "&action=" + button_selling;
-
-						document.location.href = url;
-					});
-
-				});
 			},
 			"columns" : [ {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<input type="text" name="purchaseNumber" style="display:none" value='+row.purchaseNumber+'><div style="margin:0 auto"><input style="width:60px" name="stockId" type="text" value='+row.stockId+'></div>'
-				}
-			}, {
+				"data" : "stockId"
+			},{
 				"data" : "stockName"
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:100px" name="dateOfPurchase" type="text" value='+row.dateOfPurchase+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:80px" name="purchasePrice" type="text" value='+row.purchasePrice+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:80px" name="purchaseQuantity" type="text" value='+row.purchaseQuantity+'></div>'
-				}
-			}, {
-				"data" : "investment"
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:50px" name="stopLossLimit" type="text" value='+row.stopLossLimit+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:50px" name="takeProfitLimit" type="text" value='+row.takeProfitLimit+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<input style="margin-right: 10px;display: inline-block; float: left;" name="edit" type="button" value="更新"><input style="margin-right: 10px;display: inline-block ;float: left;" name="delete" type="button" value="刪除"><input style="margin-right: 10px;display: inline-block; float: left;" name="selling" type="button" value="賣出">'
-				}
-
+			},{
+				"data" : "dateOfPurchase"
+			},{
+				"data" : "sellingPrice"
+			},{
+				"data" : "sellingQuantity"
+			},{
+				"data" : "dateOfSelling"
+			},{
+				"data" : "total"
+			},{
+				"data" : "cost"
+			},{
+				"data" : "income"
+			},{
+				"data" : "netIncome"
+			},{
+				"data" : "netProfitMargin"
 			} ]
 
 		});
 
-		/* Add events */
-
 	});
-
-	/*彈出表單*/
-	$(function() {
-		var dialog, form;
-		var stockId = $("#stockId");
-		var dateOfPurchase = $("#dateOfPurchase");
-		var purchasePrice = $("#purchasePrice");
-		var purchaseQuantity = $("#purchaseQuantity");
-		var stopLossLimit = $("#stopLossLimit");
-		var takeProfitLimit = $("#takeProfitLimit");
-		var allFields = $([]).add(stockId).add(dateOfPurchase).add(purchasePrice).add(purchaseQuantity).add(stopLossLimit).add(takeProfitLimit);
-		var tips = $(".validateTips");
-		function updateTips(t) {
-			tips.text(t).addClass("ui-state-highlight");
-			setTimeout(function() {
-				tips.removeClass("ui-state-highlight", 1500);
-			}, 500);
-		}
-
-		function checkLength(o, n, min, max) {
-			if (o.val().length > max || o.val().length < min) {
-				o.addClass("ui-state-error");
-				updateTips(n + "的長度必須等於" + max);
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		function checkRegexp(o, regexp, n) {
-			if (!(regexp.test(o.val()))) {
-				o.addClass("ui-state-error");
-				updateTips(n);
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		function addtrans() {
-			var valid = true;
-			allFields.removeClass("ui-state-error");
-
-			valid = valid && checkLength(stockId, "股票代碼", 4, 4);
-			valid = valid && checkRegexp(purchasePrice, /^[0-9]+\.?[0-9]*$/, "購買價格必須為正的整數或浮點數");
-			valid = valid && checkRegexp(purchaseQuantity, /^[0-9]+\.?[0-9]*$/, "購買數量必須為正的整數或浮點數");
-			if (valid) {
-				var url = contextPath + "/transhistory.controller?stockId=" + stockId.val() + "&dateOfPurchase=" + dateOfPurchase.val() + "&purchasePrice=" + purchasePrice.val() + "&purchaseQuantity=" + purchaseQuantity.val() + "&stopLossLimit=" + stopLossLimit.val() + "&takeProfitLimit=" + takeProfitLimit.val() + "&action=新增";
-
-				document.location.href = url;
-
-				dialog.dialog("close");
-			}
-		}
-
-		dialog = $("#dialog-form").dialog({
-			autoOpen : false,
-			height : 400,
-			width : 350,
-			modal : true,
-			buttons : {
-				"新增" : addtrans,
-				取消 : function() {
-					dialog.dialog("close");
-				}
-			},
-			取消 : function() {
-				form[0].reset();
-				allFields.removeClass("ui-state-error");
-			}
-		});
-
-		form = dialog.find("form").on("submit", function(event) {
-			event.preventDefault();
-			addtrans();
-		});
-
-		$("#create-user").button().on("click", function() {
-			dialog.dialog("open");
-		});
-	});
-	/*彈出表單*/
 </script>
 
 </head>
@@ -253,20 +118,16 @@
 
 	<!-- Header -->
 	<div id="header">
-		<div style="float: right; margin: 30px">
-			<c:if test="${empty LoginOK }">
-				<a href="#" style="font-size: 24px">註冊</a>
-			</c:if>
+		<div style="float: right; margin: 30px;">
+			<a href="#" style="font-size: 24px">註冊</a>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
@@ -304,6 +165,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
 						</ul></li>
+
 				</ul>
 				</nav>
 			</div>
@@ -319,7 +181,7 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="searchform">
+		<div id="searchform" style="border: black 5px solid;">
 
 			<div id="datatablediv" style="margin: 50px;">
 				<div>
@@ -340,11 +202,14 @@
 							<th>股票代碼</th>
 							<th>股票名稱</th>
 							<th>購買日期</th>
-							<th>購買價格</th>
-							<th>購買數量</th>
-							<th>投資額</th>
-							<th>停損點</th>
-							<th>停利點</th>
+							<th>賣出價格</th>
+							<th>賣出數量</th>
+							<th>賣出日期</th>
+							<th>賣出總額</th>
+							<th>成本</th>
+							<th>收入</th>
+							<th>淨利</th>
+							<th>淨利率</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -385,6 +250,16 @@
 				</fieldset>
 			</form>
 		</div>
+
+		<form style="display: none;"
+			action="<c:url value="/transhistory.controller" />" name="fileinfo"
+			method="POST">
+			<input type="text" name="action" value="刪除"> <input
+				type="submit">
+		</form>
+
+
+
 
 
 		<!-- /Main -->

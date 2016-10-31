@@ -34,6 +34,42 @@
 <script src="${pageContext.request.contextPath}/js/init.js"></script>
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
+<script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/candlestick.js"></script>
+
+<!-- JQuery -->
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+	$(document).ready(function() {
+
+		var strUrl = location.search;
+		var stockid = "";
+		if (strUrl.indexOf("?") != -1) {
+			var getSearch = strUrl.split("?");
+			var getPara = getSearch[1].split("&");
+			for (i = 0; i < getPara.length; i++) {
+				var ParaVal = getPara[0].split("=");
+				stockid = ParaVal[1];
+			}
+		}
+
+		if (stockid.length == 0) {
+			stockid = $('td[name="stockIdTable"]').text()
+		}
+		if (stockid.length != 0) {
+
+			$.ajax({
+				"method" : "GET",
+				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+				"dataType" : "json",
+				"data" : "action=getCandPara&id=" + stockid,
+				"url" : contextPath + "/dataAnalysis.view",
+				"cache" : false,
+				"success" : getCandlestick
+			})
+		}
+	});
+</script>
 
 </head>
 <body class="homepage">
@@ -44,14 +80,12 @@
 			<a href="#" style="font-size: 24px">註冊</a>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
@@ -59,7 +93,8 @@
 
 			<!-- Logo -->
 			<div id="logo">
-				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+				<a href="${pageContext.request.contextPath}/index.jsp"><img
+					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
 			<div id="fdw">
 				<nav>
@@ -102,35 +137,37 @@
 			<div class="container"></div>
 		</div>
 		<!-- /圖片 -->
-			<!-- Main -->
+		<!-- Main -->
 		<div style="border: black 5px solid; display: block;">
 			<div style="margin: 20px;">
-			
+
 				<div class="search1" align="center">
 					<!-- 輸入表格 -->
-					<div id="auto_content" class="pic"></div>  
+					<div id="auto_content" class="pic"></div>
 					<!-- 					指定位置 -->
-					<form action="<c:url value="/stockCompany.controller" />" method="post" class="form-inline">
+					<form action="<c:url value="/stockCompany.controller" />"
+						method="post" class="form-inline">
 						<div class="form-group">
-							<label class="control-label">股票產業：</label>					
-							<select name="selectstockcompany"></select>
-							<label class="control-label">股票代碼：</label>
-							<select name="selectstockid"></select>
+							<label class="control-label">股票產業：</label> <select
+								name="selectstockcompany" style="width: 150px;"></select> <label
+								class="control-label">股票代碼：</label> <select name="selectstockid"
+								style="width: 150px;"></select>
 						</div>
 						<div class="submit1" style="display: inline;">
-							<input class="btn btn-primary superbtn" type="submit" name="datanysis" value="Select">
+							<input class="btn btn-primary superbtn" type="submit"
+								name="datanysis" value="Select">
 						</div>
 					</form>
 				</div>
 				<!-- 			顯示表格 -->
-				<table id="output" style="margin: 30px; ">
+				<table id="output" style="margin: 30px;">
 					<!-- 直接用foreach做循環表單 -->
 					<!-- var bean物件 EL取得servlet的request 裡key value 的select -->
 					<tbody>
 						<c:if test="${not empty select}">
 							<c:forEach var="bean" items="${select}">
 								<table width="600" border="0" cellspacing="0" cellpadding="0"
-									align="left" style="margin-left:250px;">
+									align="left" style="margin-left: 250px;">
 									<tr align="center" bgcolor="#ACD6FF">
 										<td height="26" width="600" align="center"
 											style="font-weight: bold">公 司 基 本 資 料</td>
@@ -142,7 +179,8 @@
 										<tr bgcolor="#FFFFFF">
 											<td width="12%" bgcolor="#DDDDFF" height="25px"
 												style="font-weight: bold">股票代碼</td>
-											<td width="30%" align="left" height="25px">${bean.stockId}</td>
+											<td name="stockIdTable" width="30%" align="left"
+												height="25px">${bean.stockId}</td>
 											<td width="12%" bgcolor="#DDDDFF" height="25px"
 												style="font-weight: bold">股本</td>
 											<td width="20%" align="center" height="25px">${bean.capitalStock}</td>
@@ -212,7 +250,9 @@
 						</c:if>
 					</tbody>
 				</table>
-				<div style="display: inline; background-color: red; margin: 150px" align="right">123</div>
+				<div id="candlestick"
+					style="width: 600px; height: 400px; display: inline-block; margin-left: 150px"
+					align="right"></div>
 			</div>
 			<div style="background-color: #FFFFFF; margin: 350px"></div>
 		</div>
@@ -228,56 +268,56 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
-		
-	<script type="text/javascript">
-$(document).ready(function() {
-	
-	//tablesoter style啟動
-	 
-	//頁面跳轉指定位置 jquery
-	$(function(){    
-	window.location.hash ="#auto_content";     
-	});
-	
-	jQuery.support.cors = true;
-	
-	//指定ajax 讀取json網頁
-	var contextPath = "${pageContext.request.contextPath}";
-	$.ajax({
-		"method": "GET",
-		"contentType": "application/x-www-form-urlencoded; charset=UTF-8",
-		"dataType": "json",
-		"data": "action=groupname",
-		"url": contextPath+"/groupInfo.view",
-		"cache": false,
-	    "success": selectstockgroups,//呼叫外面的JS function 
-	  	 error: function (xhr, ajaxOptions, thrownError) {
-	     alert(xhr.status);
-	   }
-	});
-	
-	$('select[name="selectstockcompany"]').change(function() {
-		clearForm();
-		$.ajax({
-			"method": "GET",
-			"contentType": "application/x-www-form-urlencoded; charset=UTF-8",
-			"dataType": "json",
-			"url": contextPath+"/groupInfo.view",
-			"data": "action=stockids",
-			"cache": false,
-		    "success": selectstockid ,
-		   error: function (xhr, ajaxOptions, thrownError) {
-		     alert(xhr.status);
-		   }
-		});
-	});
-});
 
-function clearForm() {
-	$('select[name="selectstockid"]').val("");
-	$('select[name="selectstockid"]').first().empty();
-}
-</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			//tablesoter style啟動
+
+			//頁面跳轉指定位置 jquery
+			$(function() {
+				window.location.hash = "#auto_content";
+			});
+
+			jQuery.support.cors = true;
+
+			//指定ajax 讀取json網頁
+			var contextPath = "${pageContext.request.contextPath}";
+			$.ajax({
+				"method" : "GET",
+				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+				"dataType" : "json",
+				"data" : "action=groupname",
+				"url" : contextPath + "/groupInfo.view",
+				"cache" : false,
+				"success" : selectstockgroups,//呼叫外面的JS function 
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+				}
+			});
+
+			$('select[name="selectstockcompany"]').change(function() {
+				clearForm();
+				$.ajax({
+					"method" : "GET",
+					"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+					"dataType" : "json",
+					"url" : contextPath + "/groupInfo.view",
+					"data" : "action=stockids",
+					"cache" : false,
+					"success" : selectstockid,
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(xhr.status);
+					}
+				});
+			});
+		});
+
+		function clearForm() {
+			$('select[name="selectstockid"]').val("");
+			$('select[name="selectstockid"]').first().empty();
+		}
+	</script>
 
 	<script>
 		(function() { // DON'T EDIT BELOW THIS LINE

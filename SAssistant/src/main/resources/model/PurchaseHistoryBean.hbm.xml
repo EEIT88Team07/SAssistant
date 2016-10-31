@@ -4,7 +4,7 @@
 <!-- Generated 2016/10/12 ?W?? 10:06:59 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="model.PurchaseHistoryBean" table="PURCHASEHISTORY">
-		<id name="purchaseNumber" type="int">
+		<id name="purchaseNumber" type="java.lang.String">
 			<column name="PURCHASENUMBER" />
 			<generator class="assigned" />
 		</id>
@@ -37,5 +37,12 @@
         </property>
         
         <many-to-one name="members" class="model.MembersBean" column="ACCOUNT" insert="false" update="false"></many-to-one>
+        
+        
+         <set name="sellingHistory" table="SELLINGHISTORY" inverse="true" cascade="delete">
+        	<key column="PURCHASENUMBER" />
+        	<one-to-many class="model.SellingHistoryBean" />
+        </set>
+        
     </class>
 </hibernate-mapping>
