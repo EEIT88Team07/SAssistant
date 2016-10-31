@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016/10/18 ?W?? 10:06:49 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="model.StockCompanyBean" table="STOCKCOMPANY">
+        <id name="stockId" type="java.lang.String">
+            <column name="STOCKID" />
+            <generator class="assigned" />
+        </id>
+        <property name="establishDate" type="java.lang.String">
+            <column name="ESTABLISHDATE" />
+        </property>
+        <property name="publicCompanyDate" type="java.lang.String">
+            <column name="PUBLICCOMPANYDATE" />
+        </property>
+        <property name="chairman" type="java.lang.String">
+            <column name="CHAIRMAN" />
+        </property>
+        <property name="generalManager" type="java.lang.String">
+            <column name="GENERALMANAGER" />
+        </property>
+        <property name="spokesman" type="java.lang.String">
+            <column name="SPOKESMAN" />
+        </property>
+        <property name="capitalStock" type="java.lang.String">
+            <column name="CAPITALSTOCK" />
+        </property>
+        <property name="cashDividend" type="java.lang.String">
+            <column name="CASHDIVIDEND" />
+        </property>
+        <property name="stockDividend" type="java.lang.String">
+            <column name="STOCKDIVIDEND" />
+        </property>
+        <property name="sdre" type="java.lang.String">
+            <column name="SDRE" />
+        </property>
+        <property name="sdcr" type="java.lang.String">
+            <column name="SDCR" />
+        </property>
+        <property name="smDate" type="java.lang.String">
+            <column name="SMDATE" />
+        </property>
+        <property name="serviceAgent" type="java.lang.String">
+            <column name="SERVICEAGENT" />
+        </property>
+        <property name="companyPhone" type="java.lang.String">
+            <column name="COMPANYPHONE" />
+        </property>
+        <property name="ofRevenue" type="java.lang.String">
+            <column name="OFREVENUE" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="URL" />
+        </property>
+        <property name="factory" type="java.lang.String">
+            <column name="FACTORY" />
+        </property>
+        
+        <one-to-one name="stockInfo" class="model.StockInfoBean" fetch="select"/>
+    </class>
+</hibernate-mapping>

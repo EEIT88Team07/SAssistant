@@ -43,7 +43,9 @@
 	$(document).ready(function() {
 
 		var strUrl = location.search;
-		var stockid = "";
+		var bean ='<%=request.getAttribute("select").toString()%>';
+		var id_index = bean.search("stockId");
+		var stockid;
 		if (strUrl.indexOf("?") != -1) {
 			var getSearch = strUrl.split("?");
 			var getPara = getSearch[1].split("&");
@@ -51,13 +53,12 @@
 				var ParaVal = getPara[0].split("=");
 				stockid = ParaVal[1];
 			}
+		} else if (strUrl.indexOf("?") == -1 && bean.length != 0) {
+			stockid = bean.substring(id_index + 8, id_index + 12);
 		}
 
-		if (stockid.length == 0) {
-			stockid = $('td[name="stockIdTable"]').text()
-		}
+		console.log(stockid);
 		if (stockid.length != 0) {
-
 			$.ajax({
 				"method" : "GET",
 				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -68,6 +69,7 @@
 				"success" : getCandlestick
 			})
 		}
+
 	});
 </script>
 
@@ -89,11 +91,10 @@
 		</div>
 
 		<!-- 標題 -->
-	<div style="margin: 0">
+		<div class="container">
 
 			<!-- Logo -->
-
-			<div style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+			<div id="logo">
 				<a href="${pageContext.request.contextPath}/index.jsp"><img
 					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
@@ -116,12 +117,15 @@
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
+								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
+								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
+					<li><a href="#">contact</a></li>
 				</ul>
 				</nav>
 			</div>
@@ -137,19 +141,23 @@
 		</div>
 		<!-- /圖片 -->
 		<!-- Main -->
-		<div style="display: block;">
+		<div style="border: black 5px solid; display: block;">
 			<div style="margin: 20px;">
 
 				<div class="search1" align="center">
 					<!-- 輸入表格 -->
-
+					<div id="auto_content" class="pic"></div>
+					<!-- 					指定位置 -->
 					<form action="<c:url value="/stockCompany.controller" />"
 						method="post" class="form-inline">
 						<div class="form-group">
 							<label class="control-label">股票產業：</label> <select
-								name="selectstockcompany" style="width: 150px;"></select> <label
-								class="control-label">股票代碼：</label> <select name="selectstockid"
-								style="width: 150px;"></select>
+								name="selectstockcompany" style="width: 120px">
+
+							</select> <label class="control-label">股票代碼：</label> <select
+								name="selectstockid" style="width: 120px">
+
+							</select>
 						</div>
 						<div class="submit1" style="display: inline;">
 							<input class="btn btn-primary superbtn" type="submit"
@@ -157,6 +165,7 @@
 						</div>
 					</form>
 				</div>
+				
 				<!-- 			顯示表格 -->
 				<table id="output" style="margin: 30px;">
 					<!-- 直接用foreach做循環表單 -->
@@ -165,7 +174,7 @@
 						<c:if test="${not empty select}">
 							<c:forEach var="bean" items="${select}">
 								<table width="600" border="0" cellspacing="0" cellpadding="0"
-									align="left" style="margin-left: 250px;">
+									align="left" style="margin-left: 150px; margin-bottom: 200px">
 									<tr align="center" bgcolor="#ACD6FF">
 										<td height="26" width="600" align="center"
 											style="font-weight: bold">公 司 基 本 資 料</td>
@@ -177,8 +186,7 @@
 										<tr bgcolor="#FFFFFF">
 											<td width="12%" bgcolor="#DDDDFF" height="25px"
 												style="font-weight: bold">股票代碼</td>
-											<td name="stockIdTable" width="30%" align="left"
-												height="25px">${bean.stockId}</td>
+											<td id="getstockid" width="30%" align="left" height="25px">${bean.stockId}</td>
 											<td width="12%" bgcolor="#DDDDFF" height="25px"
 												style="font-weight: bold">股本</td>
 											<td width="20%" align="center" height="25px">${bean.capitalStock}</td>
@@ -269,6 +277,16 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+			//tablesoter style啟動
+
+			//頁面跳轉指定位置 jquery
+			$(function() {
+				window.location.hash = "#auto_content";
+			});
+
+			jQuery.support.cors = true;
+
 			//指定ajax 讀取json網頁
 			var contextPath = "${pageContext.request.contextPath}";
 			$.ajax({
