@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016/10/19 ?U?? 04:43:48 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="model.RSVBean" table="RSV">
+		<composite-id>
+			<key-property name="stockId" type="java.lang.String"
+				column="STOCKID" />
+			<key-property name="buildDate" type="java.lang.String"
+				column="BUILDDATE" />
+		</composite-id>
+		<property name="rSV" type="java.lang.Double" access="field">
+			<column name="RSV" />
+		</property>
+		<property name="k" type="java.lang.Double">
+			<column name="K" />
+		</property>
+		<property name="d" type="java.lang.Double">
+			<column name="D" />
+		</property>
+	</class>
+</hibernate-mapping>
