@@ -137,13 +137,12 @@
 		</div>
 		<!-- /圖片 -->
 		<!-- Main -->
-		<div style="border: black 5px solid; display: block;">
+		<div style="display: block;">
 			<div style="margin: 20px;">
 
 				<div class="search1" align="center">
 					<!-- 輸入表格 -->
-					<div id="auto_content" class="pic"></div>
-					<!-- 					指定位置 -->
+
 					<form action="<c:url value="/stockCompany.controller" />"
 						method="post" class="form-inline">
 						<div class="form-group">
@@ -270,16 +269,6 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-			//tablesoter style啟動
-
-			//頁面跳轉指定位置 jquery
-			$(function() {
-				window.location.hash = "#auto_content";
-			});
-
-			jQuery.support.cors = true;
-
 			//指定ajax 讀取json網頁
 			var contextPath = "${pageContext.request.contextPath}";
 			$.ajax({
