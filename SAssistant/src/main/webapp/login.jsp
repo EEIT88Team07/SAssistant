@@ -35,11 +35,6 @@ function setFocusToUserId(){
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script
 	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
-<script>
-	$(function() {
-		$("#dialog").dialog();
-	});
-</script>
 </head>
 <body onLoad="setFocusToUserId()" style="background:#EBFFEB;">
 <!-- 下列敘述設定變數funcName的值為LOG，top.jsp 會用到此變數 -->
@@ -48,14 +43,12 @@ function setFocusToUserId(){
 <c:if test="${ ! empty sessionScope.timeOut }" > <!-- 表示使用逾時，重新登入 -->
    <c:set var="msg" value="<font color='red'>${sessionScope.timeOut}</font>" />
 </c:if>
-<c:set var="loginMessage" scope="request">
-<div id="dialog" title="login">
 <Form action="<c:url value='/login.controller' />" method="POST" name="loginForm">
-    <Table width='300px' style="border-width:2; background:#E0E0E0; 
+    <Table width='600px' style="border-width:2; background:#E0E0E0; 
                         border-style:inset; border-color:#EF02A4;" align="center">
          <TR>
-             <TH width="200">&nbsp;</TH>
-             <TH width="200">&nbsp;</TH>
+             <TH width="400">&nbsp;</TH>
+             <TH width="400">&nbsp;</TH>
          </TR>
          <TR>
              <TD colspan='2' align="CENTER" style="font-size:0.6cm;font-weight: 350;"> 
@@ -114,8 +107,5 @@ function setFocusToUserId(){
          </TR>
     </Table>
 </Form>
-</div>
-</c:set>
-<jsp:forward page="/index.jsp"/>
 </body>
 </html>
