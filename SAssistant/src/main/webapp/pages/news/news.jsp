@@ -132,7 +132,7 @@
 		<!-- Main -->
 		<div id="show" style="width: 95%; margin: 20px;" >
 			<table style="border:3px solid #01B468; border-collapse: collapse;">
-				<tr align="center"><td style="font-size: 20px;">yahoo台股盤勢</td><td style="font-size: 20px;">yahoo盤勢分析</td><td style="font-size: 20px;">yahoo個股動態</td></tr>
+				<tr align="center"><td style="font-size: 20px;">台股盤勢</td><td style="font-size: 20px;">盤勢分析</td><td style="font-size: 20px;">個股動態</td></tr>
 				<tr>
 					<td>
 						<%@ page import="org.jsoup.*" %>

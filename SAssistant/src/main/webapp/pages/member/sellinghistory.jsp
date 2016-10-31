@@ -128,6 +128,19 @@
 			} ],
 			"initComplete" : function() {
 				$('#datatable>tbody>tr td:last-child').css("width", "200px");
+				
+				//Datepicker
+				$('input[name="dateOfSelling"]').attr("readonly", true).datepicker({
+					"defaultDate" : new Date(),
+					"changeMonth" : true,
+					"changeYear" : true,
+					"dateFormat" : "yy-mm-dd",
+					"altFormat" : "yy/mm/dd",
+					"numberOfMonths" : 1,
+					"maxDate" : new Date(),
+					"minDate" : new Date(2005, 1 - 1, 1)
+				});
+				
 				var api = this.api();
 				api.$('tr').click(function() {
 					var purchaseNumber = this.childNodes[0].childNodes[0].value;

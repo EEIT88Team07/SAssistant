@@ -63,17 +63,27 @@
 
 
 <!-- Datatable -->
-<script type="text/javascript">
-	//auto expand textarea
-	function adjust_textarea(h) {
-		h.style.height = "20px";
-		h.style.height = (h.scrollHeight) + "px";
-	}
-</script>
+
 
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300'
 	rel='stylesheet' type='text/css'>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('input[name="dateOfSelling"]').attr("readonly", true).datepicker({
+			"defaultDate" : new Date(),
+			"changeMonth" : true,
+			"changeYear" : true,
+			"dateFormat" : "yy-mm-dd",
+			"altFormat" : "yy/mm/dd",
+			"numberOfMonths" : 1,
+			"maxDate" : new Date(),
+			"minDate" : new Date(2005, 1 - 1, 1)
+		});
+	})
+</script>
+
 
 
 </head>
@@ -178,9 +188,9 @@
 					<div style="margin: 20px;">
 						<label>賣出價格:</label><input type="text" name="sellingPrice" /> <label>賣出數量:</label><input
 							type="text" name="sellingQuantity" /> <label>賣出日期:</label><input
-							type="text" name="dateOfSelling"/> <input
-							name="action" type="submit" value="送出" /><input type="button"
-							value="取消" style="margin-left: 20px">
+							type="text" name="dateOfSelling" /> <input name="action"
+							type="submit" value="送出" /><input type="button" value="取消"
+							style="margin-left: 20px">
 					</div>
 				</form>
 			</c:if>

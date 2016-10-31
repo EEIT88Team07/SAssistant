@@ -87,6 +87,20 @@
 			},
 			"initComplete" : function() {
 				$('#datatable>tbody>tr td:last-child').css("width", "200px");
+				
+				//Datepicker
+				$('input[name="dateOfPurchase"]').attr("readonly", true).datepicker({
+					"defaultDate" : new Date(),
+					"changeMonth" : true,
+					"changeYear" : true,
+					"dateFormat" : "yy-mm-dd",
+					"altFormat" : "yy/mm/dd",
+					"numberOfMonths" : 1,
+					"maxDate" : new Date(),
+					"minDate" : new Date(2005, 1 - 1, 1)
+				});
+
+				
 				var api = this.api();
 				api.$('tr').click(function() {
 					var stockId = this.childNodes[0].childNodes[1].childNodes[0].value;
@@ -161,8 +175,7 @@
 
 		});
 
-		/* Add events */
-
+	
 	});
 
 	/*彈出表單*/
@@ -259,14 +272,12 @@
 			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
