@@ -13,6 +13,7 @@ import model.MembersDAO;
 public class MembersHibernateDAO implements MembersDAO {
 	private SessionFactory sessionFactory = null;// bean
 
+	
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -21,12 +22,10 @@ public class MembersHibernateDAO implements MembersDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Override
 	public MembersBean select(String account) {
 		return this.getSession().get(MembersBean.class, account);// 一般儲存方法
 	}
 
-	@Override
 	public MembersBean insert(MembersBean bean) {
 		MembersBean result = (MembersBean) this.getSession().get(MembersBean.class, bean.getAccount()); // hibernate要先select
 																										// 才能儲存
@@ -36,7 +35,6 @@ public class MembersHibernateDAO implements MembersDAO {
 		return bean;
 	}
 
-	@Override
 	public boolean update(String password, String name, Integer gender, String phone, String email, Date birthday,
 			String account) {
 		MembersBean result = (MembersBean) this.getSession().get(MembersBean.class, account);
@@ -53,7 +51,6 @@ public class MembersHibernateDAO implements MembersDAO {
 		return false;
 	}
 
-	@Override
 	public boolean delete(String account) {
 		MembersBean result = (MembersBean) this.getSession().get(MembersBean.class, account);
 		if (result != null) {
@@ -63,8 +60,6 @@ public class MembersHibernateDAO implements MembersDAO {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<MembersBean> select() {
 		Query query = this.getSession().createQuery("from MembersBean");
 		return (List<MembersBean>) query.list();

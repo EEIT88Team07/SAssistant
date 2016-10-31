@@ -1,12 +1,13 @@
 package model;
 
-import java.sql.Date;
+import java.util.Set;
 
 public class PurchaseHistoryBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer purchaseNumber;
+
+	private String purchaseNumber;
 	private String stockId;
-	private Date dateOfPurchase;
+	private java.util.Date dateOfPurchase;
 	private Double purchasePrice;
 	private Double purchaseQuantity;
 	private Double investment;
@@ -14,7 +15,7 @@ public class PurchaseHistoryBean implements java.io.Serializable {
 	private Double takeProfitLimit;
 	private Double dividendYield;
 	private String account;
-	
+
 	private MembersBean members;	
 	public MembersBean getMembers() {
 		return members;
@@ -23,17 +24,30 @@ public class PurchaseHistoryBean implements java.io.Serializable {
 		this.members = members;
 	}
 	
+	
+	private Set<SellingHistoryBean> sellingHistory;
+
+	public Set<SellingHistoryBean> getSellingHistory() {
+		return sellingHistory;
+	}
+	public void setSellingHistory(Set<SellingHistoryBean> sellingHistory) {
+		this.sellingHistory = sellingHistory;
+	}
+
+
+	
+	
+	
 	@Override
 	public String toString() {
-		return "PurchaseHistoryBean [stockid=" + stockId + ", dateofpurchase=" + dateOfPurchase + ", purchaseprice="
-				+ purchasePrice + ", purchasequantity=" + purchaseQuantity + ", investment=" + investment
-				+ ", stoplosslimit=" + stopLossLimit + ", takeprofitlimit=" + takeProfitLimit + ", dividendyield="
-				+ dividendYield + ", account=" + account + "]";
+		return "PurchaseHistoryBean [purchaseNumber=" + purchaseNumber + ", stockId=" + stockId + ", dateOfPurchase=" + dateOfPurchase + ", purchasePrice=" + purchasePrice + ", purchaseQuantity="
+				+ purchaseQuantity + ", investment=" + investment + ", stopLossLimit=" + stopLossLimit + ", takeProfitLimit=" + takeProfitLimit + ", dividendYield=" + dividendYield + ", account="
+				+ account + ", members=" + members + ", sellingHistory=" + sellingHistory.size() + "]";
 	}
-	public Integer getPurchaseNumber() {
+	public String getPurchaseNumber() {
 		return purchaseNumber;
 	}
-	public void setPurchaseNumber(Integer purchaseNumber) {
+	public void setPurchaseNumber(String purchaseNumber) {
 		this.purchaseNumber = purchaseNumber;
 	}
 	public String getStockId() {
@@ -42,11 +56,11 @@ public class PurchaseHistoryBean implements java.io.Serializable {
 	public void setStockId(String stockId) {
 		this.stockId = stockId;
 	}
-	public Date getDateOfPurchase() {
+	public java.util.Date getDateOfPurchase() {
 		return dateOfPurchase;
 	}
-	public void setDateOfPurchase(Date dateOfPurchase) {
-		this.dateOfPurchase = dateOfPurchase;
+	public void setDateOfPurchase(java.util.Date date) {
+		this.dateOfPurchase = date;
 	}
 	public Double getPurchasePrice() {
 		return purchasePrice;

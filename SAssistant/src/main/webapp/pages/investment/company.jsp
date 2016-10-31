@@ -34,6 +34,43 @@
 <script src="${pageContext.request.contextPath}/js/init.js"></script>
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
+<script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/candlestick.js"></script>
+
+<!-- JQuery -->
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+	$(document).ready(function() {
+
+		var strUrl = location.search;
+		var bean ='<%=request.getAttribute("select").toString()%>';
+		var id_index = bean.search("stockId");
+		var stockid;
+		if (strUrl.indexOf("?") != -1) {
+			var getSearch = strUrl.split("?");
+			var getPara = getSearch[1].split("&");
+			for (i = 0; i < getPara.length; i++) {
+				var ParaVal = getPara[0].split("=");
+				stockid = ParaVal[1];
+			}
+		} else if (strUrl.indexOf("?") == -1 && bean.length != 0) {
+			stockid = bean.substring(id_index + 8, id_index + 12);
+		}
+
+		if (stockid.length != 0) {
+			$.ajax({
+				"method" : "GET",
+				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+				"dataType" : "json",
+				"data" : "action=getCandPara&id=" + stockid,
+				"url" : contextPath + "/dataAnalysis.view",
+				"cache" : false,
+				"success" : getCandlestick
+			})
+		}
+
+	});
+</script>
 
 </head>
 <body class="homepage">
@@ -212,7 +249,9 @@
 						</c:if>
 					</tbody>
 				</table>
-				<div style="display: inline; background-color: red; margin: 150px" align="right">123</div>
+				<div id="candlestick"
+					style="width: 600px; height: 400px; display: inline-block; margin-left: 150px"
+					align="right"></div>
 			</div>
 			<div style="background-color: #FFFFFF; margin: 350px"></div>
 		</div>

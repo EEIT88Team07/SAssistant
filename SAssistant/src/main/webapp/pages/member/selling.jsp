@@ -1,33 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>SAssistant</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<!-- basic -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/skel-noscript.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style-desktop.css" />
-
 <link
 	href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700'
 	rel='stylesheet' type='text/css'>
-<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-<script id="dsq-count-scr" src="//markchen-2.disqus.com/count.js" async></script>
-<!-- bookstapcss包	 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.css" />
-
 
 <script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/skel-panels.min.js"></script>
@@ -35,42 +30,77 @@
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
 
+<!-- basic -->
+
+
+<!-- jQueryUI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- jQueryUI -->
+
+
+<!-- 留言板 -->
+<script id="dsq-count-scr" src="//markchen-2.disqus.com/count.js" async></script>
+<!-- 留言板 -->
+<!-- bookstapcss包	 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
+<script
+	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+<!-- bookstapcss包	 -->
+
+
+<!-- Datatable -->
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/datatables.css" />
+
+
+<!-- Datatable -->
+
+<script type="text/javascript">
+
+</script>
+
 </head>
 <body class="homepage">
 
 	<!-- Header -->
 	<div id="header">
-		<div style="float: right; margin: 30px">
-			<c:if test="${empty LoginOK }">
-				<a href="#" style="font-size: 24px">註冊</a>
-			</c:if>
+		<div style="float: right; margin: 30px;">
+			<a href="#" style="font-size: 24px">註冊</a>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
-  					登出 
-	        	</a>
+					登出 </a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
 				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-				   登入 
-				</a>
-            </c:if>
+					登入 </a>
+			</c:if>
 		</div>
 
 		<!-- 標題 -->
-		<div class="container">
-
-			<!-- Logo -->
-			<div id="logo">
-				<a href="${pageContext.request.contextPath}/index.jsp"><img alt="" src="${pageContext.request.contextPath}/images/logo.png"/></a>
+		<div style="margin: 0">
+			<div
+				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+				<a href="${pageContext.request.contextPath}/index.jsp"><img
+					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
-			<div id="fdw">
+			<div id="fdw" style="display: inline-block;">
+
 				<nav>
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
 					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
-								<li><a
+							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/realtime.jsp">即時行情</a></li>
@@ -84,19 +114,19 @@
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
+								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
+
 				</ul>
 				</nav>
 			</div>
 			<!-- Nav -->
-
-
 		</div>
+
 		<!-- 標題 -->
 
 		<!-- 圖片 -->
@@ -106,29 +136,13 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="page">
-			<table id="datatable" class="display" cellspacing="0" width="100%">
-				<thead>
-					<tr class="backgrou">
-						<th>股票代碼</th>
-						<th>資料日期</th>
-						<th>開盤價</th>
-						<th>收盤價</th>
-						<th>最高價</th>
-						<th>最低價</th>
-						<th>成交股數</th>
-						<th>漲跌價差</th>
-						<th>成交金額</th>
-						<th>成交筆數</th>
-					</tr>
-				</thead>
-			</table>
-
-
-		</div>
-		<!-- /Main -->
-
 		
+
+
+
+
+
+		<!-- /Main -->
 
 
 		<!-- Copyright -->
@@ -141,8 +155,12 @@
 	<div id="disqus_thread"></div>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script
-		src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+
+
+
+	<script type="text/javascript">
+		$('#datatable').removeClass('display').addClass('table table-striped table-bordered');
+	</script>
 	<script>
 		(function() { // DON'T EDIT BELOW THIS LINE
 			var d = document, s = d.createElement('script');

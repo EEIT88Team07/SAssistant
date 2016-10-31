@@ -16,7 +16,7 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 
-		  <mapping resource="model/StockInfoBean.hbm.xml"/>
+		<mapping resource="model/StockInfoBean.hbm.xml"/>
         <mapping resource="model/SellingHistoryBean.hbm.xml"/>
         <mapping resource="model/PurchaseHistoryBean.hbm.xml"/>
         <mapping resource="model/StockCompanyBean.hbm.xml"/>

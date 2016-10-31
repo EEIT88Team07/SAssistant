@@ -1,11 +1,9 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SellingHistoryBean {
-	private Integer sellingNumber;
-	private String stockId;
-	private Date dateOfPurchase;
+	private String sellingNumber;
 	private Double sellingPrice;
 	private Double sellingQuantity;
 	private Date dateOfSelling;
@@ -13,46 +11,35 @@ public class SellingHistoryBean {
 	private Double income;
 	private Double netIncome;
 	private Double netProfitMargin;
-	private String account;
+	private String purchaseNumber;
 	
-	private MembersBean members;
-	public MembersBean getMembers() {
-		return members;
-	}
-	public void setMembers(MembersBean members) {
-		this.members = members;
+	private PurchaseHistoryBean purchaseHistory;
+
+	
+
+	public PurchaseHistoryBean getPurchaseHistory() {
+		return purchaseHistory;
 	}
 
+	public void setPurchaseHistory(PurchaseHistoryBean purchaseHistory) {
+		this.purchaseHistory = purchaseHistory;
+	}
+
+	
+	
+	
 	@Override
 	public String toString() {
-		return "SellingHistoryBean [sellingnumber=" + sellingNumber + ", stockid=" + stockId + ", dateofpurchase="
-				+ dateOfPurchase + ", sellingprice=" + sellingPrice + ", sellingquantity=" + sellingQuantity
-				+ ", sateofselling=" + dateOfSelling + ", cost=" + cost + ", income=" + income + ", netincome="
-				+ netIncome + ", netprofitmargin=" + netProfitMargin + "]";
+		return "SellingHistoryBean [sellingNumber=" + sellingNumber + ", sellingPrice=" + sellingPrice + ", sellingQuantity=" + sellingQuantity + ", dateOfSelling=" + dateOfSelling + ", cost=" + cost
+				+ ", income=" + income + ", netIncome=" + netIncome + ", netProfitMargin=" + netProfitMargin + ", purchaseNumber=" + purchaseNumber + ", purchaseHistory=" + purchaseHistory + "]";
 	}
 
-	public Integer getSellingNumber() {
+	public String getSellingNumber() {
 		return sellingNumber;
 	}
 
-	public void setSellingNumber(Integer sellingNumber) {
+	public void setSellingNumber(String sellingNumber) {
 		this.sellingNumber = sellingNumber;
-	}
-
-	public String getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(String stockId) {
-		this.stockId = stockId;
-	}
-
-	public Date getDateOfPurchase() {
-		return dateOfPurchase;
-	}
-
-	public void setDateOfPurchase(Date dateOfPurchase) {
-		this.dateOfPurchase = dateOfPurchase;
 	}
 
 	public Double getSellingPrice() {
@@ -110,12 +97,18 @@ public class SellingHistoryBean {
 	public void setNetProfitMargin(Double netProfitMargin) {
 		this.netProfitMargin = netProfitMargin;
 	}
-	
-	public String getAccount() {
-		return account;
+
+	public String getPurchaseNumber() {
+		return purchaseNumber;
 	}
-	
-	public void setAccount(String account) {
-		this.account = account;
+
+	public void setPurchaseNumber(String purchaseNumber) {
+		this.purchaseNumber = purchaseNumber;
 	}
+
+	
+	
+	
+	
 }
+	

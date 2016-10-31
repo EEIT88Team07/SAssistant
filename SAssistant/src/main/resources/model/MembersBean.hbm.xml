@@ -32,16 +32,10 @@
 			<key column="ACCOUNT" />
 			<one-to-many class="model.MyFavouriteBean" />
 		</set>
-
-		<set name="purchaseHistory" table="PURCHASEHISTORY" inverse="true"
-			cascade="delete">
-			<key column="ACCOUNT" />
-			<one-to-many class="model.PurchaseHistoryBean" />
-		</set>
-		<set name="sellingHistory" table="SELLINGHISTORY" inverse="true"
-			cascade="delete">
-			<key column="ACCOUNT" />
-			<one-to-many class="model.SellingHistoryBean" />
-		</set>
-	</class>
+        <set name="purchaseHistory" table="PURCHASEHISTORY" inverse="true" cascade="delete">
+        	<key column="ACCOUNT" />
+        	<one-to-many class="model.PurchaseHistoryBean" />
+        </set>
+       
+    </class>
 </hibernate-mapping>

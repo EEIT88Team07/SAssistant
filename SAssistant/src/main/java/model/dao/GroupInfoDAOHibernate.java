@@ -45,11 +45,9 @@ public class GroupInfoDAOHibernate implements GroupInfoDAO {
 	
 	
 	private SessionFactory sessionFactory = null;
-
 	public GroupInfoDAOHibernate(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}

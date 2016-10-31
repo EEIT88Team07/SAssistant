@@ -7,6 +7,9 @@
 <head>
 <title>SAssistant</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+</style>
+
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
@@ -61,62 +64,11 @@
 
 <!-- Datatable -->
 
-
-
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
-	$(document).ready(function() {
-		$('span[title="favorite"]').click(function() {
-			$(this).toggleClass("glyphicon glyphicon-minus");
-		});
+	$(document).ready(
 
-		$('input[id="getMyFavourite"]').click(function() {
-			table1.destroy();
-			$('#datatable').DataTable({
-				"language" : {
-					"emptyTable" : "沒有數據",
-					"info" : "第 _PAGE_ of _PAGES_頁",
-					"sSearch" : "檢索:",
-					"lengthMenu" : "每頁_MENU_ 條紀錄",
-					"sInfoEmpty" : "每頁   0 of 0 條紀錄"
-				},
-				"ajax" : {
-					"url" : contextPath + "/myfavouriteajax.view",
-					"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
-					"data" : function(d) {
-						d.action = "getmyfav";
-						d.selectstockid = $('select[name="selectstockid"]').val();
-						d.startDate = $('input[name="startDate"]').val();
-						d.endDate = $('input[name="endDate"]').val();
-						d.datanysis = $('input[name="datanysis"]').val();
-					}
-				},
-				"columns" : [ {
-					"data" : "stockId"
-				}, {
-					"data" : "buildDate"
-				}, {
-					"data" : "openPrice"
-				}, {
-					"data" : "closingPrice"
-				}, {
-					"data" : "turnOverInValue"
-				}, {
-					"data" : "changeInPrice"
-				}, {
-					"data" : "tradingVolume"
-				}, {
-					"data" : "numberOfTransactions"
-				}, {
-					"data" : "highestPrice"
-				}, {
-					"data" : "lowestPrice"
-				} ]
-
-			});
-
-		});
-
+	function() {
 		var table1 = $('#datatable').DataTable({
 			"language" : {
 				"emptyTable" : "沒有數據",
@@ -126,98 +78,47 @@
 				"sInfoEmpty" : "每頁   0 of 0 條紀錄"
 			},
 			"ajax" : {
-				"url" : contextPath + "/myfavouriteajax.view",
+				"url" : contextPath + "/sellingajax.view",
 				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
 				"data" : function(d) {
-					d.action = "onload";
+					d.action = "getSellingHistory";
 				}
-			},
-			"initComplete" : function() {
-				var api = this.api();
-				api.$('tr').click(function() {
-					var stockid = this.childNodes[0].innerHTML;
-					var url = contextPath + "/stockCompany.controller?selectstockid=" + stockid + "&datanysis=Select";
-					document.location.href = url;
-				});
 			},
 			"columns" : [ {
 				"data" : "stockId"
-			}, {
-				"data" : "buildDate"
-			}, {
-				"data" : "openPrice"
-			}, {
-				"data" : "closingPrice"
-			}, {
-				"data" : "turnOverInValue"
-			}, {
-				"data" : "changeInPrice"
-			}, {
-				"data" : "tradingVolume"
-			}, {
-				"data" : "numberOfTransactions"
-			}, {
-				"data" : "highestPrice"
-			}, {
-				"data" : "lowestPrice"
+			},{
+				"data" : "stockName"
+			},{
+				"data" : "dateOfPurchase"
+			},{
+				"data" : "sellingPrice"
+			},{
+				"data" : "sellingQuantity"
+			},{
+				"data" : "dateOfSelling"
+			},{
+				"data" : "total"
+			},{
+				"data" : "cost"
+			},{
+				"data" : "income"
+			},{
+				"data" : "netIncome"
+			},{
+				"data" : "netProfitMargin"
 			} ]
 
 		});
 
-		//ajax自動載入前一日資料
-
-		$.ajax({
-			"method" : "GET",
-			"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
-			"dataType" : "json",
-			"data" : "action=groupname",
-			"url" : contextPath + "/groupInfo.view",
-			"cache" : false,
-			"success" : selectstockgroups,//呼叫外面的JS function 
-			"error" : function(xhr, ajaxOptions, thrownError) {
-				alert(xhr.status);
-			}
-		});
-		$('select[name="selectstockcompany"]').change(function() {
-			clearForm();//一開始先清理表單
-			$.ajax({
-				"method" : "GET",
-				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
-				"dataType" : "json",
-				"url" : contextPath + "/groupInfo.view",
-				"data" : "action=stockids",
-				"cache" : false,
-				"success" : selectstockid,
-				error : function(xhr, ajaxOptions, thrownError) {//錯誤彈出式窗
-					alert(xhr.status);
-				}
-			});
-		});
-		//Datepicker
-		$('input[name="startDate"],[name="endDate"]').attr("readonly", true).datepicker({
-			"defaultDate" : new Date(),
-			"changeMonth" : true,
-			"changeYear" : true,
-			"dateFormat" : "yy-mm-dd",
-			"altFormat" : "yy/mm/dd",
-			"numberOfMonths" : 1,
-			"maxDate" : new Date(),
-			"minDate" : new Date(2005, 1 - 1, 1)
-		});
-
 	});
-
-	function clearForm() {
-		$('select[name="selectstockid"]').val("");
-		$('select[name="selectstockid"]').empty();
-	}
 </script>
+
 </head>
 <body class="homepage">
 
 	<!-- Header -->
 	<div id="header">
-		<div style="float: right; margin: 30px">
+		<div style="float: right; margin: 30px;">
 			<a href="#" style="font-size: 24px">註冊</a>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
@@ -231,20 +132,18 @@
 
 		<!-- 標題 -->
 		<div style="margin: 0">
-
-			<!-- Logo -->
 			<div
 				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
 				<a href="${pageContext.request.contextPath}/index.jsp"><img
 					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
+			<div id="fdw" style="display: inline-block;">
 
-			<div id="fdw">
 				<nav>
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
-					<li><a href="#">股市資訊<span class="arrow"></span></a>
+					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
@@ -260,20 +159,19 @@
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">交易記錄</a></li>
+								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/focus.jsp">我的關注股</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/member/accountmanage.jsp">帳號管理</a></li>
 						</ul></li>
-					<li><a href="#">contact</a></li>
+
 				</ul>
 				</nav>
 			</div>
 			<!-- Nav -->
-
-
 		</div>
+
 		<!-- 標題 -->
 
 		<!-- 圖片 -->
@@ -282,79 +180,110 @@
 		</div>
 		<!-- /圖片 -->
 
-
-
-
-
-
-
 		<!-- Main -->
-		<div id="searchform">
+		<div id="searchform" style="border: black 5px solid;">
 
-
-			<div id="datatablediv" style="margin: 50px">
+			<div id="datatablediv" style="margin: 50px;">
 				<div>
 					<span class="firm">${param.selectstockid}</span>
 				</div>
+				<div id="errorbox">
+					<span class="error">${error.id}</span> <span class="error">${error.dateOfPurchase}</span>
+					<span class="error">${error.purchasePrice}</span> <span
+						class="error">${error.purchaseQuantity}</span> <span class="error">${error.stopLossLimit}</span>
+					<span class="error">${error.takeProfitLimit}</span> <span
+						class="error">${error.action}</span>
+				</div>
 
-				<table id="datatable" class="display" cellspacing="0" width="100%">
+				<table id="datatable" class="display" cellspacing="0" width="100%"
+					style="border-style: hidden;">
 					<thead>
 						<tr class="backgrou">
 							<th>股票代碼</th>
-							<th>資料日期</th>
-							<th>開盤價</th>
-							<th>收盤價</th>
-							<th>最高價</th>
-							<th>最低價</th>
-							<th>成交股數</th>
-							<th>漲跌價差</th>
-							<th>成交金額</th>
-							<th>成交筆數</th>
+							<th>股票名稱</th>
+							<th>購買日期</th>
+							<th>賣出價格</th>
+							<th>賣出數量</th>
+							<th>賣出日期</th>
+							<th>賣出總額</th>
+							<th>成本</th>
+							<th>收入</th>
+							<th>淨利</th>
+							<th>淨利率</th>
+							<th></th>
 						</tr>
 					</thead>
 				</table>
-
-
-
-
-
+				<button id="create-user">新增一筆購買記錄</button>
 			</div>
 		</div>
-		<!-- /Extra -->
+
+
+
+		<div id="dialog-form" title="新增一筆交易記錄">
+			<p class="validateTips">*號為必填欄位</p>
+
+			<form>
+				<fieldset>
+					<label for="stockId">股票代碼*</label> <input type="text"
+						name="stockId" id="stockId"
+						class="text ui-widget-content ui-corner-all"> <label
+						for="dateOfPurchase">購買時間*</label> <input type="text"
+						name="dateOfPurchase" id="dateOfPurchase"
+						class="text ui-widget-content ui-corner-all"> <label
+						for="purchasePrice">購買價格*</label> <input type="text"
+						name="purchasePrice" id="purchasePrice"
+						class="text ui-widget-content ui-corner-all"> <label
+						for="purchaseQuantity">購買數量*</label> <input type="text"
+						name="purchaseQuantity" id="purchaseQuantity"
+						class="text ui-widget-content ui-corner-all"> <label
+						for="stopLossLimit">停損點</label> <input type="text"
+						name="stopLossLimit" id="stopLossLimit"
+						class="text ui-widget-content ui-corner-all"> <label
+						for="takeProfitLimit">停利點</label> <input type="text"
+						name="takeProfitLimit" id="takeProfitLimit"
+						class="text ui-widget-content ui-corner-all">
+
+					<!-- Allow form submission with keyboard without duplicating the dialog button -->
+					<input type="submit" tabindex="-1"
+						style="position: absolute; top: -1000px">
+				</fieldset>
+			</form>
+		</div>
+
+		<form style="display: none;"
+			action="<c:url value="/transhistory.controller" />" name="fileinfo"
+			method="POST">
+			<input type="text" name="action" value="刪除"> <input
+				type="submit">
+		</form>
 
 
 
 
-		<!-- Main -->
-		<div id="main" class="container"></div>
-		<!-- Main -->
 
+		<!-- /Main -->
+
+
+		<!-- Copyright -->
+		<div id="copyright" class="container">
+			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+				href="http://unsplash.com">Unsplash</a> (<a
+				href="http://unsplash.com/cc0">CC0</a>)
+		</div>
 	</div>
-	<!-- /Main -->
-
-
-
-
-	<!-- Copyright -->
-	<div id="copyright" class="container">
-		Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-			href="http://unsplash.com">Unsplash</a> (<a
-			href="http://unsplash.com/cc0">CC0</a>)
-	</div>
-
-
 	<div id="disqus_thread"></div>
 
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
 
 
 
 	<script type="text/javascript">
 		$('#datatable').removeClass('display').addClass('table table-striped table-bordered');
 	</script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script type="text/javascript">
-		(function() { // DON'T EDIT BELOW THIS LINE var d = document, s =
-			d.createElement('script');
+	<script>
+		(function() { // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
 			s.src = '//markchen-2.disqus.com/embed.js';
 			s.setAttribute('data-timestamp', +new Date());
 			(d.head || d.body).appendChild(s);

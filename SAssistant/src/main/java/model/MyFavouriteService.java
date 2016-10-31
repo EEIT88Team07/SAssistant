@@ -3,11 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class MyFavouriteService {
 	private MyFavouriteDAO myFavouriteDAO;
 
@@ -15,32 +10,7 @@ public class MyFavouriteService {
 		this.myFavouriteDAO = myFavouriteDAO;
 	}// spring 控制反轉
 
-	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionFactory = null;
-		try {		
-			sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-			sessionFactory.getCurrentSession().getTransaction().begin();
-
-//			MyFavouriteService service = (MyFavouriteService) context.getBean("myFavouriteService");
-//
-//			MyFavouriteBean bean = new MyFavouriteBean();
-//			bean.setStockId("1101");
-//			bean.setAccount("1");
-//			bean.setFinalPrice(11.11);
-//			service.insert(bean);
-//			service.update(bean);
-//			System.out.println(service.select(bean));
-//			System.out.println(service.select(null));
-//			service.delete(bean);
-
-			sessionFactory.getCurrentSession().getTransaction().commit();
-		} catch (Exception e) {
-			sessionFactory.getCurrentSession().getTransaction().rollback();
-		} finally{
-			((ConfigurableApplicationContext) context).close();
-		}
-	}
+	
 
 	public List<MyFavouriteBean> select(MyFavouriteBean bean) {
 		List<MyFavouriteBean> result = null;

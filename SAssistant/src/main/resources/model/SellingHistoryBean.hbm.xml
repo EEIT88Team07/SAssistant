@@ -4,16 +4,10 @@
 <!-- Generated 2016/10/11 ?W?? 11:39:17 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
 	<class name="model.SellingHistoryBean" table="SELLINGHISTORY">
-		<id name="sellingNumber" type="int">
+		<id name="sellingNumber" type="java.lang.String">
 			<column name="SELLINGNUMBER" />
 			<generator class="assigned" />
 		</id>
-		<property name="stockId" type="java.lang.String">
-			<column name="STOCKID" />
-		</property>
-		<property name="dateOfPurchase" type="java.sql.Date">
-			<column name="DATEOFPURCHASE" />
-		</property>
 		<property name="sellingPrice" type="java.lang.Double">
 			<column name="SELLINGPRICE" />
 		</property>
@@ -35,10 +29,10 @@
 		<property name="netProfitMargin" type="java.lang.Double">
 			<column name="NETPROFITMARGIN" />
 		</property>
-		<property name="account" type="java.lang.String">
-			<column name="ACCOUNT" />
+		<property name="purchaseNumber" type="java.lang.String">
+			<column name="PURCHASENUMBER" />
 		</property>
 		
-		<many-to-one name="members" class="model.MembersBean" column="ACCOUNT" insert="false" update="false"></many-to-one>
+		<many-to-one name="purchaseHistory" class="model.PurchaseHistoryBean" column="PURCHASENUMBER" insert="false" update="false"></many-to-one>
 	</class>
 </hibernate-mapping>

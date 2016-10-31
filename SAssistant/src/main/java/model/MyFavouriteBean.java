@@ -10,15 +10,16 @@ public class MyFavouriteBean implements java.io.Serializable{
 	private Double high;
 	private Double low;
 	private String annotation;
-	
-	private MembersBean members;
+
+	private MembersBean members;	
 	public MembersBean getMembers() {
 		return members;
 	}
 	public void setMembers(MembersBean members) {
 		this.members = members;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "MyFavouriteBean [StockId=" + stockId + ", Account=" + account + ", Volume=" + volume + ", FinalPrice="

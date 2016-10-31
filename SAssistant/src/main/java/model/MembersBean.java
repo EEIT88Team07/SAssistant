@@ -10,38 +10,42 @@ public class MembersBean {
 	private Integer gender;
 	private String email;
 	private String phone;
-	
+
+	private Set<StockInfoBean> stockInfo;
+
+	public Set<StockInfoBean> getStockInfo() {
+		return stockInfo;
+	}
+
+	public void setStockInfo(Set<StockInfoBean> stockInfo) {
+		this.stockInfo = stockInfo;
+	}
+
+	private Set<PurchaseHistoryBean> purchaseHistory;
+
+	public Set<PurchaseHistoryBean> getPurchaseHistory() {
+		return purchaseHistory;
+	}
+
+	public void setPurchaseHistory(Set<PurchaseHistoryBean> purchaseHistory) {
+		this.purchaseHistory = purchaseHistory;
+	}
+
 	private Set<MyFavouriteBean> myFavourite;
+
 	public Set<MyFavouriteBean> getMyFavourite() {
 		return myFavourite;
 	}
+
 	public void setMyFavourite(Set<MyFavouriteBean> myFavourite) {
 		this.myFavourite = myFavourite;
 	}
 
-	private Set<PurchaseHistoryBean> purchaseHistory;
-	public Set<PurchaseHistoryBean> getPurchaseHistory() {
-		return purchaseHistory;
-	}
-	public void setPurchaseHistory(Set<PurchaseHistoryBean> purchaseHistory) {
-		this.purchaseHistory = purchaseHistory;
-	}
-	
-	private Set<SellingHistoryBean> sellingHistory;
-	public Set<SellingHistoryBean> getSellingHistory() {
-		return sellingHistory;
-	}
-	public void setSellingHistory(Set<SellingHistoryBean> sellingHistory) {
-		this.sellingHistory = sellingHistory;
-	}
-	
 	@Override
 	public String toString() {
-		return "MembersBean [account=" + account + ", password=" + password + ", name=" + name + ", birthday="
-				+ birthday + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", purchaseHistory="
-				+ purchaseHistory + ", sellingHistory=" + sellingHistory + "]";
+		return "MembersBean [Account=" + account + ", Password=" + password + ", Name=" + name + ", Birthday=" + birthday + ", Gender=" + gender + ", Email=" + email + ", Phone=" + phone + "]";
 	}
-	
+
 	public String getAccount() {
 		return account;
 	}

@@ -11,11 +11,9 @@ import model.StockInfoDAO;
 
 public class StockInfoDAOHibernate implements StockInfoDAO {
 	private SessionFactory sessionFactory = null;
-
 	public StockInfoDAOHibernate(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
