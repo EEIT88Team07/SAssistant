@@ -18,29 +18,7 @@ public class StockInfoService {
 		this.stockInfoDAO = stockInfoDAO;
 	}
 
-	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-		try {
-			sessionFactory.getCurrentSession().beginTransaction();
-			StockInfoService service = (StockInfoService) context.getBean("stockInfoService");
-//			StockInfoBean bean = new StockInfoBean();
-//			bean.setStockId("1101");
-//			bean.setStockName("台泥");
-//			bean.setGroupName("水泥工業");
-//			bean.setIsinCode("TW0001101004");
-			service.refreshStockInfo();
-//			System.out.println(service.select_ALL_Id());
-//			service.update(bean);
-			
-			sessionFactory.getCurrentSession().getTransaction().commit();
-		} catch (Exception e) {
-			sessionFactory.getCurrentSession().getTransaction().rollback();
-		} finally {
-			((ConfigurableApplicationContext) context).close();
-		}
-	}
-
+	
 	public void refreshStockInfo() throws IOException {
 		String url = "http://isin.twse.com.tw/isin/class_main.jsp?owncode=&stockname=&isincode=&market=1&issuetype=1&industry_code=&Page=1&chklike=Y";
 		Elements elements = Jsoup.connect(url).get().select("tr");

@@ -157,8 +157,6 @@
 					<li><a href="#">會員專區<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
-								href="${pageContext.request.contextPath}/pages/member/existrans.jsp">現有股票</a></li>
-							<li><a
 								href="${pageContext.request.contextPath}/pages/member/transhistory.jsp">購買記錄管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/pages/member/sellinghistory.jsp">賣出記錄管理</a></li>
