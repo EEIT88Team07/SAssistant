@@ -7,8 +7,8 @@ public interface MembersDAO {
 
 	public abstract MembersBean insert(MembersBean bean);
 
-	boolean update(String password, String name, Integer Gender, String Phone, String email, java.util.Date birth,
-			String account);
+	boolean update(String password, String name, Integer Gender, String Phone,String email,
+			java.util.Date birth, String account);
 
 	public boolean delete(String account);
 
