@@ -29,12 +29,9 @@ public class Example {
 	}
 	public static void main(String [] args){
 		try {
-			Elements doc = Jsoup.connect("https://tw.stock.yahoo.com/rss/url/d/e/N2.html").userAgent("Mozilla").get().select("item");
+			Elements doc = Jsoup.connect("http://www39.eyny.com/index.php").get().select("div[style='display:none']");
 			for(int i = 0;i<doc.size();i++){
-				String t = doc.select("title").get(i).text();
-				String l = doc.select("link").get(i).text();
-				System.out.println(t);
-				System.out.println(l);
+				System.out.println(doc);
 			}		
 		} catch (IOException e) {
 			System.out.println(e);

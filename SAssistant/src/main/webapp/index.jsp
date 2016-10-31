@@ -58,8 +58,7 @@
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">登出</a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
-				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">
-					登入 </a>
+				<a href="<c:url value='/login.jsp' />" style="font-size: 24px" >登入</a>
 			</c:if>
 		</div>
 
@@ -115,11 +114,8 @@
 			<c:if test="${empty LoginOK }">
 				${logoutMessage}
             </c:if>
-			<c:if test="${!empty LoginOK }">
-				${loginMessage}
-            </c:if>
 			<!-- Extra -->
-			<div id="marketing" class="container"></div>
+			
 			<!-- /Extra -->
 
 			<!-- Main -->

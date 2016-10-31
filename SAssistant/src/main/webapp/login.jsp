@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
 <html>
 <head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,6 +30,11 @@ function setFocusToUserId(){
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script
 	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body onLoad="setFocusToUserId()" style="background:#EBFFEB;">
 <!-- 下列敘述設定變數funcName的值為LOG，top.jsp 會用到此變數 -->
@@ -42,19 +47,12 @@ function setFocusToUserId(){
     <Table width='600px' style="border-width:2; background:#E0E0E0; 
                         border-style:inset; border-color:#EF02A4;" align="center">
          <TR>
-             <TH width="400">&nbsp;</TH>
-             <TH width="400">&nbsp;</TH>
-         </TR>
-         <TR>
-             <TD colspan='2' align="CENTER" style="font-size:0.6cm;font-weight: 350;"> 
-                <Font color="#006600" face="標楷體">
-                    ${AppName}
-                </Font>
-             </TD>
+             <TH width="50%">&nbsp;</TH>
+             <TH width="50%">&nbsp;</TH>
          </TR>
          <TR>
              <TD height='50' colspan='2' align="CENTER" style="font-size:0.5cm;font-weight: 350;"> 
-                <Font color="#006600"  face="標楷體">
+                <Font color="#006600"  face="標楷體" size="48px">
                     ${msg}
                 </Font>
              </TD>
@@ -65,9 +63,7 @@ function setFocusToUserId(){
          <TR>
              <TD width="200" align="right">帳號：　</TD>
              <TD width="200" colspan='2' align="LEFT">
-             <input  type="text" name="account" size="10" 
-             value="${sessionScope.user}">
-             
+             <input  type="text" name="account" size="10" value="${sessionScope.user}">          
              &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.AccountEmptyError}</Font></small></TD>
          </TR>
          <TR>
