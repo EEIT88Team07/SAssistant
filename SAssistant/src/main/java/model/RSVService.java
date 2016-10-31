@@ -24,9 +24,8 @@ public class RSVService {
 //		for (int i = 1; i <= 90; i++) {
 //			c.add(Calendar.DATE, 1);
 
-			ApplicationContext context = null;
-			try {
-				context = new ClassPathXmlApplicationContext("beans.config.xml");
+			ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
+			try {		
 				SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 				sessionFactory.getCurrentSession().beginTransaction();
 

@@ -92,8 +92,8 @@
 	<div style="margin: 0">
 
 			<!-- Logo -->
-			<div
-				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+
+			<div style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
 				<a href="${pageContext.request.contextPath}/index.jsp"><img
 					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>

@@ -1,3 +1,4 @@
+
 package model;
 
 import java.util.ArrayList;
@@ -9,8 +10,6 @@ public class SellingHistoryService {
 	public SellingHistoryService(SellingHistoryDAO sellingHistoryDao) {
 		this.sellingHistoryDao = sellingHistoryDao;
 	}
-
-	
 
 	public List<SellingHistoryBean> select(SellingHistoryBean bean) {
 		List<SellingHistoryBean> result = null;
@@ -37,8 +36,8 @@ public class SellingHistoryService {
 	public SellingHistoryBean update(SellingHistoryBean bean) {
 		SellingHistoryBean result = null;
 		if (bean != null) {
-			result = sellingHistoryDao.update(bean.getSellingPrice(), bean.getSellingQuantity(), bean.getDateOfSelling(), bean.getCost(), bean.getIncome(),
-					bean.getNetIncome(), bean.getNetProfitMargin(), bean.getPurchaseNumber(), bean.getSellingNumber());			
+			result = sellingHistoryDao.update(bean.getSellingPrice(), bean.getSellingQuantity(), bean.getDateOfSelling(), bean.getCost(), bean.getIncome(), bean.getNetIncome(),
+					bean.getNetProfitMargin(), bean.getPurchaseNumber(), bean.getSellingNumber());
 		}
 		return result;
 	}

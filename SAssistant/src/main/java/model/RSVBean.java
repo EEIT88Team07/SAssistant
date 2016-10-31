@@ -2,41 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class RSVBean implements Serializable {
-
-
-	public static void main(String[] args) throws Exception {
-
-		ApplicationContext context = null;
-		try {
-			context = new ClassPathXmlApplicationContext("beans.config.xml");
-
-			SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-			sessionFactory.getCurrentSession().beginTransaction();
-
-			Session session = sessionFactory.getCurrentSession();
-
-			RSVBean rSVBean = (RSVBean) session.get(RSVBean.class, "1101");
-
-			System.out.println(rSVBean);
-
-			sessionFactory.getCurrentSession().beginTransaction().commit();
-		} finally {
-			((ConfigurableApplicationContext) context).close();
-		}
-
-	}
-	
-	
-	
-	
-	
 	
 	private static final long serialVersionUID = 1L;
 	private String stockId;
@@ -45,16 +11,6 @@ public class RSVBean implements Serializable {
 	private Double k;
 	private Double d;
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "RSVBean [stockId=" + stockId + ", BuildDate=" + BuildDate + ", rSV=" + rSV + ", k=" + k + ", d=" + d
@@ -100,5 +56,4 @@ public class RSVBean implements Serializable {
 	public void setD(Double d) {
 		this.d = d;
 	}
-
 }

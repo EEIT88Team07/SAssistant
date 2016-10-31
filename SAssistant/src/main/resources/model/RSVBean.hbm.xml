@@ -10,8 +10,6 @@
 			<key-property name="buildDate" type="java.lang.String"
 				column="BUILDDATE" />
 		</composite-id>
-
-
 		<property name="rSV" type="java.lang.Double" access="field">
 			<column name="RSV" />
 		</property>

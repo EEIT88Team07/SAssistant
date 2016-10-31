@@ -10,7 +10,6 @@
 			<key-property name="buildDate" type="java.lang.String"
 				column="BUILDDATE" />
 		</composite-id>
-
 		<property name="openPrice" type="java.lang.Double">
 			<column name="OPENPRICE" />
 		</property>
@@ -40,6 +39,6 @@
 		</property>
 
 		<many-to-one name="stockInfo" class="model.StockInfoBean"
-			column="STOCKID" insert="false" update="false" />
+			column="stockId" insert="false" update="false"></many-to-one>
 	</class>
 </hibernate-mapping>

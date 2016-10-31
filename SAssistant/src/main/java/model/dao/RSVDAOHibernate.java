@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import model.RSVBean;
-import model.RSVBean;
 import model.RSVDAO;
 
 public class RSVDAOHibernate implements RSVDAO {

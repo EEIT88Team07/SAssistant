@@ -233,6 +233,7 @@
 					</div>
 				</form>
 			</div>
+<<<<<<< HEAD
 
 			<!-- 			測試用區塊 -->
 			<!-- 			測試用區塊 -->
@@ -242,6 +243,15 @@
 			<%-- 			<c:set var="string1" value="${param.selectstockid}"/> --%>
 			<%-- 			<c:set var="string2" value="${fn:substring(string1,5,10)}" /> --%>
 
+=======
+			
+<!-- 			測試用區塊 -->		
+<!-- 			測試用區塊 -->
+			
+			
+<!-- 			顯示表格 -->
+			
+>>>>>>> branch 'master' of https://github.com/EEIT88Team07/SAssistant.git
 			<div style="margin: 200px;">
 				<c:if test="${not empty select}">
 					<div>
