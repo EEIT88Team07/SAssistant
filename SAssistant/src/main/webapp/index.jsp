@@ -41,10 +41,60 @@
 <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
 <script>
 	$(function() {
+		var dialog, form;
+		var account = $("#account");
+		var password = $("#password");
+		var allFields = $([]).add(account).add(password);
+		var tips = $(".validateTips");
+		function updateTips(t) {
+			tips.text(t).addClass("ui-state-highlight");
+			setTimeout(function() {
+				tips.removeClass("ui-state-highlight", 1500);
+			}, 500);
+		}
+
+		function addtrans() {
+
+			allFields.removeClass("ui-state-error");
+
+
+
+			dialog.dialog("close");
+
+		}
+
+		dialog = $("#dialog-form").dialog({
+			autoOpen : false,
+			height : 400,
+			width : 350,
+			modal : true,
+			buttons : {
+				"新增" : addtrans,
+				取消 : function() {
+					dialog.dialog("close");
+				}
+			},
+			取消 : function() {
+				form[0].reset();
+				allFields.removeClass("ui-state-error");
+			}
+		});
+
+		form = dialog.find("form").on("submit", function(event) {
+			event.preventDefault();
+			addtrans();
+		});
+
+		$("#create-user").button().on("click", function() {
+			dialog.dialog("open");
+		});
+	});
+</script>
+<script>
+	$(function() {
 		$("#dialog").dialog();
 	});
 </script>
-
 </head>
 <body class="homepage">
 	<!-- Header -->
@@ -58,7 +108,7 @@
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">登出</a>
 			</c:if>
 			<c:if test="${empty LoginOK }">
-				<a href="<c:url value='/login.jsp' />" style="font-size: 24px" >登入</a>
+				<a href="<c:url value='/login.jsp' />" style="font-size: 24px">登入</a>
 			</c:if>
 		</div>
 
@@ -115,7 +165,7 @@
 				${logoutMessage}
             </c:if>
 			<!-- Extra -->
-			
+
 			<!-- /Extra -->
 
 			<!-- Main -->
@@ -125,15 +175,26 @@
 		</div>
 		<!-- /Main -->
 
+		<div id="dialog-form" title="新增一筆交易記錄">
+			<p class="validateTips">*號為必填欄位</p>
 
+			<form action='<c:url value="/login.controller" />' id="dialogforlogin" method="POST" name="loginForm">
+				<fieldset>
+					<label for="Account">帳號</label> <input type="text" name="account"
+						id="account" class="text ui-widget-content ui-corner-all">
+					<label for="password">密碼</label> <input type="text" name="password"
+						id="password" class="text ui-widget-content ui-corner-all">
+
+					<!-- Allow form submission with keyboard without duplicating the dialog button -->
+					<input type="submit" tabindex="-1"
+						style="position: absolute; top: -1000px">
+				</fieldset>
+			</form>
+		</div>
 
 
 		<!-- Copyright -->
-		<div id="copyright" class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
-		</div>
+
 	</div>
 	<div id="disqus_thread"></div>
 
