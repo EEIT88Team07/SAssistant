@@ -122,7 +122,11 @@
 				"info" : "第 _PAGE_ of _PAGES_頁",
 				"sSearch" : "檢索:",
 				"lengthMenu" : "每頁_MENU_ 條紀錄",
-				"sInfoEmpty" : "每頁   0 of 0 條紀錄"
+				"sInfoEmpty" : "每頁   0 of 0 條紀錄",
+				"paginate" : {
+					"previous" : "上一頁",
+					"next" : "下一頁"
+				}
 			},
 			"ajax" : {
 				"url" : contextPath + "/myfavouriteajax.view",
@@ -217,7 +221,9 @@
 	<!-- Header -->
 	<div id="header">
 		<div style="float: right; margin: 30px">
-			<a href="#" style="font-size: 24px">註冊</a>
+			<c:if test="${empty LoginOK }">
+				<a href="#" style="font-size: 24px">註冊</a>
+			</c:if>
 			<c:if test="${ ! empty LoginOK }">
 				<a href="<c:url value='/logout.jsp' />" style="font-size: 24px">
 					登出 </a>

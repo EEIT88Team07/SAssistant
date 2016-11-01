@@ -13,15 +13,13 @@
 	href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style-desktop.css" />
-
 <link
 	href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700'
 	rel='stylesheet' type='text/css'>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+	src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- 留言板 -->
 <script id="dsq-count-scr" src="//markchen-2.disqus.com/count.js" async></script>
 <!-- bookstapcss包	 -->
@@ -29,43 +27,147 @@
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-theme.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css" />
+	
+	
 
 <script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/skel-panels.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/init.js"></script>
 <script src="${pageContext.request.contextPath}/js/functions.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectstock.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+ <script type="text/javascript"
+ 	src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
-<!-- jQuery ui -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
-<script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+	<!-- jQuery Datepicker -->
+<script
+	src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+	
+<style type="text/css">
+
+ 
+ #searchform div table tbody tr td div a{ 
+ float:right;  
+}
+#searchform div table tbody tr td div a img{
+
+cursor: pointer;
+}
+
+
+</style>
 <script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		//Datepicker
-		$('input[name="startDate"],[name="endDate"]').attr("readonly", true).datepicker({
-			"defaultDate" : new Date(),
-			"changeMonth" : true,
-			"changeYear" : true,
-			"dateFormat" : "yy-mm-dd",
-			"altFormat" : "yy/mm/dd",
-			"numberOfMonths" : 1,
-			"maxDate" : new Date(),
-			"minDate" : new Date(2005, 1 - 1, 1)
-		});
+// window.localStorage
+//我的最愛方法  更動部分
 
-		//我的最愛變換
-		$('span[title="favorite"]').click(function() {
-			$(this).toggleClass("glyphicon glyphicon-minus");
+var contextPath = "${pageContext.request.contextPath}";
 
-		});
-		//table樣式
+  function addFav(){
+     	 var name = $(this).attr("name");
+     	console.log(name);
+	  //讀取中...
+	  $("#img").css('display','inline').attr("style","float:right");
+	  $.ajax({
+			"method" : "GET",
+			"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+			"dataType" : "json",
+			"data" : "action=addfavorite&id="+name,
+			"url" : contextPath + "/myfavouriteajax.view",
+			"cache" : false,
+			"success": function(msg){
+				//讀取取消
+				console.log("成功進入!");
+			  $("#img").css('display', 'none');
+				//不是我的最愛變我的最愛
+			  $('a[name="'+name+'"]').empty()
+			  .append('<img src="${pageContext.request.contextPath}/images/favorite.png" />')
+              .unbind('click')
+              .bind('click', removeFav);
+			  $( "#lovdialog" ).load('path to my page').dialog('open');
+		  },"error": showError
+		  });
+	}
+	function removeFav(){
+		var name= $(this).attr("name");
+		 console.log(name);
+	    $.ajax({
+	    	"method" : "GET",
+			"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+			"dataType" : "json",
+			"data" : "action=unfavorite&id="+name,
+			"url" : contextPath + "/myfavouriteajax.view",
+			"cache" : false,
+	     	 success: function(msg){
+	     		console.log("remove");
+	     		//我的最愛變不是我的最愛
+	     		$('a[name="'+name+'"]').empty()
+	                 .append('<img src="${pageContext.request.contextPath}/images/unfavorite.png"/>')
+	                 .unbind('click')
+	                 .bind('click', addFav);
+	     		  console.log("刪除成功");
+	     		 $( "#unlovedialog" ).load('path to my page').dialog('open');
+	      },"error":showError
+	    });
+	}
+</script>
+
+<c:if test="${ ! empty LoginOK }">
+<script type="text/javascript">
+$(document).ready(function() {	console.log("第二段ready有進來");
+var contextPath = "${pageContext.request.contextPath}";
+$.ajax({
+	"method" : "GET",
+	"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+	"dataType" : "json",
+	"data" : "action=checkfavorite",
+	"url" : contextPath + "/myfavouriteajax.view",
+	"cache" : false,
+	"success": function(msg){
+		//讀取取消
+//			console.log(msg.data[0].stockId);
+//			console.log("一開始就成功進入!");
+		//不是我的最愛變我的最愛
+	for(var i = 0 ; i<msg.data.length ; i++){
+		console.log(msg.data[i].stockId);
+	  $('a[name="'+msg.data[i].stockId+'"]').empty()
+	  .append('<img src="${pageContext.request.contextPath}/images/favorite.png" />')
+      .unbind('click')
+      .bind('click', removeFav);
+	  console.log("開始就變換結束!");
+		}
+  },"error": showError
+  });
+});
+	</script>
+</c:if>
+
+<script type="text/javascript" charset="utf-8">
+//table樣式
+var contextPath = "${pageContext.request.contextPath}";
+	
+	$(document).ready(function() {	
+		$("#lovdialog").dialog(
+			       {
+			        bgiframe: true,
+			        autoOpen: false,
+			        height: 150,
+			        modal: true
+			       }
+			);
+		$("#unlovedialog").dialog(
+			       {
+			        bgiframe: true,
+			        autoOpen: false,
+			        height: 150,
+			        modal: true
+			       }
+			);
 		$('#datatable').DataTable({
 			"language" : {
 				"emptyTable" : "沒有數據",
@@ -78,47 +180,69 @@
 					"next" : "下一頁"
 				}
 			},
+			 "processing": true,
 			"searching" : false
 		});
 
+		//我的最愛變換更動部分
+		$('a[title="favorite"]').bind('click', addFav);
+		//Datepicker
+		$('input[name="startDate"],[name="endDate"]').attr("readonly", true).datepicker({
+			"defaultDate": new Date(),
+			"changeMonth": true,
+			"changeYear": true,
+			"dateFormat": "yy-mm-dd",
+			"altFormat": "yy/mm/dd",
+			"numberOfMonths": 1,
+			"maxDate": new Date(),
+			"minDate": new Date(2005,1-1,1)
+		});
 
-		//指定ajax 讀取json網頁${pageContext.request.contextPath}
-		var contextPath = "${pageContext.request.contextPath}";
+		//指定ajax 讀取json公司產業類別網頁${pageContext.request.contextPath}
 		$.ajax({
-			"method" : "GET",
-			"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
-			"dataType" : "json",
-			"data" : "action=groupname",
-			"url" : contextPath + "/groupInfo.view",
-			"cache" : false,
-			"success" : selectstockgroups,//呼叫外面的JS function 
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert(xhr.status);
-			}
+					"method" : "GET",
+					"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+					"dataType" : "json",
+					"data" : "action=groupname",
+					"url" : contextPath + "/groupInfo.view",
+					"cache" : false,
+					"success" : selectstockgroups,//呼叫外面的JS function 
+					error : function(xhr, ajaxOptions,
+							thrownError) {
+						alert(xhr.status);
+					}
+				});
+		$('select[name="selectstockcompany"]').change(
+						function(){
+							clearForm();//一開始先清理表單
+							$("#img2").css('display','inline');
+							$.ajax({
+										"method" : "GET",
+										"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
+										"dataType" : "json",
+										"url" : contextPath
+												+ "/groupInfo.view",
+										"data" : "action=stockids",
+										"cache" : false,
+										"success" : selectstockid,
+										 error : function(xhr,
+												ajaxOptions,
+												thrownError) {//錯誤彈出式窗
+											alert(xhr.status);
+										}
+									});
+							console.log("讀取結束");
+						}
+				);
 		});
 
-		$('select[name="selectstockcompany"]').change(function() {
-			clearForm();//一開始先清理表單
-			$.ajax({
-				"method" : "GET",
-				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
-				"dataType" : "json",
-				"url" : contextPath + "/groupInfo.view",
-				"data" : "action=stockids",
-				"cache" : false,
-				"success" : selectstockid,
-				error : function(xhr, ajaxOptions, thrownError) {//錯誤彈出式窗
-					alert(xhr.status);
-				}
-			});
-		});
-	});
-
-	function clearForm() {
-		$('select[name="selectstockid"]').val("");
-		$('select[name="selectstockid"]').first().empty();
-	}
+		function clearForm() {
+			$('select[name="selectstockid"]').val("");
+			$('select[name="selectstockid"]').empty();
+		}
 </script>
+
+
 </head>
 <body class="homepage">
 
@@ -139,7 +263,7 @@
 		</div>
 
 		<!-- 標題 -->
-		<div style="margin: 0">
+		<div class="container" style="margin: 0">
 
 			<!-- Logo -->
 			<div
@@ -188,9 +312,16 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
+		
+		<div id="lovdialog" title="關注">
+			 <p>已新增到我的關注</p>
+		</div>
+		<div id="unlovedialog" title="關注">
+			 <p>已刪除此關注</p>
+		</div>
+		
 		<!-- 輸入表格 -->
 		<!-- 					指定位置用的div-->
-
 		<div id="searchform" style="border: black 5px solid;">
 			<div class="search1">
 
@@ -199,15 +330,13 @@
 					<div class="form-group">
 						<label class="control-label">股票產業：</label> <select
 							name="selectstockcompany" style="width: 120px">
-							<c:if test="${not empty param}">
-								<option>${param.selectstockcompany}</option>
-							</c:if>
-						</select> <label class="control-label" >股票代碼： </label> <select
-							name="selectstockid" style="width: 120px">
-							<c:if test="${not empty param}">
-								<option>${param.selectstockid}</option>
-							</c:if>
+
+
+						</select> <label class="control-label">股票代碼： </label> <select
+							name="selectstockid">
+
 						</select>
+						<img id="img2" src="${pageContext.request.contextPath}/images/ajax-loader.gif" style="display: none;" >
 					</div>
 					<div class="form-group" style="margin: 10px auto; display: block;">
 						<label class="control-label">日期區間：</label><input type="text"
@@ -222,50 +351,73 @@
 							name="datanysis" value="讀取資料">
 					</div>
 				</form>
-
+				
+				
 			</div>
 
+			<!-- 			測試用區塊 -->
+			<!-- 			測試用區塊 -->
 
 
+			<!-- 			顯示表格 -->
+			<%-- 			<c:set var="string1" value="${param.selectstockid}"/> --%>
+			<%-- 			<c:set var="string2" value="${fn:substring(string1,5,10)}" /> --%>
+
+
+
+			<jsp:useBean id ="hello" scope="request" class="model.DataAnalysisBean"/>
+			
+			
 			<div style="margin: 200px;">
-				<c:if test="${not empty select}">
-					<div>
-						<span class="firm">${param.selectstockid}</span>
-					</div>
-					<table id="datatable" class="display" cellspacing="0" width="100%">
-						<thead>
-							<tr class="backgrou">
-								<th>我的最愛</th>
-								<th>股票代碼</th>
-								<th>資料日期</th>
-								<th>開盤價</th>
-								<th>收盤價</th>
-								<th>最高價</th>
-								<th>最低價</th>
-								<th>成交股數</th>
-								<th>漲跌價差</th>
-								<th>成交金額</th>
-								<th>成交筆數</th>
-							</tr>
-						</thead>
+			<c:if test="${not empty select}">
+				<div>
+					<span class="firm">${param.selectstockid}</span>
+				</div>
 
-						<!-- 						直接用foreach做循環表單 -->
-						<!-- var bean物件 EL取得servlet的request 裡key value 的select -->
-						<tbody>
+				<table id="datatable" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr class="backgrou">
+							<c:if test="${! empty LoginOK }">
+							<th>關注</th>
+							</c:if>
+							<th>股票代碼</th>
+							<th>資料日期</th>
+							<th>開盤價</th>
+							<th>收盤價</th>
+							<th>最高價</th>
+							<th>最低價</th>
+							<th>成交股數</th>
+							<th>漲跌價差</th>
+							<th>成交金額</th>
+							<th>成交筆數</th>
+
+						</tr>
+					</thead>
+					<!-- 						直接用foreach做循環表單 -->
+					<!-- var bean物件 EL取得servlet的request 裡key value 的select -->
+					<tbody>
+
+						<c:if test="${not empty select}">
 							<c:forEach var="bean" items="${select}">
 								<c:url value="/stockCompany.controller" var="path">
 									<c:param name="selectstockid" value="${bean.stockId}" />
 									<c:param name="datanysis" value="Select" />
 								</c:url>
 								<tr>
-									<td>
-										<div>
-											<button type="button" class="btn btn-default">
-												<span title="favorite" class="glyphicon glyphicon-plus"
-													aria-hidden="true"></span>
-											</button>
-										</div>
+									<c:if test="${! empty LoginOK }">
+									<td id="imgtd" style="background: white;">
+											<!-- 跳轉  我的最愛更動部分-->
+										<div>			
+											<span id="favs"></span>
+											<a  name="${bean.stockId}" title="favorite" >
+												<img src="${pageContext.request.contextPath}/images/unfavorite.png" />
+											</a>
+													<!-- 讀取中img -->
+											<img id="img" src="${pageContext.request.contextPath}/images/ajax-loader.gif" style="display: none;" >
+													<!-- /跳轉  更動部分-->
+										</div>				
 									</td>
+									</c:if>
 									<td><a href="${path}">${bean.stockId}</a></td>
 									<td>${bean.buildDate}</td>
 									<td>${bean.openPrice}</td>
@@ -276,20 +428,23 @@
 									<td>${bean.changeInPrice}</td>
 									<td>${bean.turnOverInValue}</td>
 									<td>${bean.numberOfTransactions}</td>
-
 								</tr>
 							</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
+						</c:if>
+					</tbody>
+				</table>
+				</c:if>
 			</div>
 		</div>
 		<!-- /Main -->
+		
 	</div>
+<!-- 	留言板 -->
 	<div id="disqus_thread"></div>
-
+<!-- 	必須載入datatable bootstap樣式 -->
 	<script type="text/javascript">
-		$('#datatable').removeClass('display').addClass('table table-striped table-bordered');
+		$('#datatable').removeClass('display').addClass(
+				'table table-striped table-bordered');
 	</script>
 	<script>
 		(function() { // DON'T EDIT BELOW THIS LINE
