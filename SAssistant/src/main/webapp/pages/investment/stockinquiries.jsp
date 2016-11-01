@@ -182,12 +182,6 @@ var contextPath = "${pageContext.request.contextPath}";
 			"maxDate": new Date(),
 			"minDate": new Date(2005,1-1,1)
 		});
-		// 	$(".row").css({"margin":"0px auto"};
-		//頁面跳轉指定位置 jquery
-		$(function() {
-			window.location.hash = "#auto_content";
-		});
-		// jQuery.support.cors = true; jsoup使用
 		//指定ajax 讀取json公司產業類別網頁${pageContext.request.contextPath}
 		$.ajax({
 					"method" : "GET",
@@ -312,11 +306,14 @@ var contextPath = "${pageContext.request.contextPath}";
 		<!-- 					指定位置用的div-->
 		<div id="searchform" style="border:  1px solid;">
 			<div class="search1">
+
 				<form action="<c:url value="/dataAnalysis.controller" />"
 					method="post" class="form-inline">
 					<div class="form-group">
 						<label class="control-label">股票產業：</label> <select
 							name="selectstockcompany" style="width: 120px">
+
+
 						</select> <label class="control-label">股票代碼： </label> <select
 							name="selectstockid" style="width: 120px">
 						</select>
