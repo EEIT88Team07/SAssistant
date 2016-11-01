@@ -220,7 +220,7 @@
 				<div>
 					<span class="firm">${param.selectstockid}</span>
 				</div>
-				<table id="datatable" class="display" cellspacing="0" width="100%">
+				<table id="datatable" class="display" cellspacing="0" width="80%" style="margin-left: 150px;">
 					<thead>
 						<tr class="backgrou">
 							<th>股票代碼</th>
