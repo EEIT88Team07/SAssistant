@@ -155,7 +155,7 @@ public class TransHistoryServlet extends HttpServlet {
 		bean.setPurchaseQuantity(purchaseQuantity);
 		bean.setStopLossLimit(stopLossLimit);
 		bean.setTakeProfitLimit(takeProfitLimit);
-		bean.setInvestment(purchasePrice * purchaseQuantity);
+		bean.setInvestment(purchasePrice * purchaseQuantity * 1000);
 		bean.setAccount(membersBean.getAccount());
 		bean.setPurchaseNumber(UUID.randomUUID().toString());
 
@@ -280,7 +280,7 @@ public class TransHistoryServlet extends HttpServlet {
 		bean.setPurchaseQuantity(purchaseQuantity);
 		bean.setStopLossLimit(stopLossLimit);
 		bean.setTakeProfitLimit(takeProfitLimit);
-		bean.setInvestment(purchasePrice * purchaseQuantity);
+		bean.setInvestment(purchasePrice * purchaseQuantity * 1000);
 		bean.setPurchaseNumber(purchaseNumber);
 
 		bean.setAccount(membersBean.getAccount());

@@ -169,7 +169,7 @@
 				</div>
 				<div style="margin: 20px">
 					<input type="submit" value="提交"> <input type="button"
-						value="取消" style="margin-left: 20px">
+						value="取消" style="margin-left: 20px" onclick="history.back()">
 
 				</div>
 			</div>

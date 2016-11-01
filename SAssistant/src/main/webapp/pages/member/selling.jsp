@@ -190,7 +190,7 @@
 							type="text" name="sellingQuantity" /> <label>賣出日期:</label><input
 							type="text" name="dateOfSelling" /> <input name="action"
 							type="submit" value="送出" /><input type="button" value="取消"
-							style="margin-left: 20px">
+							style="margin-left: 20px" onclick="history.back()">
 					</div>
 				</form>
 			</c:if>

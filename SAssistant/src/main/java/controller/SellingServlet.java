@@ -136,8 +136,8 @@ public class SellingServlet extends HttpServlet {
 		double netvalue = 0;
 		if (sellingQuantity > 0) {
 			double purchase = phbean.getPurchasePrice();
-			cost = sellingQuantity * purchase;
-			income = sellingQuantity * sellingPrice;
+			cost = sellingQuantity * purchase*1000;
+			income = sellingQuantity * sellingPrice*1000;
 			netIncome = income - cost;
 			try {
 				netvalue = netIncome / cost * 100;
@@ -258,8 +258,8 @@ public class SellingServlet extends HttpServlet {
 		double netvalue = 0;
 		if (sellingQuantity > 0) {
 			double purchase = phbean.getPurchasePrice();
-			cost = sellingQuantity * purchase;
-			income = sellingQuantity * sellingPrice;
+			cost = sellingQuantity * purchase*1000;
+			income = sellingQuantity * sellingPrice*1000;
 			netIncome = income - cost;
 			try {
 				netvalue = netIncome / cost * 100;

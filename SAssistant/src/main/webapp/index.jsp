@@ -39,7 +39,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
-
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body class="homepage">
 	<!-- Header -->

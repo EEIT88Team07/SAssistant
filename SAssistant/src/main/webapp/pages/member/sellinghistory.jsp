@@ -91,7 +91,7 @@
 			"columns" : [ {
 				"data" : null,
 				"render" : function(data, type, row, meta) {
-					return '<input type="text" name="purchaseNumber" style="display:none" value='+row.purchaseNumber+'><input type="text" name="sellingNumber" style="display:none" value='+row.sellingNumber+'><div style="margin:0 auto">'+row.stockId+'</div>'
+					return '<input type="text" name="purchaseNumber" style="display:none" value='+row.purchaseNumber+'><input type="text" name="sellingNumber" style="display:none" value='+row.sellingNumber+'><div style="margin:0 auto">' + row.stockId + '</div>'
 				}
 			}, {
 				"data" : "stockName"
@@ -132,7 +132,7 @@
 			} ],
 			"initComplete" : function() {
 				$('#datatable>tbody>tr td:last-child').css("width", "200px");
-				
+
 				//Datepicker
 				$('input[name="dateOfSelling"]').attr("readonly", true).datepicker({
 					"defaultDate" : new Date(),
@@ -144,7 +144,7 @@
 					"maxDate" : new Date(),
 					"minDate" : new Date(2005, 1 - 1, 1)
 				});
-				
+
 				var api = this.api();
 				api.$('tr').click(function() {
 					var purchaseNumber = this.childNodes[0].childNodes[0].value;
@@ -160,7 +160,7 @@
 						document.location.href = url;
 					});
 					$('input[name="delete"]').click(function() {
-						var url = contextPath + "/sellinghistory.controller?sellingNumber=" + sellingNumber + +"&action=" + button_delete;
+						var url = contextPath + "/sellinghistory.controller?sellingNumber=" + sellingNumber + "&action=" + button_delete;
 
 						document.location.href = url;
 					});
