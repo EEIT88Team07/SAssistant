@@ -85,7 +85,6 @@
 					"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
 					"data" : function(d) {
 						d.action = "getmyfav";
-						d.selectstockid = $('select[name="selectstockid"]').val();
 						d.startDate = $('input[name="startDate"]').val();
 						d.endDate = $('input[name="endDate"]').val();
 						d.datanysis = $('input[name="datanysis"]').val();
@@ -293,7 +292,24 @@
 
 		<!-- Main -->
 		<div id="searchform">
+			<div class="search1">
 
+
+				<div class="form-group" style="margin: 10px auto; display: block;">
+					<label class="control-label">日期區間：</label><input type="text"
+						name="startDate" value="${param.startDate}" placeholder="起始日期"
+						style="width: 120px; display: inline;"> <span>${error.stratDate}</span>
+					<label class="control-label" style="display: inline;">到
+						&nbsp;</label><input type="text" name="endDate" value="${param.endDate}"
+						placeholder="終止日期" style="width: 120px; display: inline;">
+
+					<input class="btn btn-primary superbtn" type="button"
+						id="getMyFavourite" name="datanysis" value="讀取資料"
+						style="margin-left: 30px;"> <span>${error.endDate}</span>
+				</div>
+
+
+			</div>
 
 			<div id="datatablediv" style="margin: 50px">
 				<div>
@@ -316,17 +332,9 @@
 						</tr>
 					</thead>
 				</table>
-
-
-
-
-
 			</div>
 		</div>
 		<!-- /Extra -->
-
-
-
 
 		<!-- Main -->
 		<div id="main" class="container"></div>

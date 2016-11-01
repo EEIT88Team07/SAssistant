@@ -167,7 +167,7 @@
 						<c:if test="${not empty select}">
 							<c:forEach var="bean" items="${select}">
 								<table width="600" border="0" cellspacing="0" cellpadding="0"
-									align="left" style="margin-left: 250px;">
+									align="left" style="margin: 100px;">
 									<tr align="center" bgcolor="#ACD6FF">
 										<td height="26" width="600" align="center"
 											style="font-weight: bold">公 司 基 本 資 料</td>
@@ -251,7 +251,7 @@
 					</tbody>
 				</table>
 				<div id="candlestick"
-					style="width: 600px; height: 400px; display: inline-block; margin-left: 150px"
+					style="width: 600px; height: 400px; display: inline-block; margin: 100px"
 					align="right"></div>
 			</div>
 			<div style="background-color: #FFFFFF; margin: 350px"></div>
