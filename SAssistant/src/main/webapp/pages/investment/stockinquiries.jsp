@@ -71,10 +71,8 @@ var contextPath = "${pageContext.request.contextPath}";
   function addFav(){
      	 var name = $(this).attr("name");
      	console.log(name);
-	 
 	  //讀取中...
 	  $("#img").css('display','inline').attr("style","float:right");
-	 
 	  $.ajax({
 			"method" : "GET",
 			"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -91,10 +89,10 @@ var contextPath = "${pageContext.request.contextPath}";
 			  .append('<img src="${pageContext.request.contextPath}/images/favorite.png" />')
               .unbind('click')
               .bind('click', removeFav);
+			  $( "#lovdialog" ).load('path to my page').dialog('open');
 		  },"error": showError
 		  });
 	}
-  
 	function removeFav(){
 		var name= $(this).attr("name");
 		 console.log(name);
@@ -113,6 +111,7 @@ var contextPath = "${pageContext.request.contextPath}";
 	                 .unbind('click')
 	                 .bind('click', addFav);
 	     		  console.log("刪除成功");
+	     		 $( "#unlovedialog" ).load('path to my page').dialog('open');
 	      },"error":showError
 	    });
 	}
@@ -143,7 +142,6 @@ $.ajax({
 	  console.log("開始就變換結束!");
 		}
   },"error": showError
-  
   });
 });
 	</script>
@@ -154,7 +152,22 @@ $.ajax({
 var contextPath = "${pageContext.request.contextPath}";
 	
 	$(document).ready(function() {	
-		
+		$("#lovdialog").dialog(
+			       {
+			        bgiframe: true,
+			        autoOpen: false,
+			        height: 150,
+			        modal: true
+			       }
+			);
+		$("#unlovedialog").dialog(
+			       {
+			        bgiframe: true,
+			        autoOpen: false,
+			        height: 150,
+			        modal: true
+			       }
+			);
 		$('#datatable').DataTable({
 			"language" : {
 				"emptyTable" : "沒有數據",
@@ -230,7 +243,6 @@ var contextPath = "${pageContext.request.contextPath}";
 										}
 									});
 							console.log("讀取結束");
-							
 						}
 				);
 		});
@@ -311,12 +323,14 @@ var contextPath = "${pageContext.request.contextPath}";
 		<!-- /圖片 -->
 
 		<!-- Main -->
-<!-- 		<div id="lovdialog" title="Basic dialog"> -->
-<!-- 			 <p>已新增到我的關注</p> -->
-<!-- 		</div> -->
-<!-- 		<div id="unlovedialog" title="Basic dialog"> -->
-<!-- 			 <p>已刪除到我的關注</p> -->
-<!-- 		</div> -->
+		
+		<div id="lovdialog" title="關注">
+			 <p>已新增到我的關注</p>
+		</div>
+		<div id="unlovedialog" title="關注">
+			 <p>已刪除此關注</p>
+		</div>
+		
 		<!-- 輸入表格 -->
 		<!-- 					指定位置用的div-->
 		<div id="searchform" style="border: black 5px solid;">
