@@ -91,7 +91,7 @@
 			},
 			"initComplete" : function() {
 				$('#datatable>tbody>tr td:last-child').css("width", "200px");
-				
+
 				//Datepicker
 				$('input[name="dateOfPurchase"]').attr("readonly", true).datepicker({
 					"defaultDate" : new Date(),
@@ -104,22 +104,19 @@
 					"minDate" : new Date(2005, 1 - 1, 1)
 				});
 
-				
 				var api = this.api();
 				api.$('tr').click(function() {
 					var stockId = this.childNodes[0].childNodes[1].childNodes[0].value;
 					var dateOfPurchase = this.childNodes[2].childNodes[0].childNodes[0].value;
 					var purchasePrice = this.childNodes[3].childNodes[0].childNodes[0].value;
 					var purchaseQuantity = this.childNodes[4].childNodes[0].childNodes[0].value;
-					var stopLossLimit = this.childNodes[6].childNodes[0].childNodes[0].value;
-					var takeProfitLimit = this.childNodes[7].childNodes[0].childNodes[0].value;
 					var purchaseNumber = this.childNodes[0].childNodes[0].value;
-					var button_edit = this.childNodes[8].childNodes[0].value;
-					var button_delete = this.childNodes[8].childNodes[1].value;
-					var button_selling = this.childNodes[8].childNodes[2].value;
+					var button_edit = this.childNodes[6].childNodes[0].value;
+					var button_delete = this.childNodes[6].childNodes[1].value;
+					var button_selling = this.childNodes[6].childNodes[2].value;
 
 					$('input[name="edit"]').click(function() {
-						var url = contextPath + "/transhistory.controller?stockId=" + stockId + "&dateOfPurchase=" + dateOfPurchase + "&purchasePrice=" + purchasePrice + "&purchaseQuantity=" + purchaseQuantity + "&stopLossLimit=" + stopLossLimit + "&takeProfitLimit=" + takeProfitLimit + "&purchaseNumber=" + purchaseNumber + "&action=" + button_edit;
+						var url = contextPath + "/transhistory.controller?stockId=" + stockId + "&dateOfPurchase=" + dateOfPurchase + "&purchasePrice=" + purchasePrice + "&purchaseQuantity=" + purchaseQuantity + "&purchaseNumber=" + purchaseNumber + "&action=" + button_edit;
 						document.location.href = url;
 					});
 					$('input[name="delete"]').click(function() {
@@ -162,16 +159,6 @@
 			}, {
 				"data" : null,
 				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:50px" name="stopLossLimit" type="text" value='+row.stopLossLimit+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return '<div style="margin:0 auto"><input style="width:50px" name="takeProfitLimit" type="text" value='+row.takeProfitLimit+'></div>'
-				}
-			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
 					return '<input style="margin-right: 10px;display: inline-block; float: left;" name="edit" type="button" value="更新"><input style="margin-right: 10px;display: inline-block ;float: left;" name="delete" type="button" value="刪除"><input style="margin-right: 10px;display: inline-block; float: left;" name="selling" type="button" value="賣出">'
 				}
 
@@ -179,7 +166,6 @@
 
 		});
 
-	
 	});
 
 	/*彈出表單*/
@@ -189,9 +175,7 @@
 		var dateOfPurchase = $("#dateOfPurchase");
 		var purchasePrice = $("#purchasePrice");
 		var purchaseQuantity = $("#purchaseQuantity");
-		var stopLossLimit = $("#stopLossLimit");
-		var takeProfitLimit = $("#takeProfitLimit");
-		var allFields = $([]).add(stockId).add(dateOfPurchase).add(purchasePrice).add(purchaseQuantity).add(stopLossLimit).add(takeProfitLimit);
+		var allFields = $([]).add(stockId).add(dateOfPurchase).add(purchasePrice).add(purchaseQuantity);
 		var tips = $(".validateTips");
 		function updateTips(t) {
 			tips.text(t).addClass("ui-state-highlight");
@@ -356,8 +340,6 @@
 							<th>購買價格</th>
 							<th>購買數量</th>
 							<th>投資額</th>
-							<th>停損點</th>
-							<th>停利點</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -384,13 +366,7 @@
 						class="text ui-widget-content ui-corner-all"> <label
 						for="purchaseQuantity">購買數量*</label> <input type="text"
 						name="purchaseQuantity" id="purchaseQuantity"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="stopLossLimit">停損點</label> <input type="text"
-						name="stopLossLimit" id="stopLossLimit"
-						class="text ui-widget-content ui-corner-all"> <label
-						for="takeProfitLimit">停利點</label> <input type="text"
-						name="takeProfitLimit" id="takeProfitLimit"
-						class="text ui-widget-content ui-corner-all">
+						class="text ui-widget-content ui-corner-all"> 
 
 					<!-- Allow form submission with keyboard without duplicating the dialog button -->
 					<input type="submit" tabindex="-1"
@@ -403,7 +379,7 @@
 		<!-- /Main -->
 
 
-	
+
 	</div>
 	<div id="disqus_thread"></div>
 

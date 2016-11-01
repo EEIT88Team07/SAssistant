@@ -59,6 +59,12 @@ public class InstantlyInfoService {
 			stocks.add(stockIds.get(i));
 		}
 
+		stocks.add("2353");
+		stocks.add("2317");
+		stocks.add("2330");
+		stocks.add("1301");
+		stocks.add("2002");
+		
 		Collections.sort(stocks);
 
 		for (int i = 0; i < stocks.size(); i++) {

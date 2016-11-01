@@ -93,6 +93,10 @@
 
 		});
 
+		setInterval(function() {
+			table1.ajax.reload(null, false);
+		}, 5000);
+
 		//指定ajax 讀取json網頁${pageContext.request.contextPath}
 		$.ajax({
 			"method" : "GET",

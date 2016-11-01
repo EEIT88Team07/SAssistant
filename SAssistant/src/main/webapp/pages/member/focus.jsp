@@ -90,6 +90,14 @@
 						d.datanysis = $('input[name="datanysis"]').val();
 					}
 				},
+				"initComplete" : function() {
+					var api = this.api();
+					api.$('tr').click(function() {
+						var stockid = this.childNodes[0].innerHTML;
+						var url = contextPath + "/stockCompany.controller?selectstockid=" + stockid + "&datanysis=Select";
+						document.location.href = url;
+					});
+				},
 				"columns" : [ {
 					"data" : "stockId"
 				}, {
