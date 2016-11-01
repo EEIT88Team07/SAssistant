@@ -70,11 +70,11 @@
 			modal : true,
 			buttons : {
 				"新增" : addtrans,
-				取消 : function() {
+				"取消" : function() {
 					dialog.dialog("close");
 				}
 			},
-			取消 : function() {
+			"取消" : function() {
 				form[0].reset();
 				allFields.removeClass("ui-state-error");
 			}
