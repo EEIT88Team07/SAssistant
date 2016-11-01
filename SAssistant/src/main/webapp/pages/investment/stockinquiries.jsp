@@ -81,14 +81,6 @@
 			"searching" : false
 		});
 
-		// 	$(".row").css({"margin":"0px auto"};
-
-		//頁面跳轉指定位置 jquery
-		$(function() {
-			window.location.hash = "#auto_content";
-		});
-
-		// jQuery.support.cors = true; jsoup使用
 
 		//指定ajax 讀取json網頁${pageContext.request.contextPath}
 		var contextPath = "${pageContext.request.contextPath}";
@@ -202,8 +194,6 @@
 		<div id="searchform" style="border: black 5px solid;">
 			<div class="search1">
 
-				<div id="auto_content" class="pic"></div>
-
 				<form action="<c:url value="/dataAnalysis.controller" />"
 					method="post" class="form-inline">
 					<div class="form-group">
@@ -212,8 +202,8 @@
 							<c:if test="${not empty param}">
 								<option>${param.selectstockcompany}</option>
 							</c:if>
-						</select> <label class="control-label">股票代碼： </label> <select
-							name="selectstockid">
+						</select> <label class="control-label" >股票代碼： </label> <select
+							name="selectstockid" style="width: 120px">
 							<c:if test="${not empty param}">
 								<option>${param.selectstockid}</option>
 							</c:if>
