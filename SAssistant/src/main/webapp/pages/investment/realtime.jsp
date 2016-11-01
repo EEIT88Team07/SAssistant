@@ -70,26 +70,25 @@
 				}
 			},
 			"columns" : [ {
-				"data" : "stockId"
+				"data" : "stockIdName"
 			}, {
-				"data" : "stockName"
+				"data" : "time"
 			}, {
 				"data" : "finalPrice"
 			}, {
-				"data" : "temporalVolume"
+				"data" : "buy"
+			}, {
+				"data" : "sell"
 			}, {
 				"data" : "volume"
 			}, {
-				"data" : null,
-				"render" : function(data, type, row, meta) {
-					return row.infomationDate + ' ' + row.infomationTime;
-				}
+				"data" : "yestPrice"
+			}, {
+				"data" : "openPrice"
 			}, {
 				"data" : "high"
 			}, {
 				"data" : "low"
-			}, {
-				"data" : "openPrice"
 			} ]
 
 		});
@@ -223,15 +222,16 @@
 				<table id="datatable" class="display" cellspacing="0" width="100%">
 					<thead>
 						<tr class="backgrou">
-							<th>股票代碼</th>
-							<th>股票名稱</th>
-							<th>最近成交價</th>
-							<th>當盤成交量</th>
-							<th>當日累計成交量</th>
-							<th>資料時間</th>
-							<th>今日最高點</th>
-							<th>今日最低點</th>
-							<th>開盤價</th>
+							<th>股票</th>
+							<th>時間</th>
+							<th>成交</th>
+							<th>買進</th>
+							<th>賣出</th>
+							<th>張數</th>
+							<th>昨收</th>
+							<th>開盤</th>
+							<th>最高</th>
+							<th>最低</th>
 						</tr>
 					</thead>
 

@@ -32,84 +32,25 @@ import model.InstantlyInfoService;
  */
 @WebServlet("/instantlyInfo.controller")
 public class InstantlyInfoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
-	private InstantlyInfoService instantlyInfoService ;
+	private static final long serialVersionUID = 1L;
+	private InstantlyInfoService instantlyInfoService;
+
 	@Override
 	public void init() throws ServletException {
-		ApplicationContext context = 
-				WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
 		instantlyInfoService = (InstantlyInfoService) context.getBean("instantlyInfoService");
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/plain; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-		/*
-		 * 接收資料
-		 */
-		String temp1 = request.getParameter("selectstockid");
-		String datanysis = request.getParameter("datanysis");
-		
-		
-		/*
-		 * 轉換資料
-		 */
-		Map<String, String> errors = new HashMap<String, String>();
-		request.setAttribute("error", errors);
-		InstantlyInfoBean bean = new InstantlyInfoBean();
-		if(temp1!=null && temp1.trim().length()!=0) {
-				bean.setStockId(temp1.substring(0,4));
-			} else {
-				errors.put("stockId", "Id必須是為四個數字");
-			}
-				
-		
-//		DataAnalysisBean bean = new DataAnalysisBean();
-//		bean.setStockId(stockId);
-//		bean.setBuildDate(buildDate);
-		
-		/*
-		 * 呼叫Model, 根據Model執行結果顯示View
-		 */
-		List<InstantlyInfoBean> result = null;
-		if("Select".equals(datanysis)) {
-			result = instantlyInfoService.select(bean);
-			if(result == null){
-				errors.put("stockId", "無此股票代碼");
-				request.getRequestDispatcher(
-						"/pages/investment/realtime.jsp").forward(request, response);
-				return;
-			}else{
-				request.setAttribute("select",result);
-			}		
-		} 
-		/*
-		 * 轉換json格式可以使用
-		 */
-//		JsonArrayBuilder builder = Json.createArrayBuilder();
-//		DataAnalysisBean data = result.get(0);
-//		JsonObject obj2 = Json.createObjectBuilder()
-//				.add("stockId", data.getStockId())
-//				.add("buildDate", data.getBuildDate())
-//				.add("openPrice", data.getOpenPrice())
-//				.add("closingPrice", data.getClosingPrice()).build();
-//		builder.add(obj2);
-//		out.write(builder.build().toString());
-//		out.close();
-		
-//		request.getRequestDispatcher("/dataAnalysis.controller").forward(request, response);
-		
-		/*
-		 * 跳轉到資料 dataAnalysis.jsp
-		 */
+
 		request.getRequestDispatcher("/pages/investment/realtime.jsp").forward(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		this.doGet(request, response);
 	}
 

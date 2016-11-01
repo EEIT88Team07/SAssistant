@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.List;
 
 public interface InstantlyInfoDAO {
@@ -7,17 +8,15 @@ public interface InstantlyInfoDAO {
 	// 查詢
 	public abstract List<InstantlyInfoBean> select();
 
-	public abstract InstantlyInfoBean select(String stockId);
+	public abstract InstantlyInfoBean select(String stockIdName);
 
 	// 新增
 	public abstract InstantlyInfoBean insert(InstantlyInfoBean instantlyInfoBean);
 
 	// 刪除
-	public abstract boolean delete(String stockId);
+	public abstract boolean delete(String stockIdName);
 
 	// 修改
-	public abstract InstantlyInfoBean update(String stockName, Double finalPrice, Integer temporalVolume,
-			Integer volume, String infomationTime, String infomationDate, Double high, Double low, Double openPrice,
-			String a, String f, String b, String g, String stockId);
+	public abstract InstantlyInfoBean update(String stockIdName, Date time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low);
 
 }

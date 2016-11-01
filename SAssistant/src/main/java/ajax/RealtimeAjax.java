@@ -72,9 +72,9 @@ public class RealtimeAjax extends HttpServlet {
 
 			InstantlyInfoBean bean = infobeans.get(i);
 
-			JsonObject json_databean = Json.createObjectBuilder().add("stockId", bean.getStockId()).add("stockName", bean.getStockName()).add("finalPrice", bean.getFinalPrice())
-					.add("temporalVolume", bean.getTemporalVolume()).add("volume", bean.getVolume()).add("infomationDate", bean.getInfomationDate()).add("infomationTime", bean.getInfomationTime())
-					.add("high", bean.getHigh()).add("low", bean.getLow()).add("openPrice", bean.getOpenPrice()).build();
+			JsonObject json_databean = Json.createObjectBuilder().add("stockIdName", bean.getStockIdName()).add("finalPrice", bean.getFinalPrice()).add("volume", bean.getVolume())
+					.add("yestPrice", bean.getYestPrice()).add("buy", bean.getBuy()).add("sell", bean.getSell()).add("openPrice", bean.getOpenPrice()).add("high", bean.getHigh())
+					.add("low", bean.getLow()).add("time", bean.getTime().toString()).build();
 			jsonArray_builder.add(json_databean);
 		}
 

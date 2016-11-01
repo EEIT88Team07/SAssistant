@@ -1,66 +1,54 @@
 package model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="InstantlyInfo")
+@Table(name = "InstantlyInfo")
 public class InstantlyInfoBean {
 	@Id
-	private String stockId;
-	private String stockName;
-	private Double finalPrice;
-	private Integer temporalVolume;
+	private String stockIdName;
+	private Date time;
+	private String finalPrice;
 	private Integer volume;
-	private String infomationTime;
-	private String infomationDate;
-	private Double high;
-	private Double low;
-	private Double openPrice;
-	private String a;
-	private String f;
-	private String b;
-	private String g;
+	private String yestPrice;
+	private String buy;
+	private String sell;
+	private String openPrice;
+	private String high;
+	private String low;
 
 	@Override
 	public String toString() {
-		return "InstantlyInfoBean [stockId=" + stockId + ", stockName=" + stockName + ", finalPrice=" + finalPrice
-				+ ", temporalVolume=" + temporalVolume + ", volume=" + volume + ", infomationTime=" + infomationTime
-				+ ", infomationDate=" + infomationDate + ", high=" + high + ", low=" + low + ", openPrice=" + openPrice
-				+ ", a=" + a + ", f=" + f + ", b=" + b + ", g=" + g + "]";
+		return "InstantlyInfoBean [stockIdName=" + stockIdName + ", time=" + time + ", finalPrice=" + finalPrice + ", volume=" + volume + ", yestPrice=" + yestPrice + ", buy=" + buy + ", sell=" + sell
+				+ ", openPrice=" + openPrice + ", high=" + high + ", low=" + low + "]";
 	}
 
-	public String getStockId() {
-		return stockId;
+	public String getStockIdName() {
+		return stockIdName;
 	}
 
-	public void setStockId(String stockId) {
-		this.stockId = stockId;
+	public void setStockIdName(String stockIdName) {
+		this.stockIdName = stockIdName;
 	}
 
-	public String getStockName() {
-		return stockName;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setStockName(String stockName) {
-		this.stockName = stockName;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
-	public Double getFinalPrice() {
+	public String getFinalPrice() {
 		return finalPrice;
 	}
 
-	public void setFinalPrice(Double finalPrice) {
+	public void setFinalPrice(String finalPrice) {
 		this.finalPrice = finalPrice;
-	}
-
-	public Integer getTemporalVolume() {
-		return temporalVolume;
-	}
-
-	public void setTemporalVolume(Integer temporalVolume) {
-		this.temporalVolume = temporalVolume;
 	}
 
 	public Integer getVolume() {
@@ -71,75 +59,52 @@ public class InstantlyInfoBean {
 		this.volume = volume;
 	}
 
-	public String getInfomationTime() {
-		return infomationTime;
+	public String getYestPrice() {
+		return yestPrice;
 	}
 
-	public void setInfomationTime(String infomationTime) {
-		this.infomationTime = infomationTime;
+	public void setYestPrice(String yestPrice) {
+		this.yestPrice = yestPrice;
 	}
 
-	public String getInfomationDate() {
-		return infomationDate;
+	public String getBuy() {
+		return buy;
 	}
 
-	public void setInfomationDate(String infomationDate) {
-		this.infomationDate = infomationDate;
+	public void setBuy(String buy) {
+		this.buy = buy;
 	}
 
-	public Double getHigh() {
-		return high;
+	public String getSell() {
+		return sell;
 	}
 
-	public void setHigh(Double high) {
-		this.high = high;
+	public void setSell(String sell) {
+		this.sell = sell;
 	}
 
-	public Double getLow() {
-		return low;
-	}
-
-	public void setLow(Double low) {
-		this.low = low;
-	}
-
-	public Double getOpenPrice() {
+	public String getOpenPrice() {
 		return openPrice;
 	}
 
-	public void setOpenPrice(Double openPrice) {
+	public void setOpenPrice(String openPrice) {
 		this.openPrice = openPrice;
 	}
 
-	public String getA() {
-		return a;
+	public String getHigh() {
+		return high;
 	}
 
-	public void setA(String a) {
-		this.a = a;
+	public void setHigh(String high) {
+		this.high = high;
 	}
 
-	public String getF() {
-		return f;
+	public String getLow() {
+		return low;
 	}
 
-	public void setF(String f) {
-		this.f = f;
+	public void setLow(String low) {
+		this.low = low;
 	}
 
-	public String getB() {
-		return b;
-	}
-
-	public void setB(String b) {
-		this.b = b;
-	}
-
-	public String getG() {
-		return g;
-	}
-
-	public void setG(String g) {
-		this.g = g;
-	}
 }

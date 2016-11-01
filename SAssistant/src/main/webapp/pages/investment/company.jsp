@@ -57,12 +57,12 @@
 			stockid = $('td[name="stockIdTable"]').text()
 		}
 		if (stockid.length != 0) {
-
+			var days = $('input[name="days"]').val();
 			$.ajax({
 				"method" : "GET",
 				"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
 				"dataType" : "json",
-				"data" : "action=getCandPara&id=" + stockid,
+				"data" : "action=getCandPara&id=" + stockid + "&days=" + days,
 				"url" : contextPath + "/dataAnalysis.view",
 				"cache" : false,
 				"success" : getCandlestick
@@ -91,11 +91,12 @@
 		</div>
 
 		<!-- 標題 -->
-	<div style="margin: 0">
+		<div style="margin: 0">
 
 			<!-- Logo -->
 
-			<div style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
+			<div
+				style="display: inline-block; float: left; margin-left: 20px; margin-top: 20px">
 				<a href="${pageContext.request.contextPath}/index.jsp"><img
 					alt="" src="${pageContext.request.contextPath}/images/logo.png" /></a>
 			</div>
@@ -151,8 +152,12 @@
 							<label class="control-label">股票產業：</label> <select
 								name="selectstockcompany" style="width: 150px;"></select> <label
 								class="control-label">股票代碼：</label> <select name="selectstockid"
-								style="width: 150px;"></select>
+								style="width: 150px;"></select><label class="control-label"
+								style="margin-left: 20px">搜尋天數：</label><input type="text"
+								name="days" style="display: inline-block; width: 50px;"
+								value="${days}">
 						</div>
+
 						<div class="submit1" style="display: inline;">
 							<input class="btn btn-primary superbtn" type="submit"
 								name="datanysis" value="Select">
@@ -167,7 +172,7 @@
 						<c:if test="${not empty select}">
 							<c:forEach var="bean" items="${select}">
 								<table width="600" border="0" cellspacing="0" cellpadding="0"
-									align="left" style="margin-left: 250px;">
+									align="left" style="margin: 100px;">
 									<tr align="center" bgcolor="#ACD6FF">
 										<td height="26" width="600" align="center"
 											style="font-weight: bold">公 司 基 本 資 料</td>
@@ -251,7 +256,7 @@
 					</tbody>
 				</table>
 				<div id="candlestick"
-					style="width: 600px; height: 400px; display: inline-block; margin-left: 150px"
+					style="width: 600px; height: 400px; display: inline-block; margin: 100px"
 					align="right"></div>
 			</div>
 			<div style="background-color: #FFFFFF; margin: 350px"></div>

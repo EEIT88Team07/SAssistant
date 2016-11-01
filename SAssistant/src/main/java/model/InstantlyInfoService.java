@@ -1,26 +1,30 @@
 package model;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.hibernate.SessionFactory;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import model.misc.CrawlerPack;
+
 public class InstantlyInfoService {
+	private InstantlyInfoDAO instantlyInfoDAO;
+
+	public InstantlyInfoService(InstantlyInfoDAO instantlyInfoDAO) {
+		this.instantlyInfoDAO = instantlyInfoDAO;
+	}
 
 	public static void main(String[] args) throws HttpException, IOException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
@@ -28,8 +32,14 @@ public class InstantlyInfoService {
 		try {
 			sessionFactory.getCurrentSession().beginTransaction();
 			InstantlyInfoService instantlyInfoService = (InstantlyInfoService) context.getBean("instantlyInfoService");
+			StockInfoService stockInfoService = (StockInfoService) context.getBean("stockInfoService");
 
-			instantlyInfoService.insertData();
+			instantlyInfoService.updateYahoo(stockInfoService.select_ALL_Id());
+
+			// instantlyInfoBean.setStockId("1101");
+
+			// System.out.println(instantlyInfoService.select(instantlyInfoBean));
+
 			// InstantlyInfoBean bean = new InstantlyInfoBean();
 			// bean.setStockId("1101");
 			// System.out.println(instantlyInfoService.select(bean));
@@ -42,110 +52,74 @@ public class InstantlyInfoService {
 		}
 	}
 
-	public void insertData() {
-		HttpClient client = null;
-		HttpMethod method = null;
-		JSONObject msgArray = null;
-		String url = null;
-		Elements elements = null;
-		Date date = new Date();
-		Date fdate = new Date();
-		try {
-			url = "http://isin.twse.com.tw/isin/class_main.jsp?owncode=&stockname=&isincode=&market=1&issuetype=1&industry_code=&Page=1&chklike=Y";
-			elements = Jsoup.connect(url).get().select("tr");
+	public void updateYahoo(List<String> stockIds) {
 
-			for (int i = 1; i < elements.size(); i++) {
-				url = "http://mis.twse.com.tw/stock/fibest.jsp?stock=" + elements.get(i).child(2).text()
-						+ "&lang=zh-TW";
-				client = new HttpClient();
-				client.executeMethod(new GetMethod(url));
-				try {
-					url = "http://mis.twse.com.tw/stock/api/getStockInfo.jsp?json=1&delay=0&ex_ch=tse_"
-							+ elements.get(i).child(2).text() + ".tw&_=" + date.getTime();
-					System.out.println(url);
-					method = new GetMethod(url);
-					method.getParams().setContentCharset("utf-8");
-					client.executeMethod(method);
-					msgArray = (JSONObject) new JSONObject(method.getResponseBodyAsString()).getJSONArray("msgArray")
-							.get(0);
+		List<String> stocks = new ArrayList<String>();
+		for (int i = 0; i < 20; i++) {
+			stocks.add(stockIds.get(i));
+		}
+
+		Collections.sort(stocks);
+
+		for (int i = 0; i < stocks.size(); i++) {
+
+			String url = "https://tw.stock.yahoo.com/q/q?s=" + stocks.get(i);
+			Elements elements = CrawlerPack.start().setRemoteEncoding("Big5_HKSCS").getFromHtml(url).select("table:eq(0)");
+			Node node = elements.get(4).childNode(1).childNode(2);
+
+			String stockIdName = node.childNode(1).childNode(0).childNode(0).toString();
+
+			if (stockIdName != null && stockIdName.trim().length() != 0) {
+
+				InstantlyInfoBean test = instantlyInfoDAO.select(stockIdName);
+
+				if (test != null) {
+					String finalPrice = node.childNode(5).childNode(0).childNode(0).toString();
+					Integer volume = 0;
+					try {
+						volume = Integer.parseInt(node.childNode(12).childNode(0).toString());
+					} catch (NumberFormatException e) {
+
+						volume = 0;
+					}
+					String yestPrice = node.childNode(14).childNode(0).toString();
+					String buy = node.childNode(7).childNode(0).toString();
+					String sell = node.childNode(9).childNode(0).toString();
+					String openPrice = node.childNode(16).childNode(0).toString();
+					String high = node.childNode(18).childNode(0).toString();
+					String low = node.childNode(20).childNode(0).toString();
+
+					instantlyInfoDAO.update(stockIdName, new Date(), finalPrice, volume, yestPrice, buy, sell, openPrice, high, low);
+				}
+
+				if (test == null) {
 
 					InstantlyInfoBean instantlyInfoBean = new InstantlyInfoBean();
-					instantlyInfoBean.setStockId(((String) msgArray.get("ch")).substring(0, 4));
-					instantlyInfoBean.setStockName((String) msgArray.get("n"));
+					instantlyInfoBean.setStockIdName(stockIdName);
+					instantlyInfoBean.setFinalPrice(node.childNode(5).childNode(0).childNode(0).toString());
 					try {
-						instantlyInfoBean.setFinalPrice(Double.parseDouble((String) msgArray.get("z")));
-					} catch (Exception e) {
-						instantlyInfoBean.setFinalPrice(0.0);
-					}
-					try {
-						instantlyInfoBean.setTemporalVolume(Integer.parseInt((String) msgArray.get("tv")));
-					} catch (Exception e) {
-						instantlyInfoBean.setTemporalVolume(0);
-					}
-					try {
-						instantlyInfoBean.setVolume(Integer.parseInt((String) msgArray.get("v")));
-					} catch (Exception e) {
+						instantlyInfoBean.setVolume(Integer.parseInt(node.childNode(12).childNode(0).toString()));
+					} catch (NumberFormatException e) {
+
 						instantlyInfoBean.setVolume(0);
 					}
-					try {
-						fdate.setTime(Long.parseLong((String) msgArray.get("tlong")));
-					} catch (Exception e) {
-						fdate.setTime(0);
-					}
-					try {
-						instantlyInfoBean.setInfomationTime(new SimpleDateFormat("HH:mm:ss").format(fdate));
-					} catch (Exception e) {
-						instantlyInfoBean.setInfomationTime(null);
-					}
-					try {
-						instantlyInfoBean.setInfomationDate(new SimpleDateFormat("yyyy-MM-dd").format(fdate));
-					} catch (Exception e) {
-						instantlyInfoBean.setInfomationDate(null);
-					}
-					try {
-						instantlyInfoBean.setHigh(Double.parseDouble((String) msgArray.get("h")));
-					} catch (Exception e) {
-						instantlyInfoBean.setHigh(0.0);
-					}
-					try {
-						instantlyInfoBean.setLow(Double.parseDouble((String) msgArray.get("l")));
-					} catch (Exception e) {
-						instantlyInfoBean.setLow(0.0);
-					}
-					try {
-						instantlyInfoBean.setOpenPrice(Double.parseDouble((String) msgArray.get("o")));
-					} catch (Exception e) {
-						instantlyInfoBean.setOpenPrice(0.0);
-					}
-					instantlyInfoBean.setA((String) msgArray.get("a"));
-					instantlyInfoBean.setF((String) msgArray.get("f"));
-					instantlyInfoBean.setB((String) msgArray.get("b"));
-					instantlyInfoBean.setG((String) msgArray.get("g"));
-
-					this.update(instantlyInfoBean);
-					System.out.println(elements.get(i).child(2).text());	
-					try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						System.out.println(e);
-					}
-				} catch (JSONException e) {
-					System.out.println(e);
-				} finally {
-					method.releaseConnection();
+					instantlyInfoBean.setYestPrice(node.childNode(14).childNode(0).toString());
+					instantlyInfoBean.setBuy(node.childNode(7).childNode(0).toString());
+					instantlyInfoBean.setSell(node.childNode(9).childNode(0).toString());
+					instantlyInfoBean.setOpenPrice(node.childNode(16).childNode(0).toString());
+					instantlyInfoBean.setHigh(node.childNode(18).childNode(0).toString());
+					instantlyInfoBean.setLow(node.childNode(20).childNode(0).toString());
+					instantlyInfoBean.setTime(new Date());
+					instantlyInfoDAO.insert(instantlyInfoBean);
 				}
 			}
-		} catch (HttpException e) {
-			System.out.println(e);
-		} catch (IOException e) {
-			System.out.println(e);
 		}
 	}
 
 	public List<InstantlyInfoBean> select(InstantlyInfoBean bean) {
 		List<InstantlyInfoBean> result = null;
-		if (bean != null && bean.getStockId() != null) {
-			InstantlyInfoBean temp = instantlyInfoDAO.select(bean.getStockId());
+		if (bean != null && bean.getStockIdName() != null) {
+			InstantlyInfoBean temp = instantlyInfoDAO.select(bean.getStockIdName());
 			if (temp != null) {
 				result = new ArrayList<InstantlyInfoBean>();
 				result.add(temp);
@@ -166,9 +140,8 @@ public class InstantlyInfoService {
 
 	public InstantlyInfoBean update(InstantlyInfoBean bean) {
 		if (bean != null) {
-			return instantlyInfoDAO.update(bean.getStockName(), bean.getFinalPrice(), bean.getTemporalVolume(),
-					bean.getVolume(), bean.getInfomationTime(), bean.getInfomationDate(), bean.getHigh(), bean.getLow(),
-					bean.getOpenPrice(), bean.getA(), bean.getF(), bean.getB(), bean.getG(), bean.getStockId());
+			return instantlyInfoDAO.update(bean.getStockIdName(), bean.getTime(), bean.getFinalPrice(), bean.getVolume(), bean.getYestPrice(), bean.getBuy(), bean.getSell(), bean.getOpenPrice(),
+					bean.getHigh(), bean.getLow());
 		}
 		return null;
 	}
@@ -178,12 +151,6 @@ public class InstantlyInfoService {
 			return instantlyInfoDAO.delete(stockId);
 		}
 		return false;
-	}
-
-	private InstantlyInfoDAO instantlyInfoDAO;
-
-	public InstantlyInfoService(InstantlyInfoDAO instantlyInfoDAO) {
-		this.instantlyInfoDAO = instantlyInfoDAO;
 	}
 
 }

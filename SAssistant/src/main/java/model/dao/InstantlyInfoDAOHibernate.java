@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -27,13 +28,12 @@ public class InstantlyInfoDAOHibernate implements InstantlyInfoDAO {
 		return (List<InstantlyInfoBean>) query.list();
 	}
 
-	public InstantlyInfoBean select(String stockId) {
-		return (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, stockId);
+	public InstantlyInfoBean select(String stockIdName) {
+		return (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, stockIdName);
 	}
 
 	public InstantlyInfoBean insert(InstantlyInfoBean instantlyInfoBean) {
-		InstantlyInfoBean result = (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class,
-				instantlyInfoBean.getStockId());
+		InstantlyInfoBean result = (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, instantlyInfoBean.getStockIdName());
 		if (result == null) {
 			this.getSession().save(instantlyInfoBean);
 			return instantlyInfoBean;
@@ -51,26 +51,21 @@ public class InstantlyInfoDAOHibernate implements InstantlyInfoDAO {
 		return false;
 	}
 
-	@Override
-	public InstantlyInfoBean update(String stockName, Double finalPrice, Integer temporalVolume, Integer volume,
-			String infomationTime, String infomationDate, Double high, Double low, Double openPrice, String a, String f,
-			String b, String g, String stockId) {
-		InstantlyInfoBean bean = (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, stockId);
+	public InstantlyInfoBean update(String stockIdName, Date time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low) {
+		InstantlyInfoBean bean = (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, stockIdName);
+
 		if (bean != null) {
-			bean.setStockId(stockId);
-			bean.setStockName(stockName);
+			bean.setStockIdName(stockIdName);
+			bean.setTime(time);
 			bean.setFinalPrice(finalPrice);
-			bean.setTemporalVolume(temporalVolume);
 			bean.setVolume(volume);
-			bean.setInfomationTime(infomationTime);
-			bean.setInfomationDate(infomationDate);
+			bean.setYestPrice(yestPrice);
+			bean.setBuy(buy);
+			bean.setSell(sell);
+			bean.setOpenPrice(openPrice);
 			bean.setHigh(high);
 			bean.setLow(low);
-			bean.setOpenPrice(openPrice);
-			bean.setA(a);
-			bean.setF(f);
-			bean.setB(b);
-			bean.setG(g);
+
 		}
 		return bean;
 	}
