@@ -51,23 +51,12 @@
 	
 <style type="text/css">
 
- 
- #searchform div table tbody tr td div a{ 
- float:right;  
-}
-#searchform div table tbody tr td div a img{
-
-cursor: pointer;
-}
-
-
 </style>
 <script type="text/javascript" charset="utf-8">
 // window.localStorage
 //我的最愛方法  更動部分
 
 var contextPath = "${pageContext.request.contextPath}";
-
   function addFav(){
      	 var name = $(this).attr("name");
      	console.log(name);
@@ -116,7 +105,6 @@ var contextPath = "${pageContext.request.contextPath}";
 	    });
 	}
 </script>
-
 <c:if test="${ ! empty LoginOK }">
 <script type="text/javascript">
 $(document).ready(function() {	console.log("第二段ready有進來");
@@ -146,11 +134,9 @@ $.ajax({
 });
 	</script>
 </c:if>
-
 <script type="text/javascript" charset="utf-8">
 //table樣式
 var contextPath = "${pageContext.request.contextPath}";
-	
 	$(document).ready(function() {	
 		$("#lovdialog").dialog(
 			       {
@@ -182,8 +168,7 @@ var contextPath = "${pageContext.request.contextPath}";
 			},
 			 "processing": true,
 			"searching" : false
-		});		
-		
+		});
 		//我的最愛變換更動部分
 		$('a[title="favorite"]').bind('click', addFav);
 		//Datepicker
@@ -197,19 +182,13 @@ var contextPath = "${pageContext.request.contextPath}";
 			"maxDate": new Date(),
 			"minDate": new Date(2005,1-1,1)
 		});
-		
-
 		// 	$(".row").css({"margin":"0px auto"};
-
 		//頁面跳轉指定位置 jquery
 		$(function() {
 			window.location.hash = "#auto_content";
 		});
-
 		// jQuery.support.cors = true; jsoup使用
-
 		//指定ajax 讀取json公司產業類別網頁${pageContext.request.contextPath}
-		
 		$.ajax({
 					"method" : "GET",
 					"contentType" : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -242,11 +221,9 @@ var contextPath = "${pageContext.request.contextPath}";
 											alert(xhr.status);
 										}
 									});
-							console.log("讀取結束");
 						}
 				);
 		});
-
 		function clearForm() {
 			$('select[name="selectstockid"]').val("");
 			$('select[name="selectstockid"]').empty();
@@ -333,7 +310,7 @@ var contextPath = "${pageContext.request.contextPath}";
 		
 		<!-- 輸入表格 -->
 		<!-- 					指定位置用的div-->
-		<div id="searchform" style="border: black 5px solid;">
+		<div id="searchform" style="border:  1px solid;">
 			<div class="search1">
 				<form action="<c:url value="/dataAnalysis.controller" />"
 					method="post" class="form-inline">
@@ -341,7 +318,7 @@ var contextPath = "${pageContext.request.contextPath}";
 						<label class="control-label">股票產業：</label> <select
 							name="selectstockcompany" style="width: 120px">
 						</select> <label class="control-label">股票代碼： </label> <select
-							name="selectstockid">
+							name="selectstockid" style="width: 120px">
 						</select>
 						<img id="img2" src="${pageContext.request.contextPath}/images/ajax-loader.gif" style="display: none;" >
 					</div>
@@ -397,7 +374,6 @@ var contextPath = "${pageContext.request.contextPath}";
 							<th>漲跌價差</th>
 							<th>成交金額</th>
 							<th>成交筆數</th>
-
 						</tr>
 					</thead>
 					<!-- 						直接用foreach做循環表單 -->

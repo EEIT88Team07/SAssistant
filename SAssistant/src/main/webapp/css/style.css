@@ -2435,6 +2435,15 @@ blockquote {
 	height: 30px;
 }
 
+#searchform div table tbody tr td div a{ 
+ float:right;  
+}
+#searchform div table tbody tr td div a img{
+
+cursor: pointer;
+}
+
+
 /*********************************************************************************/
 /*ulstyle (留言板CSS)                                                              */
 /*********************************************************************************/
