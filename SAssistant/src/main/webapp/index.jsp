@@ -90,7 +90,11 @@
 		});
 	});
 </script>
-
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body class="homepage">
 	<!-- Header -->
