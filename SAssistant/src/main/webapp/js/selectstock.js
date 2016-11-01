@@ -20,7 +20,6 @@ function selectstockid(msg) {
 								value2));
 			}
 		});
-
 		$("#img2").attr('style', 'display:none');
 	});
 };
