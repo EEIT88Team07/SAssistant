@@ -89,17 +89,17 @@ public class TransHistoryAjax extends HttpServlet {
 
 				}
 
-				if (phbean.getStopLossLimit() != null) {
-					jsonObjBuilder.add("stopLossLimit", phbean.getStopLossLimit());
-				} else {
-					jsonObjBuilder.add("stopLossLimit", "");
-				}
-
-				if (phbean.getTakeProfitLimit() != null) {
-					jsonObjBuilder.add("takeProfitLimit", phbean.getTakeProfitLimit());
-				} else {
-					jsonObjBuilder.add("takeProfitLimit", "");
-				}
+//				if (phbean.getStopLossLimit() != null) {
+//					jsonObjBuilder.add("stopLossLimit", phbean.getStopLossLimit());
+//				} else {
+//					jsonObjBuilder.add("stopLossLimit", "");
+//				}
+//
+//				if (phbean.getTakeProfitLimit() != null) {
+//					jsonObjBuilder.add("takeProfitLimit", phbean.getTakeProfitLimit());
+//				} else {
+//					jsonObjBuilder.add("takeProfitLimit", "");
+//				}
 				jsonArray_builder.add(jsonObjBuilder.build());
 
 			}
