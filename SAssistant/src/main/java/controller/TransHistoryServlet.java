@@ -76,8 +76,6 @@ public class TransHistoryServlet extends HttpServlet {
 		String temp2 = request.getParameter("dateOfPurchase");
 		String temp3 = request.getParameter("purchasePrice");
 		String temp4 = request.getParameter("purchaseQuantity");
-		String temp5 = request.getParameter("stopLossLimit");
-		String temp6 = request.getParameter("takeProfitLimit");
 
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("error", errors);
@@ -125,23 +123,7 @@ public class TransHistoryServlet extends HttpServlet {
 			}
 		}
 
-		Double stopLossLimit = null;
-		if (temp5 != null && temp5.trim().length() != 0) {
-			try {
-				stopLossLimit = Double.parseDouble(temp5);
-			} catch (NumberFormatException e) {
-				stopLossLimit = null;
-			}
-		}
-		Double takeProfitLimit = null;
-		if (temp6 != null && temp6.trim().length() != 0) {
-			try {
-				takeProfitLimit = Double.parseDouble(temp6);
-			} catch (NumberFormatException e) {
-				takeProfitLimit = null;
-			}
-		}
-
+		
 		if (errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("/pages/member/transhistory.jsp").forward(request, response);
 			return;
@@ -153,8 +135,6 @@ public class TransHistoryServlet extends HttpServlet {
 		bean.setStockId(stockId.toString());
 		bean.setPurchasePrice(purchasePrice);
 		bean.setPurchaseQuantity(purchaseQuantity);
-		bean.setStopLossLimit(stopLossLimit);
-		bean.setTakeProfitLimit(takeProfitLimit);
 		bean.setInvestment(purchasePrice * purchaseQuantity * 1000);
 		bean.setAccount(membersBean.getAccount());
 		bean.setPurchaseNumber(UUID.randomUUID().toString());
@@ -199,8 +179,6 @@ public class TransHistoryServlet extends HttpServlet {
 		String temp2 = request.getParameter("dateOfPurchase");
 		String temp3 = request.getParameter("purchasePrice");
 		String temp4 = request.getParameter("purchaseQuantity");
-		String temp5 = request.getParameter("stopLossLimit");
-		String temp6 = request.getParameter("takeProfitLimit");
 		String purchaseNumber = request.getParameter("purchaseNumber");
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("error", errors);
@@ -248,24 +226,8 @@ public class TransHistoryServlet extends HttpServlet {
 			}
 		}
 
-		Double stopLossLimit = null;
-		if (temp5 != null && temp5.trim().length() != 0) {
-			try {
-				stopLossLimit = Double.parseDouble(temp5);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("stopLossLimit", "停損點必須是數字且不可為空白");
-			}
-		}
-		Double takeProfitLimit = null;
-		if (temp6 != null && temp6.trim().length() != 0) {
-			try {
-				takeProfitLimit = Double.parseDouble(temp6);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("takeProfitLimit", "停利點必須是數字且不可為空白");
-			}
-		}
+		
+		
 
 		if (errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("/pages/member/transhistory.jsp").forward(request, response);
@@ -278,11 +240,8 @@ public class TransHistoryServlet extends HttpServlet {
 		bean.setStockId(stockId.toString());
 		bean.setPurchasePrice(purchasePrice);
 		bean.setPurchaseQuantity(purchaseQuantity);
-		bean.setStopLossLimit(stopLossLimit);
-		bean.setTakeProfitLimit(takeProfitLimit);
 		bean.setInvestment(purchasePrice * purchaseQuantity * 1000);
 		bean.setPurchaseNumber(purchaseNumber);
-
 		bean.setAccount(membersBean.getAccount());
 
 		PurchaseHistoryBean result = purchaseHistoryService.update(bean);
