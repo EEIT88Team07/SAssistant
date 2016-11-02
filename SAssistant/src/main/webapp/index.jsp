@@ -75,7 +75,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念<span
 							class="arrow"></span></a></li>
-					<li><a href="#">投資管理<span class="arrow"></span></a>
+					<li><a href="#">股市資訊<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>

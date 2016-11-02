@@ -166,8 +166,7 @@ var contextPath = "${pageContext.request.contextPath}";
 					"next" : "下一頁"
 				}
 			},
-			 "processing": true,
-			"searching" : false
+			 "processing": true
 		});
 		//我的最愛變換更動部分
 		$('a[title="favorite"]').bind('click', addFav);
@@ -258,7 +257,7 @@ var contextPath = "${pageContext.request.contextPath}";
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
-					<li><a href="#">投資管理<span class="arrow"></span></a>
+					<li><a href="#">股市資訊<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
