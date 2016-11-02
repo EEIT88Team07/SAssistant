@@ -32,7 +32,7 @@ public class RealtimeAjax extends HttpServlet {
 
 	InstantlyInfoService instantlyInfoService;
 	DataAnalysisService dataAnalysisService;
-	private SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Override
 	public void init() throws ServletException {
@@ -74,7 +74,7 @@ public class RealtimeAjax extends HttpServlet {
 
 			JsonObject json_databean = Json.createObjectBuilder().add("stockIdName", bean.getStockIdName()).add("finalPrice", bean.getFinalPrice()).add("volume", bean.getVolume())
 					.add("yestPrice", bean.getYestPrice()).add("buy", bean.getBuy()).add("sell", bean.getSell()).add("openPrice", bean.getOpenPrice()).add("high", bean.getHigh())
-					.add("low", bean.getLow()).add("time", bean.getTime().toString()).build();
+					.add("low", bean.getLow()).add("datatime", bean.getTime().toString()).add("time", sFormat.format(new Date())).build();
 			jsonArray_builder.add(json_databean);
 		}
 

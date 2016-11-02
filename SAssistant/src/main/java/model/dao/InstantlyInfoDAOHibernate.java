@@ -51,7 +51,7 @@ public class InstantlyInfoDAOHibernate implements InstantlyInfoDAO {
 		return false;
 	}
 
-	public InstantlyInfoBean update(String stockIdName, Date time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low) {
+	public InstantlyInfoBean update(String stockIdName, String time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low) {
 		InstantlyInfoBean bean = (InstantlyInfoBean) this.getSession().get(InstantlyInfoBean.class, stockIdName);
 
 		if (bean != null) {

@@ -64,7 +64,6 @@ public class InstantlyInfoService {
 		stocks.add("2330");
 		stocks.add("1301");
 		stocks.add("2002");
-		
 		Collections.sort(stocks);
 
 		for (int i = 0; i < stocks.size(); i++) {
@@ -74,6 +73,8 @@ public class InstantlyInfoService {
 			Node node = elements.get(4).childNode(1).childNode(2);
 
 			String stockIdName = node.childNode(1).childNode(0).childNode(0).toString();
+
+			System.out.println();
 
 			if (stockIdName != null && stockIdName.trim().length() != 0) {
 
@@ -88,6 +89,7 @@ public class InstantlyInfoService {
 
 						volume = 0;
 					}
+					String time = node.childNode(3).childNode(0).toString();
 					String yestPrice = node.childNode(14).childNode(0).toString();
 					String buy = node.childNode(7).childNode(0).toString();
 					String sell = node.childNode(9).childNode(0).toString();
@@ -95,7 +97,7 @@ public class InstantlyInfoService {
 					String high = node.childNode(18).childNode(0).toString();
 					String low = node.childNode(20).childNode(0).toString();
 
-					instantlyInfoDAO.update(stockIdName, new Date(), finalPrice, volume, yestPrice, buy, sell, openPrice, high, low);
+					instantlyInfoDAO.update(stockIdName, time, finalPrice, volume, yestPrice, buy, sell, openPrice, high, low);
 				}
 
 				if (test == null) {
@@ -115,7 +117,7 @@ public class InstantlyInfoService {
 					instantlyInfoBean.setOpenPrice(node.childNode(16).childNode(0).toString());
 					instantlyInfoBean.setHigh(node.childNode(18).childNode(0).toString());
 					instantlyInfoBean.setLow(node.childNode(20).childNode(0).toString());
-					instantlyInfoBean.setTime(new Date());
+					instantlyInfoBean.setTime(node.childNode(3).childNode(0).toString());
 					instantlyInfoDAO.insert(instantlyInfoBean);
 				}
 			}

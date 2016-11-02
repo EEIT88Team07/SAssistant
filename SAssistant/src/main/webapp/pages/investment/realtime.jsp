@@ -73,6 +73,8 @@
 				"data" : "stockIdName"
 			}, {
 				"data" : "time"
+			},{
+				"data" : "datatime"
 			}, {
 				"data" : "finalPrice"
 			}, {
@@ -227,7 +229,8 @@
 					<thead>
 						<tr class="backgrou">
 							<th>股票</th>
-							<th>時間</th>
+							<th>現在時間</th>
+							<th>資料時間</th>
 							<th>成交</th>
 							<th>買進</th>
 							<th>賣出</th>

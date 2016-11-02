@@ -208,7 +208,9 @@
 			var valid = true;
 			allFields.removeClass("ui-state-error");
 
-			valid = valid && checkLength(stockId, "股票代碼", 4, 4);
+			// 			valid = valid && checkLength(stockId, "股票代碼", 4, 4);
+			valid = valid && checkRegexp(dateOfPurchase, /^.{1,}$/, "購買日期不可為空白");
+			valid = valid && checkRegexp(stockId, /^[0-9]{4}$/, "股票代碼長度必須為4,且為數字");
 			valid = valid && checkRegexp(purchasePrice, /^[0-9]+\.?[0-9]*$/, "購買價格必須為正的整數或浮點數");
 			valid = valid && checkRegexp(purchaseQuantity, /^[0-9]+\.?[0-9]*$/, "購買數量必須為正的整數或浮點數");
 			if (valid) {
@@ -248,7 +250,11 @@
 	});
 	/*彈出表單*/
 </script>
-
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body class="homepage">
 
@@ -322,13 +328,6 @@
 				<div>
 					<span class="firm">${param.selectstockid}</span>
 				</div>
-				<div id="errorbox">
-					<span class="error">${error.id}</span> <span class="error">${error.dateOfPurchase}</span>
-					<span class="error">${error.purchasePrice}</span> <span
-						class="error">${error.purchaseQuantity}</span> <span class="error">${error.stopLossLimit}</span>
-					<span class="error">${error.takeProfitLimit}</span> <span
-						class="error">${error.action}</span>
-				</div>
 
 				<table id="datatable" class="display" cellspacing="0" width="100%"
 					style="border-style: hidden;">
@@ -348,8 +347,17 @@
 			</div>
 		</div>
 
+		<c:if test="${ ! empty error }">
 
+			<div id="dialog" title="錯誤">
+				<p>${error.action}</p>
+				<p>${error.id}</p>
+				<p>${error.dateOfPurchase}</p>
+				<p>${error.purchasePrice}</p>
+				<p>${error.purchaseQuantity}</p>
+			</div>
 
+		</c:if>
 		<div id="dialog-form" title="新增一筆交易記錄">
 			<p class="validateTips">*號為必填欄位</p>
 
@@ -366,7 +374,7 @@
 						class="text ui-widget-content ui-corner-all"> <label
 						for="purchaseQuantity">購買數量*</label> <input type="text"
 						name="purchaseQuantity" id="purchaseQuantity"
-						class="text ui-widget-content ui-corner-all"> 
+						class="text ui-widget-content ui-corner-all">
 
 					<!-- Allow form submission with keyboard without duplicating the dialog button -->
 					<input type="submit" tabindex="-1"

@@ -45,7 +45,7 @@
 	});
 </script>
 </head>
-<body class="homepage">
+<body class="homepage" >
 	<!-- Header -->
 	<div id="header">
 		<!-- 	登入系統 -->
@@ -118,9 +118,11 @@
 			<!-- /Extra -->
 
 			<!-- Main -->
-			<div id="main" class="container"></div>
+			<div id="main" class="container">
+				
+			</div>
 			<!-- Main -->
-
+			
 		</div>
 		<!-- /Main -->
 

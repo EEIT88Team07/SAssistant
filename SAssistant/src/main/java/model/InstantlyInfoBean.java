@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class InstantlyInfoBean {
 	@Id
 	private String stockIdName;
-	private Date time;
+	private String time;
 	private String finalPrice;
 	private Integer volume;
 	private String yestPrice;
@@ -35,11 +35,11 @@ public class InstantlyInfoBean {
 		this.stockIdName = stockIdName;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 

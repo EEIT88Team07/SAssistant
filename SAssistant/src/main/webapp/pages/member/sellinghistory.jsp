@@ -172,7 +172,11 @@
 
 	});
 </script>
-
+<script>
+	$(function() {
+		$("#dialog").dialog();
+	});
+</script>
 </head>
 <body class="homepage">
 
@@ -247,13 +251,7 @@
 				<div>
 					<span class="firm">${param.selectstockid}</span>
 				</div>
-				<div id="errorbox">
-					<span class="error">${error.id}</span> <span class="error">${error.dateOfPurchase}</span>
-					<span class="error">${error.purchasePrice}</span> <span
-						class="error">${error.purchaseQuantity}</span> <span class="error">${error.stopLossLimit}</span>
-					<span class="error">${error.takeProfitLimit}</span> <span
-						class="error">${error.action}</span>
-				</div>
+
 
 				<table id="datatable" class="display" cellspacing="0" width="100%"
 					style="border-style: hidden;">
@@ -276,7 +274,16 @@
 			</div>
 		</div>
 
+		<c:if test="${ ! empty error }">
 
+			<div id="dialog" title="錯誤">
+				<p>${error.action}</p>
+				<p>${error.sellingQuantity}</p>
+				<p>${error.sellingPrice}</p>
+				<p>${error.dateOfSelling}</p>
+			</div>
+
+		</c:if>
 
 
 		<!-- /Main -->

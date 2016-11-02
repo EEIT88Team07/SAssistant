@@ -17,6 +17,6 @@ public interface InstantlyInfoDAO {
 	public abstract boolean delete(String stockIdName);
 
 	// 修改
-	public abstract InstantlyInfoBean update(String stockIdName, Date time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low);
+	public abstract InstantlyInfoBean update(String stockIdName, String time, String finalPrice, Integer volume, String yestPrice, String buy, String sell, String openPrice, String high, String low);
 
 }
