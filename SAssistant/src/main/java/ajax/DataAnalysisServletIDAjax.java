@@ -55,6 +55,8 @@ public class DataAnalysisServletIDAjax extends HttpServlet {
 	private void getCandlestick(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = null;
+		int num = 0;
+
 		try {
 			out = response.getWriter();
 		} catch (IOException e1) {
@@ -66,8 +68,24 @@ public class DataAnalysisServletIDAjax extends HttpServlet {
 			id = null;
 		}
 
+		String temp1 = request.getParameter("days");
+
+		System.out.println(temp1);
+		
+		if (temp1 != null && temp1.trim().length() != 0) {
+
+			try {
+				num = Integer.parseInt(temp1) * -1;
+			} catch (NumberFormatException e) {
+				num = -90;
+			}
+
+		} else {
+			num = -90;
+		}
+
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -90);
+		cal.add(Calendar.DATE, num);
 
 		Date start = cal.getTime();
 		List<DataAnalysisBean> results = dataAnalysisService.selectByFilter(id, start, new Date());
@@ -88,7 +106,6 @@ public class DataAnalysisServletIDAjax extends HttpServlet {
 		}
 		JSONObject json = new JSONObject(datas);
 
-		
 		out.write(json.toString());
 		out.close();
 

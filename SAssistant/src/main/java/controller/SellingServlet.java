@@ -109,12 +109,12 @@ public class SellingServlet extends HttpServlet {
 
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				errors.put("sellingQuantity", "賣出金額必須是數字且不可為空白");
+				errors.put("sellingPrice", "賣出金額必須是數字且不可為空白");
 			}
 
 		}
 		if (sellingPrice <= 0) {
-			errors.put("sellingQuantity", "賣出金額必須大於0");
+			errors.put("sellingPrice", "賣出金額必須大於0");
 		}
 
 		String temp3 = request.getParameter("dateOfSelling");
@@ -272,7 +272,7 @@ public class SellingServlet extends HttpServlet {
 		}
 
 		if (errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/pages/member/sellinghistory.jsp").forward(request, response);
+			request.getRequestDispatcher("/pages/member/selling.jsp").forward(request, response);
 			return;
 		}
 

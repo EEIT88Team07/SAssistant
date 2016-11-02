@@ -214,7 +214,7 @@
 			valid = valid && checkRegexp(purchasePrice, /^[0-9]+\.?[0-9]*$/, "購買價格必須為正的整數或浮點數");
 			valid = valid && checkRegexp(purchaseQuantity, /^[0-9]+\.?[0-9]*$/, "購買數量必須為正的整數或浮點數");
 			if (valid) {
-				var url = contextPath + "/transhistory.controller?stockId=" + stockId.val() + "&dateOfPurchase=" + dateOfPurchase.val() + "&purchasePrice=" + purchasePrice.val() + "&purchaseQuantity=" + purchaseQuantity.val() + "&stopLossLimit=" + stopLossLimit.val() + "&takeProfitLimit=" + takeProfitLimit.val() + "&action=新增";
+				var url = contextPath + "/transhistory.controller?stockId=" + stockId.val() + "&dateOfPurchase=" + dateOfPurchase.val() + "&purchasePrice=" + purchasePrice.val() + "&purchaseQuantity=" + purchaseQuantity.val() + "&action=新增";
 
 				document.location.href = url;
 
@@ -287,7 +287,7 @@
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/pages/basic/basic.jsp">基礎概念</a></li>
-					<li><a href="#">股市資訊<span class="arrow"></span></a>
+					<li><a href="#">投資管理<span class="arrow"></span></a>
 						<ul style="display: none;" class="sub_menu">
 							<li><a
 								href="${pageContext.request.contextPath}/pages/investment/stockinquiries.jsp">每日收盤</a></li>
