@@ -39,13 +39,30 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
 <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
-<script>
-	$(function() {
-		$("#dialog").dialog();
-	});
+
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+	$(document).ready(function() {
+
+		var days;
+
+		$('input[name="democrawler"]').click(function() {
+
+			days = $('input[name="days"]').val();
+			console.log(days);
+
+			var url = contextPath + "/demoCrawler.controller?days=" + days;
+
+			document.location.href = url;
+
+		});
+
+	})
 </script>
+
+
 </head>
-<body class="homepage" >
+<body class="homepage">
 	<!-- Header -->
 	<div id="header">
 		<!-- 	登入系統 -->
@@ -109,13 +126,30 @@
 		<!-- /圖片 -->
 
 		<!-- Main -->
-		<div id="page" style="padding: 20em 0em 6em 0em; background: url(images/index.jpg) repeat top; background-size: cover; opacity: 0.5;">
-			<c:if test="${empty LoginOK }">
-				${logoutMessage}
-            </c:if>	
+		<div id="page">
+
+
+
+			<!-- Extra -->
+
+			<!-- /Extra -->
+
+			<!-- Main -->
+			<div id="main" class="container">
+				<label>天數:</label><input type="text" name="days"> <input
+					type="button" value="DemoCrawler" name="democrawler">
+			</div>
+			<!-- Main -->
+
 		</div>
+		<!-- /Main -->
+
+
+
+
+		<!-- Copyright -->
+
 	</div>
-		<!-- Main -->
 	<div id="disqus_thread"></div>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
