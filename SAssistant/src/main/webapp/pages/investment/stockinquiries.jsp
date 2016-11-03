@@ -294,12 +294,7 @@ var contextPath = "${pageContext.request.contextPath}";
 
 		<!-- Main -->
 		
-		<div id="lovdialog" title="關注">
-			 <p>已新增到我的關注</p>
-		</div>
-		<div id="unlovedialog" title="關注">
-			 <p>已刪除此關注</p>
-		</div>
+		
 		
 		<!-- 輸入表格 -->
 		<!-- 					指定位置用的div-->
@@ -417,6 +412,12 @@ var contextPath = "${pageContext.request.contextPath}";
 		</div>
 		<!-- /Main -->
 		
+	</div>
+	<div id="lovdialog" title="關注">
+			 <p>已新增到我的關注</p>
+		</div>
+		<div id="unlovedialog" title="關注">
+			 <p>已刪除此關注</p>
 	</div>
 <!-- 	留言板 -->
 	<div id="disqus_thread"></div>
