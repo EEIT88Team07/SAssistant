@@ -78,7 +78,7 @@ public class MyFavouriteAjax extends HttpServlet {
 	private void onload(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/plain; charset=UTF-8");
 
-		int num = -5;
+		int num = -1;
 
 		PrintWriter out = response.getWriter();
 
