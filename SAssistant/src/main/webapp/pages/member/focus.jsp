@@ -331,12 +331,12 @@
 							<th>資料日期</th>
 							<th>開盤價</th>
 							<th>收盤價</th>
+							<th>成交金額</th>
+							<th>漲跌價差</th>
+							<th>成交股數</th>
+							<th>成交筆數</th>
 							<th>最高價</th>
 							<th>最低價</th>
-							<th>成交股數</th>
-							<th>漲跌價差</th>
-							<th>成交金額</th>
-							<th>成交筆數</th>
 						</tr>
 					</thead>
 				</table>
